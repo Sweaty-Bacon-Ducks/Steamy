@@ -1,13 +1,8 @@
 using System;
 using UnityEngine;
 
-public class RaycastWeapon : Weapon, ICollectable
+public class RaycastWeapon : Weapon
 {
-    public void Collect()
-    {
-        //throw new NotImplementedException();
-    }
-
     //Code for implementing the behaviour of a raycast weapon
     public override void Reload()
     {

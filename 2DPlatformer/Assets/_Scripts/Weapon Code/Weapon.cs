@@ -16,9 +16,14 @@ public abstract class Weapon : MonoBehaviour
         Debug.Log("Collided with " + col.name);
         if (col.tag == "Player")
         {
-            PlayerController player = col.gameObject.GetComponent<PlayerController>();
-            player.WeaponList.Add(gameObject);
+            Collect(col.gameObject);
+            Destroy(gameObject);
         }
+    }
+    protected virtual void Collect(GameObject player)
+    {
+        PlayerController Player = player.gameObject.GetComponent<PlayerController>();
+        //Player.WeaponList.Add(gameObject);
     }
 }
 
