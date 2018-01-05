@@ -1,5 +1,3 @@
-using System;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class PlayerController : MonoBehaviour
@@ -11,6 +9,10 @@ public class PlayerController : MonoBehaviour
 #region Fields
     [HideInInspector]
     public Rigidbody2D Body;
+
+    [Header("Player statistics")]
+    public float MaxHP;
+    public float CurrentHP;
 
     [Header("Controls")]
     public KeyCode ShootKey;
