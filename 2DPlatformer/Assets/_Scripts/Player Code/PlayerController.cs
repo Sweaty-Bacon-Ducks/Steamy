@@ -20,18 +20,21 @@ public class PlayerController : MonoBehaviour
     [Header("Controls")]
     public KeyCode ShootKey;
     public KeyCode ReloadKey;
-    public KeyCode MoveKey;
+    //public KeyCode MoveKey;
     public KeyCode SprintKey;
     public KeyCode JumpKey;
 
     [Header("Player status")]
     public bool IsMoving;
-    public bool IsJumping;
+    public bool IsGrounded;  // czepiając się, można by zmienić IsGrounded na cos w stylu IsGrounded, bo bycie w powietrzu nie zawsze == skakanie
     public bool IsSprinting;
-    public bool IsStanding;  //w sensie stoi i nic nie robi
+    public bool IsStanding;  
     public bool IsCrouching;
-    public bool IsLying;     //postać leży
+    public bool IsLying;
 
+    [Header("Movement")]
+    public float Speed;
+    public float JumpForce;
     #endregion
 
     #region Properties
@@ -72,6 +75,8 @@ public class PlayerController : MonoBehaviour
 
     void FixedUpdate()
     {
+        Move();
+
         if (Input.GetKey(ShootKey))
         {
             CurrentWeapon.Shoot();
@@ -80,30 +85,55 @@ public class PlayerController : MonoBehaviour
         {
             CurrentWeapon.Reload();
         }
-        if (Input.GetKey(MoveKey))
-        {
-            Move();
-        }
-        if (Input.GetKey(SprintKey))
-        {
-            Sprint();
-        }
         if (Input.GetKey(JumpKey))
         {
             Jump();
         }
+        if (Input.GetKey(SprintKey))
+        {
+            IsSprinting = true;
+            Sprint();
+        }
+        else
+        {
+            IsSprinting = false;
+        }
+        
     }
     void Move()
     {
+        // Czy jest potrzebne zarówno IsMoving i IsStanding?
+        if (Body.velocity.x == 0 && Body.velocity.y == 0)
+        {
+            IsMoving = false;
+            IsStanding = true;
+        }
+        else
+        {
+            IsMoving = true;
+            IsStanding = false;
+        }
 
+        float moveHorizontal = Input.GetAxis("Horizontal");
+        // Body.velocity, bo w ten sposób ruch jest dużo bardziej responsywny.
+        Body.velocity = new Vector2(moveHorizontal * Speed, Body.velocity.y);
     }
     void Sprint()
     {
-
+        // Sprint działa tylko gdy jest wciśnięty jakiś klawisz ruchu i nie w powietrzu.
+        if (IsGrounded == false && Input.GetAxis("Horizontal") != 0)
+        {
+            Body.velocity = new Vector2(Body.velocity.x * 2, Body.velocity.y);
+        }
     }
     void Jump()
     {
-
+        // Na razie bez double jump.
+        if (IsGrounded == false)
+        {
+            Vector2 jump = new Vector2(0, JumpForce);
+            Body.AddForce(jump, ForceMode2D.Impulse);
+        }
     }
 
     public void Heal(float ammount)
@@ -123,4 +153,14 @@ public class PlayerController : MonoBehaviour
             Destroy(gameObject);
         }
     }
+    //Trzeba się zastanowić jak będziemy rozpoznawać poszczególne obiekty i które przez tagi a które przez warstwy
+    /*void OnCollisionEnter2D()
+    {
+        IsGrounded = false;
+    }
+    void OnCollisionExit2D()
+    {
+        IsGrounded = true;
+    }
+    */
 }
