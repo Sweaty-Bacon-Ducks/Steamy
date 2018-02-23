@@ -255,11 +255,15 @@ Prefab:
       propertyPath: m_RootOrder
       value: 1
       objectReference: {fileID: 0}
-    - target: {fileID: 114114830044344486, guid: 2a38dfeb5b578c34e9590099be86560c,
+    - target: {fileID: 114460439224718426, guid: 2a38dfeb5b578c34e9590099be86560c,
         type: 2}
       propertyPath: WeaponHolder
       value: 
       objectReference: {fileID: 711150514}
+    - target: {fileID: 1581030457234554, guid: 2a38dfeb5b578c34e9590099be86560c, type: 2}
+      propertyPath: m_Name
+      value: GameManager
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 2a38dfeb5b578c34e9590099be86560c, type: 2}
   m_IsPrefabParent: 0

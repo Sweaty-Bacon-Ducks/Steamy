@@ -5,7 +5,7 @@
 public class Rotation : MonoBehaviour
 {
     public float RotationOffset;
-    public GameObject Crosshair;
+    //public GameObject Crosshair;
 
     private Camera mainCamera;
     private Transform ArmTransform;

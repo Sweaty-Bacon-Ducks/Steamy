@@ -55,7 +55,11 @@ GameObject:
   - component: {fileID: 4093188100440106}
   - component: {fileID: 50083371002677246}
   - component: {fileID: 61997064570339162}
+  - component: {fileID: 114907534360009816}
+  - component: {fileID: 114579191522006830}
   - component: {fileID: 114527151681215596}
+  - component: {fileID: 114203556120543034}
+  - component: {fileID: 114620724602584978}
   m_Layer: 0
   m_Name: Player
   m_TagString: Player
@@ -205,8 +209,8 @@ GameObject:
   - component: {fileID: 124291827606254484}
   - component: {fileID: 81252614135230672}
   m_Layer: 0
-  m_Name: Camera
-  m_TagString: MainCamera
+  m_Name: PlayerCam
+  m_TagString: PlayerCam
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -266,7 +270,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1156200437158554}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 1.56, y: -1.08, z: 0}
+  m_LocalPosition: {x: -7.96, y: -2.5, z: 0}
   m_LocalScale: {x: 0.237996, y: 0.37096316, z: 1}
   m_Children:
   - {fileID: 4701949979889328}
@@ -441,7 +445,7 @@ Rigidbody2D:
   m_Interpolate: 0
   m_SleepingMode: 1
   m_CollisionDetection: 0
-  m_Constraints: 0
+  m_Constraints: 4
 --- !u!61 &61997064570339162
 BoxCollider2D:
   m_ObjectHideFlags: 1
@@ -541,7 +545,19 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   RotationOffset: 0
-  Crosshair: {fileID: 1349669095650522, guid: e242c1e234ee4a04b98885ea001eaba9, type: 2}
+--- !u!114 &114203556120543034
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1156200437158554}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8fb84d3ce455c9b4596aef7163bc10b6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  networkCamera: {fileID: 20668420150801760, guid: 53669d91503a29f4ab3ad02025c915b9,
+    type: 2}
 --- !u!114 &114264864574463760
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -660,6 +676,57 @@ MonoBehaviour:
   IsLying: 0
   Speed: 5
   JumpForce: 2
+--- !u!114 &114579191522006830
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1156200437158554}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 372142912, guid: dc443db3e92b4983b9738c1131f555cb, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_SceneId:
+    m_Value: 0
+  m_AssetId:
+    i0: 2
+    i1: 228
+    i2: 204
+    i3: 22
+    i4: 80
+    i5: 14
+    i6: 84
+    i7: 180
+    i8: 91
+    i9: 229
+    i10: 84
+    i11: 46
+    i12: 93
+    i13: 229
+    i14: 66
+    i15: 215
+  m_ServerOnly: 0
+  m_LocalPlayerAuthority: 1
+--- !u!114 &114620724602584978
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1156200437158554}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 41372316079669a43af3f4a2c77e1ab1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  componentsToDisable:
+  - {fileID: 114203556120543034}
+  - {fileID: 114620724602584978}
+  - {fileID: 81252614135230672}
+  - {fileID: 20108054244787264}
+  - {fileID: 114168586203160778}
+  - {fileID: 223436920121921048}
+  - {fileID: 114527151681215596}
 --- !u!114 &114667441983250730
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -706,6 +773,27 @@ MonoBehaviour:
     m_VerticalOverflow: 0
     m_LineSpacing: 1
   m_Text: 500
+--- !u!114 &114907534360009816
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1156200437158554}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: -1768714887, guid: dc443db3e92b4983b9738c1131f555cb, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_TransformSyncMode: 2
+  m_SendInterval: 0.1
+  m_SyncRotationAxis: 4
+  m_RotationSyncCompression: 0
+  m_SyncSpin: 0
+  m_MovementTheshold: 0.001
+  m_VelocityThreshold: 0.0001
+  m_SnapThreshold: 5
+  m_InterpolateRotation: 1
+  m_InterpolateMovement: 1
 --- !u!124 &124291827606254484
 Behaviour:
   m_ObjectHideFlags: 1
@@ -878,7 +966,7 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 0
   m_SortingLayer: 0
-  m_SortingOrder: -1
+  m_SortingOrder: 1
   m_Sprite: {fileID: 21300000, guid: 8f74b751b8e517241bf9f0de539e2dfe, type: 3}
   m_Color: {r: 1, g: 0, b: 0, a: 1}
   m_FlipX: 0
