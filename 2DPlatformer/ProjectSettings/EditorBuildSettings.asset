@@ -7,6 +7,7 @@ EditorBuildSettings:
   m_Scenes:
   - enabled: 1
 <<<<<<< HEAD
+<<<<<<< HEAD
     path: Assets/_Scenes/Menu.unity
     guid: d5d9f7480e2e7e044be6a891cb78f1ff
   - enabled: 1
@@ -16,3 +17,7 @@ EditorBuildSettings:
     path: Assets/_Scenes/NetworkTest.unity
     guid: 68b3b34e3dd29b64198e19af3860282a
 >>>>>>> develop
+=======
+    path: Assets/_Scenes/NetworkTest.unity
+guid: 68b3b34e3dd29b64198e19af3860282a
+>>>>>>> af51cd6d717bd8c0d8db55c058b128cd4073f6ad
