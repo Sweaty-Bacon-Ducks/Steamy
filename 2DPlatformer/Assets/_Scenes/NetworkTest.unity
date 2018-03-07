@@ -89,7 +89,8 @@ LightmapSettings:
     m_PVRFilteringAtrousPositionSigmaIndirect: 2
     m_PVRFilteringAtrousPositionSigmaAO: 1
     m_ShowResolutionOverlay: 1
-  m_LightingDataAsset: {fileID: 0}
+  m_LightingDataAsset: {fileID: 112000002, guid: e0ad94416979df74bb370651438760f6,
+    type: 2}
   m_UseShadowmask: 1
 --- !u!196 &4
 NavMeshSettings:
@@ -113,6 +114,110 @@ NavMeshSettings:
     debug:
       m_Flags: 0
   m_NavMeshData: {fileID: 0}
+--- !u!1 &392204159 stripped
+GameObject:
+  m_PrefabParentObject: {fileID: 1581030457234554, guid: 2a38dfeb5b578c34e9590099be86560c,
+    type: 2}
+  m_PrefabInternal: {fileID: 1268965964}
+--- !u!114 &392204160
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 392204159}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 227461547, guid: dc443db3e92b4983b9738c1131f555cb, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  manager: {fileID: 0}
+  showGUI: 1
+  offsetX: 0
+  offsetY: 0
+--- !u!114 &392204161
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 392204159}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: -822479833, guid: dc443db3e92b4983b9738c1131f555cb, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_NetworkPort: 7777
+  m_ServerBindToIP: 0
+  m_ServerBindAddress: 
+  m_NetworkAddress: localhost
+  m_DontDestroyOnLoad: 1
+  m_RunInBackground: 1
+  m_ScriptCRCCheck: 1
+  m_MaxDelay: 0.01
+  m_LogLevel: 2
+  m_PlayerPrefab: {fileID: 1563332568194530, guid: 9ed55c1a89ad0714b8456fbc12cd6baa,
+    type: 2}
+  m_AutoCreatePlayer: 1
+  m_PlayerSpawnMethod: 1
+  m_OfflineScene: 
+  m_OnlineScene: 
+  m_SpawnPrefabs:
+  - {fileID: 0}
+  - {fileID: 0}
+  m_CustomConfig: 0
+  m_MaxConnections: 4
+  m_ConnectionConfig:
+    m_PacketSize: 1440
+    m_FragmentSize: 500
+    m_ResendTimeout: 1200
+    m_DisconnectTimeout: 2000
+    m_ConnectTimeout: 2000
+    m_MinUpdateTimeout: 10
+    m_PingTimeout: 500
+    m_ReducedPingTimeout: 100
+    m_AllCostTimeout: 20
+    m_NetworkDropThreshold: 5
+    m_OverflowDropThreshold: 5
+    m_MaxConnectionAttempt: 10
+    m_AckDelay: 33
+    m_SendDelay: 10
+    m_MaxCombinedReliableMessageSize: 100
+    m_MaxCombinedReliableMessageCount: 10
+    m_MaxSentMessageQueueSize: 512
+    m_AcksType: 1
+    m_UsePlatformSpecificProtocols: 0
+    m_InitialBandwidth: 0
+    m_BandwidthPeakFactor: 2
+    m_WebSocketReceiveBufferMaxSize: 0
+    m_UdpSocketReceiveBufferMaxSize: 0
+    m_SSLCertFilePath: 
+    m_SSLPrivateKeyFilePath: 
+    m_SSLCAFilePath: 
+    m_Channels: []
+  m_GlobalConfig:
+    m_ThreadAwakeTimeout: 1
+    m_ReactorModel: 0
+    m_ReactorMaximumReceivedMessages: 1024
+    m_ReactorMaximumSentMessages: 1024
+    m_MaxPacketSize: 2000
+    m_MaxHosts: 16
+    m_ThreadPoolSize: 1
+    m_MinTimerTimeout: 1
+    m_MaxTimerTimeout: 12000
+    m_MinNetSimulatorTimeout: 1
+    m_MaxNetSimulatorTimeout: 12000
+  m_Channels: 0500000000000000
+  m_UseWebSockets: 0
+  m_UseSimulator: 0
+  m_SimulatedLatency: 1
+  m_PacketLossPercentage: 0
+  m_MaxBufferedPackets: 16
+  m_AllowFragmentation: 1
+  m_MatchHost: mm.unet.unity3d.com
+  m_MatchPort: 443
+  matchName: default
+  matchSize: 4
+  isNetworkActive: 0
+  matchMaker: {fileID: 0}
 --- !u!1001 &921575523
 Prefab:
   m_ObjectHideFlags: 0
@@ -122,7 +227,7 @@ Prefab:
     m_Modifications:
     - target: {fileID: 4060400853074772, guid: 53669d91503a29f4ab3ad02025c915b9, type: 2}
       propertyPath: m_LocalPosition.x
-      value: 0
+      value: -9.19
       objectReference: {fileID: 0}
     - target: {fileID: 4060400853074772, guid: 53669d91503a29f4ab3ad02025c915b9, type: 2}
       propertyPath: m_LocalPosition.y
@@ -199,9 +304,35 @@ Prefab:
       propertyPath: m_RootOrder
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 114323954011430096, guid: 2a38dfeb5b578c34e9590099be86560c,
+        type: 2}
+      propertyPath: m_SpawnPrefabs.Array.data[0]
+      value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 114323954011430096, guid: 2a38dfeb5b578c34e9590099be86560c,
+        type: 2}
+      propertyPath: m_CustomConfig
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 114323954011430096, guid: 2a38dfeb5b578c34e9590099be86560c,
+        type: 2}
+      propertyPath: m_PlayerPrefab
+      value: 
+      objectReference: {fileID: 1563332568194530, guid: 9ed55c1a89ad0714b8456fbc12cd6baa,
+        type: 2}
+    - target: {fileID: 4806660585336246, guid: 2a38dfeb5b578c34e9590099be86560c, type: 2}
+      propertyPath: m_LocalPosition.x
+      value: -1.07
+      objectReference: {fileID: 0}
+    - target: {fileID: 4610021432658416, guid: 2a38dfeb5b578c34e9590099be86560c, type: 2}
+      propertyPath: m_LocalPosition.x
+      value: -17.92
+      objectReference: {fileID: 0}
     m_RemovedComponents:
     - {fileID: 114814568587602264, guid: 2a38dfeb5b578c34e9590099be86560c, type: 2}
     - {fileID: 114501146506962906, guid: 2a38dfeb5b578c34e9590099be86560c, type: 2}
+    - {fileID: 114323954011430096, guid: 2a38dfeb5b578c34e9590099be86560c, type: 2}
+    - {fileID: 114487606234969740, guid: 2a38dfeb5b578c34e9590099be86560c, type: 2}
   m_ParentPrefab: {fileID: 100100000, guid: 2a38dfeb5b578c34e9590099be86560c, type: 2}
   m_IsPrefabParent: 0
 --- !u!1001 &2079778224
@@ -242,14 +373,6 @@ Prefab:
     - target: {fileID: 4887744295720616, guid: c359f379b23b5e84390fad3567f520ec, type: 2}
       propertyPath: m_RootOrder
       value: 2
-      objectReference: {fileID: 0}
-    - target: {fileID: 4887744295720616, guid: c359f379b23b5e84390fad3567f520ec, type: 2}
-      propertyPath: m_LocalScale.x
-      value: 3.9170353
-      objectReference: {fileID: 0}
-    - target: {fileID: 4887744295720616, guid: c359f379b23b5e84390fad3567f520ec, type: 2}
-      propertyPath: m_LocalScale.y
-      value: 0.22119331
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: c359f379b23b5e84390fad3567f520ec, type: 2}
