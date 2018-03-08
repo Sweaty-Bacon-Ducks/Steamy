@@ -1,13 +1,11 @@
+using System;
 using UnityEngine;
 public class PlayerController : MonoBehaviour
 {
-    #region Weapon
-    public Weapon CurrentWeapon;
-    #endregion
-
     #region Fields
-    [HideInInspector]
+    public GameObject InGameMenu;
     public Rigidbody2D Body;
+    public bool IsControllable = true;
 
     [Header("Player statistics")]
     [SerializeField]
@@ -15,26 +13,47 @@ public class PlayerController : MonoBehaviour
     [SerializeField]
     private float hp;
     [SerializeField]
-    private float maxHP = 1;
+    private float maxHP = 100;
+    [SerializeField]
+    private float shield;
+    [SerializeField]
+    private float maxShield = 100;
+    [SerializeField]
+    private float speed;
+    [SerializeField]
+    private float jumpForce;
+
 
     [Header("Controls")]
-    public KeyCode ShootKey;
-    public KeyCode ReloadKey;
-    //public KeyCode MoveKey;
-    public KeyCode SprintKey;
-    public KeyCode JumpKey;
+    [SerializeField]
+    private KeyCode ShootKey;
+    [SerializeField]
+    private KeyCode ReloadKey;
+    [SerializeField]
+    private KeyCode SprintKey;
+    [SerializeField]
+    private KeyCode JumpKey;
+    [SerializeField]
+    private KeyCode PauseKey;
 
     [Header("Player status")]
-    public bool IsMoving;
-    public bool IsGrounded;  // czepiając się, można by zmienić IsGrounded na cos w stylu IsGrounded, bo bycie w powietrzu nie zawsze == skakanie
-    public bool IsSprinting;
-    public bool IsStanding;  
-    public bool IsCrouching;
-    public bool IsLying;
+    [SerializeField]
+    private bool IsMoving;
+    [SerializeField]
+    private bool IsGrounded;
+    [SerializeField]
+    private bool IsSprinting;
+    [SerializeField]
+    private bool IsStanding;
+    [SerializeField]
+    private bool IsCrouching;
+    [SerializeField]
+    private bool IsLying;
 
-    [Header("Movement")]
-    public float Speed;
-    public float JumpForce;
+    #endregion
+
+    #region Weapon
+    public Weapon CurrentWeapon;
     #endregion
 
     #region Properties
@@ -61,6 +80,38 @@ public class PlayerController : MonoBehaviour
             return maxHP;
         }
     }
+
+    public float Speed
+    {
+        get
+        {
+            return Speed;
+        }
+    }
+
+    public float JumpForce
+    {
+        get
+        {
+            return JumpForce;
+        }
+    }
+
+    public float Shield
+    {
+        get
+        {
+            return shield;
+        }
+    }
+
+    public float MaxShield
+    {
+        get
+        {
+            return maxShield;
+        }
+    }
     #endregion
 
     void Start()
@@ -73,33 +124,61 @@ public class PlayerController : MonoBehaviour
         Body = GetComponent<Rigidbody2D>();
     }
 
+    void Update()
+    {
+        if (Input.GetKeyDown(PauseKey) && IsControllable)
+        {
+            IsControllable = false;
+            ShowInGameMenu();
+        }
+        else if (Input.GetKeyDown(PauseKey) && !IsControllable)
+        {
+            IsControllable = true;
+            HideInGameMenu();
+        }
+    }
+
+    private void HideInGameMenu()
+    {
+        InGameMenu.SetActive(false);
+    }
+
+    private void ShowInGameMenu()
+    {
+        InGameMenu.SetActive(true);
+    }
+
     void FixedUpdate()
     {
-        Move();
-
-        if (Input.GetKey(ShootKey))
+        if (IsControllable)
         {
-            CurrentWeapon.Shoot();
+            Move();
+            if (Input.GetKey(ShootKey))
+            {
+                CurrentWeapon.Shoot();
+            }
+            if (Input.GetKey(ReloadKey))
+            {
+                CurrentWeapon.Reload();
+            }
+            if (Input.GetKey(JumpKey) && IsGrounded)
+            {
+                Jump();
+                IsGrounded = !IsGrounded;
+            }
+            if (Input.GetKey(SprintKey))
+            {
+                IsSprinting = true;
+                Sprint();
+            }
+            else
+            {
+                IsSprinting = false;
+            }
         }
-        if (Input.GetKey(ReloadKey))
-        {
-            CurrentWeapon.Reload();
-        }
-        if (Input.GetKey(JumpKey))
-        {
-            Jump();
-        }
-        if (Input.GetKey(SprintKey))
-        {
-            IsSprinting = true;
-            Sprint();
-        }
-        else
-        {
-            IsSprinting = false;
-        }
-        
     }
+
+    #region PlayerMotor
     void Move()
     {
         // Czy jest potrzebne zarówno IsMoving i IsStanding?
@@ -129,13 +208,12 @@ public class PlayerController : MonoBehaviour
     void Jump()
     {
         // Na razie bez double jump.
-        if (IsGrounded == false)
+        if (!IsGrounded)
         {
             Vector2 jump = new Vector2(0, JumpForce);
             Body.AddForce(jump, ForceMode2D.Impulse);
         }
     }
-
     public void Heal(float ammount)
     {
         hp += ammount;
@@ -153,14 +231,5 @@ public class PlayerController : MonoBehaviour
             Destroy(gameObject);
         }
     }
-    //Trzeba się zastanowić jak będziemy rozpoznawać poszczególne obiekty i które przez tagi a które przez warstwy
-    /*void OnCollisionEnter2D()
-    {
-        IsGrounded = false;
-    }
-    void OnCollisionExit2D()
-    {
-        IsGrounded = true;
-    }
-    */
+    #endregion
 }

@@ -141,7 +141,6 @@ GameObject:
   - component: {fileID: 114164823362088722}
   - component: {fileID: 114683018599688474}
   - component: {fileID: 114297739307819188}
-  - component: {fileID: 114490838175107778}
   - component: {fileID: 114844782845603164}
   - component: {fileID: 114467881461948742}
   m_Layer: 0
@@ -568,23 +567,28 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1faeee0b7b3d3b94d94c28c70f931d6c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  CurrentWeapon: {fileID: 114900830518534116}
+  InGameMenu: {fileID: 1845303490773128, guid: 288b1404f8901d14c973f3407bc13ab3, type: 2}
   Body: {fileID: 0}
+  IsControllable: 1
   name: Default
   hp: 20
   maxHP: 100
+  shield: 0
+  maxShield: 100
+  speed: 0
+  jumpForce: 0
   ShootKey: 0
   ReloadKey: 0
   SprintKey: 304
   JumpKey: 32
+  PauseKey: 0
   IsMoving: 0
   IsGrounded: 0
   IsSprinting: 0
   IsStanding: 0
   IsCrouching: 0
   IsLying: 0
-  Speed: 5
-  JumpForce: 2
+  CurrentWeapon: {fileID: 114900830518534116}
 --- !u!114 &114302568731706370
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -660,19 +664,6 @@ MonoBehaviour:
     i15: 170
   m_ServerOnly: 0
   m_LocalPlayerAuthority: 1
---- !u!114 &114490838175107778
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1563332568194530}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 8fb84d3ce455c9b4596aef7163bc10b6, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  networkCamera: {fileID: 20668420150801760, guid: 53669d91503a29f4ab3ad02025c915b9,
-    type: 2}
 --- !u!114 &114590897908982936
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -750,7 +741,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   componentsToDisable:
-  - {fileID: 114490838175107778}
+  - {fileID: 0}
   - {fileID: 114844782845603164}
   - {fileID: 81829461687631206}
   - {fileID: 20296405094814622}
