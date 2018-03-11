@@ -20,7 +20,7 @@ public class HUD : MonoBehaviour
 
     void Update()
     {
-        image.fillAmount = player.HP / player.MaxHP;
+        image.fillAmount = player.hp / player.maxHP;
         ammoText.text = player.CurrentWeapon.CurrentAmmo.ToString();
     }
 

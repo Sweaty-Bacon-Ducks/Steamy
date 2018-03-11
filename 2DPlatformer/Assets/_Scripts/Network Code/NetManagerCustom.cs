@@ -41,7 +41,7 @@ public class NetManagerCustom : NetworkManager
             SetupOtherScene();
         }
     }
-    private void SetupOtherScene()
+    private void SetupMenuScene()
     {
         GameObject.Find("ButtonHostuj").GetComponent<Button>().onClick.RemoveAllListeners();
         GameObject.Find("ButtonHostuj").GetComponent<Button>().onClick.AddListener(HostGame);
@@ -49,9 +49,9 @@ public class NetManagerCustom : NetworkManager
         GameObject.Find("ButtonPołącz").GetComponent<Button>().onClick.RemoveAllListeners();
         GameObject.Find("ButtonPołącz").GetComponent<Button>().onClick.AddListener(JoinGame);
     }
-    private void SetupMenuScene()
+    private void SetupOtherScene()
     {
         GameObject.Find("ButtonDisconnect").GetComponent<Button>().onClick.RemoveAllListeners();
-        GameObject.Find("ButtonDisconnect").GetComponent<Button>().onClick.AddListener(singleton.StopHost);
+        GameObject.Find("ButtonDisconnect").GetComponent<Button>().onClick.AddListener(singleton.StopClient);
     }
 }

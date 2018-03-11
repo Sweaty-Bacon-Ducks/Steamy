@@ -8,21 +8,13 @@ public class PlayerController : MonoBehaviour
     public bool IsControllable = true;
 
     [Header("Player statistics")]
-    [SerializeField]
-    private new string name = "Default";
-    [SerializeField]
-    private float hp;
-    [SerializeField]
-    private float maxHP = 100;
-    [SerializeField]
-    private float shield;
-    [SerializeField]
-    private float maxShield = 100;
-    [SerializeField]
-    private float speed;
-    [SerializeField]
-    private float jumpForce;
-
+    public new string name = "Default";
+    public float hp;
+    public float maxHP = 100;
+    public float shield;
+    public float maxShield = 100;
+    public float speed;
+    public float jumpForce;
 
     [Header("Controls")]
     [SerializeField]
@@ -56,67 +48,10 @@ public class PlayerController : MonoBehaviour
     public Weapon CurrentWeapon;
     #endregion
 
-    #region Properties
-    public string Name
-    {
-        get
-        {
-            return name;
-        }
-    }
-
-    public float HP
-    {
-        get
-        {
-            return hp;
-        }
-    }
-
-    public float MaxHP
-    {
-        get
-        {
-            return maxHP;
-        }
-    }
-
-    public float Speed
-    {
-        get
-        {
-            return Speed;
-        }
-    }
-
-    public float JumpForce
-    {
-        get
-        {
-            return JumpForce;
-        }
-    }
-
-    public float Shield
-    {
-        get
-        {
-            return shield;
-        }
-    }
-
-    public float MaxShield
-    {
-        get
-        {
-            return maxShield;
-        }
-    }
-    #endregion
-
     void Start()
     {
-        maxHP = hp;
+        hp = maxHP;
+        shield = maxShield;
     }
 
     void Awake()
@@ -137,7 +72,6 @@ public class PlayerController : MonoBehaviour
             HideInGameMenu();
         }
     }
-
     private void HideInGameMenu()
     {
         InGameMenu.SetActive(false);
@@ -195,7 +129,7 @@ public class PlayerController : MonoBehaviour
 
         float moveHorizontal = Input.GetAxis("Horizontal");
         // Body.velocity, bo w ten sposób ruch jest dużo bardziej responsywny.
-        Body.velocity = new Vector2(moveHorizontal * Speed, Body.velocity.y);
+        Body.velocity = new Vector2(moveHorizontal *speed, Body.velocity.y);
     }
     void Sprint()
     {
@@ -210,7 +144,7 @@ public class PlayerController : MonoBehaviour
         // Na razie bez double jump.
         if (!IsGrounded)
         {
-            Vector2 jump = new Vector2(0, JumpForce);
+            Vector2 jump = new Vector2(0, jumpForce);
             Body.AddForce(jump, ForceMode2D.Impulse);
         }
     }
