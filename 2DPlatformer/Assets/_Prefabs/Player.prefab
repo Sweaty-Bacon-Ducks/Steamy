@@ -581,7 +581,7 @@ MonoBehaviour:
   ReloadKey: 0
   SprintKey: 304
   JumpKey: 32
-  PauseKey: 0
+  PauseKey: 27
   IsMoving: 0
   IsGrounded: 0
   IsSprinting: 0

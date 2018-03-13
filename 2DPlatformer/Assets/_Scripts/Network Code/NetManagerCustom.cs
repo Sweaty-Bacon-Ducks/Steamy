@@ -43,15 +43,19 @@ public class NetManagerCustom : NetworkManager
     }
     private void SetupMenuScene()
     {
-        GameObject.Find("ButtonHostuj").GetComponent<Button>().onClick.RemoveAllListeners();
-        GameObject.Find("ButtonHostuj").GetComponent<Button>().onClick.AddListener(HostGame);
+        GameObject hostButton = GameObject.Find("ButtonHostuj");
+        hostButton.GetComponent<Button>().onClick.RemoveAllListeners();
+        hostButton.GetComponent<Button>().onClick.AddListener(HostGame);
 
-        GameObject.Find("ButtonPołącz").GetComponent<Button>().onClick.RemoveAllListeners();
-        GameObject.Find("ButtonPołącz").GetComponent<Button>().onClick.AddListener(JoinGame);
+        GameObject joinButton = GameObject.Find("ButtonPołącz");
+        joinButton.GetComponent<Button>().onClick.RemoveAllListeners();
+        joinButton.GetComponent<Button>().onClick.AddListener(JoinGame);
     }
     private void SetupOtherScene()
     {
-        GameObject.Find("ButtonDisconnect").GetComponent<Button>().onClick.RemoveAllListeners();
-        GameObject.Find("ButtonDisconnect").GetComponent<Button>().onClick.AddListener(singleton.StopClient);
+        GameObject inGameMenu = GameObject.Find("ButtonDisconnect");
+        inGameMenu.GetComponent<Button>().onClick.RemoveAllListeners();
+        inGameMenu.GetComponent<Button>().onClick.AddListener(singleton.StopClient);
+        inGameMenu.transform.root.gameObject.SetActive(false);
     }
 }
