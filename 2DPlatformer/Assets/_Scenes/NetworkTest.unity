@@ -291,7 +291,7 @@ Prefab:
         type: 2}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
       value: 
-      objectReference: {fileID: 1367241056}
+      objectReference: {fileID: 0}
     - target: {fileID: 114652528487888640, guid: 288b1404f8901d14c973f3407bc13ab3,
         type: 2}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
@@ -324,43 +324,32 @@ Prefab:
     - target: {fileID: 224349904096587080, guid: 288b1404f8901d14c973f3407bc13ab3,
         type: 2}
       propertyPath: m_AnchoredPosition.y
-      value: 26
+      value: 9
       objectReference: {fileID: 0}
     - target: {fileID: 224349904096587080, guid: 288b1404f8901d14c973f3407bc13ab3,
         type: 2}
       propertyPath: m_SizeDelta.x
-      value: -1751.34
+      value: -1751.3
       objectReference: {fileID: 0}
     - target: {fileID: 224349904096587080, guid: 288b1404f8901d14c973f3407bc13ab3,
         type: 2}
       propertyPath: m_SizeDelta.y
-      value: -781
+      value: -887.7
       objectReference: {fileID: 0}
     - target: {fileID: 224349904096587080, guid: 288b1404f8901d14c973f3407bc13ab3,
         type: 2}
       propertyPath: m_AnchoredPosition.x
-      value: -19
+      value: 30
+      objectReference: {fileID: 0}
+    - target: {fileID: 224285603910070146, guid: 288b1404f8901d14c973f3407bc13ab3,
+        type: 2}
+      propertyPath: m_AnchoredPosition.x
+      value: 4
       objectReference: {fileID: 0}
     m_RemovedComponents:
     - {fileID: 114191978857317440, guid: 288b1404f8901d14c973f3407bc13ab3, type: 2}
   m_ParentPrefab: {fileID: 100100000, guid: 288b1404f8901d14c973f3407bc13ab3, type: 2}
   m_IsPrefabParent: 0
---- !u!1 &1367241055 stripped
-GameObject:
-  m_PrefabParentObject: {fileID: 1845303490773128, guid: 288b1404f8901d14c973f3407bc13ab3,
-    type: 2}
-  m_PrefabInternal: {fileID: 1367241054}
---- !u!114 &1367241056
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 1367241055}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: c72980a811fd9284d873c5caf0068b20, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!1 &1465756026
 GameObject:
   m_ObjectHideFlags: 0

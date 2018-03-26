@@ -58,6 +58,7 @@ public class PlayerController : MonoBehaviour
     {
         Body = GetComponent<Rigidbody2D>();
         InGameMenu = GameObject.Find("InGameMenu");
+        InGameMenu.SetActive(false);
     }
 
     void Update()
@@ -72,15 +73,6 @@ public class PlayerController : MonoBehaviour
             IsControllable = true;
             HideInGameMenu();
         }
-    }
-    private void HideInGameMenu()
-    {
-        InGameMenu.SetActive(false);
-    }
-
-    private void ShowInGameMenu()
-    {
-        InGameMenu.SetActive(true);
     }
 
     void FixedUpdate()
@@ -111,6 +103,16 @@ public class PlayerController : MonoBehaviour
                 IsSprinting = false;
             }
         }
+    }
+
+    private void HideInGameMenu()
+    {
+        InGameMenu.SetActive(false);
+    }
+
+    private void ShowInGameMenu()
+    {
+        InGameMenu.SetActive(true);
     }
 
     #region PlayerMotor
