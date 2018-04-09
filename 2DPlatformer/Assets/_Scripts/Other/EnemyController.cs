@@ -24,7 +24,7 @@ public class EnemyController : MonoBehaviour
 
     //void OnParticleTrigger()
     //{
-    //    hp -= 1;
+    //    HP -= 1;
     //    Debug.Log("hit");
     //}
 

@@ -11,6 +11,23 @@ Prefab:
   m_ParentPrefab: {fileID: 0}
   m_RootGameObject: {fileID: 1653143894955472}
   m_IsPrefabParent: 1
+--- !u!1 &1143674606860788
+GameObject:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  serializedVersion: 5
+  m_Component:
+  - component: {fileID: 4699694021204930}
+  - component: {fileID: 198800621969348450}
+  - component: {fileID: 199638626465214464}
+  m_Layer: 0
+  m_Name: IgnitionFlame
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
 --- !u!1 &1214415689376662
 GameObject:
   m_ObjectHideFlags: 0
@@ -38,7 +55,7 @@ GameObject:
   - component: {fileID: 4904843289378096}
   - component: {fileID: 212313208542087090}
   m_Layer: 0
-  m_Name: FlamethrowerR
+  m_Name: FlamethrowerModel
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -54,37 +71,20 @@ GameObject:
   - component: {fileID: 4983107330816692}
   - component: {fileID: 114565135378885930}
   m_Layer: 0
-  m_Name: FlameThrower
+  m_Name: Flamethrower
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!1 &1799235435549834
-GameObject:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  serializedVersion: 5
-  m_Component:
-  - component: {fileID: 4454998732847046}
-  - component: {fileID: 198201207653976310}
-  - component: {fileID: 199693182881914234}
-  m_Layer: 0
-  m_Name: IgnitionFlame
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!4 &4454998732847046
+--- !u!4 &4699694021204930
 Transform:
   m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1799235435549834}
+  m_GameObject: {fileID: 1143674606860788}
   m_LocalRotation: {x: -0.5, y: -0.5, z: -0.5, w: 0.5}
-  m_LocalPosition: {x: 1.615, y: 0.61, z: 0}
+  m_LocalPosition: {x: -0.027000068, y: -0.27199993, z: 0.835}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 4983107330816692}
@@ -109,11 +109,11 @@ Transform:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1653143894955472}
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 3.41, y: 0.5, z: -0.1}
-  m_LocalScale: {x: 4, y: 2, z: 1}
+  m_LocalRotation: {x: -0, y: -0, z: 0.030625766, w: 0.9995309}
+  m_LocalPosition: {x: 19.70464, y: 0.49530256, z: -0.1}
+  m_LocalScale: {x: 4, y: 4, z: 1}
   m_Children:
-  - {fileID: 4454998732847046}
+  - {fileID: 4699694021204930}
   - {fileID: 4993911160832954}
   - {fileID: 4904843289378096}
   m_Father: {fileID: 0}
@@ -140,19 +140,27 @@ MonoBehaviour:
   m_GameObject: {fileID: 1653143894955472}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: d7720a221921faf46bf6ba68ee286d2d, type: 3}
+  m_Script: {fileID: 11500000, guid: 3bb521d9da47684468e5afe2051d67f8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  flame: {fileID: 198995681150029672}
-  maxAmmo: 50
-  currentAmmo: 0
-  reloadTime: 1
---- !u!198 &198201207653976310
+  IsCollectable: 1
+  IsAutomatic: 0
+  IsMelee: 0
+  IsRaycast: 0
+  IsPhysics: 0
+  IsParticle: 1
+  IsReloading: 0
+  MaxAmmo: 100
+  CurrentAmmo: 0
+  ReloadTime: 0
+  TriggerTime: 0
+  particleSystem: []
+--- !u!198 &198800621969348450
 ParticleSystem:
   m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1799235435549834}
+  m_GameObject: {fileID: 1143674606860788}
   serializedVersion: 5
   lengthInSec: 5
   simulationSpeed: 1
@@ -207,7 +215,7 @@ ParticleSystem:
   moveWithTransform: 1
   moveWithCustomTransform: {fileID: 0}
   scalingMode: 1
-  randomSeed: -1989493401
+  randomSeed: 1921565327
   InitialModule:
     serializedVersion: 3
     enabled: 1
@@ -3532,7 +3540,7 @@ ParticleSystem:
   moveWithTransform: 1
   moveWithCustomTransform: {fileID: 0}
   scalingMode: 1
-  randomSeed: 728884612
+  randomSeed: -662145925
   InitialModule:
     serializedVersion: 3
     enabled: 1
@@ -6887,13 +6895,13 @@ ParticleSystemRenderer:
   m_Mesh2: {fileID: 0}
   m_Mesh3: {fileID: 0}
   m_MaskInteraction: 0
---- !u!199 &199693182881914234
+--- !u!199 &199638626465214464
 ParticleSystemRenderer:
   serializedVersion: 4
   m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1799235435549834}
+  m_GameObject: {fileID: 1143674606860788}
   m_Enabled: 1
   m_CastShadows: 0
   m_ReceiveShadows: 0

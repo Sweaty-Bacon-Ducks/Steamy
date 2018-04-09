@@ -1,7 +1,7 @@
 ﻿using UnityEngine;
 using UnityEngine.UI;
 
-public class HUD : MonoBehaviour
+public class HUDController : MonoBehaviour
 {
     private PlayerController player;
 
@@ -20,13 +20,13 @@ public class HUD : MonoBehaviour
 
     void Update()
     {
-        image.fillAmount = player.HP / player.MaxHP;
-        ammoText.text = player.CurrentWeapon.CurrentAmmo.ToString();
+        image.fillAmount = player.info.HP / player.info.MaxHP;
+        ammoText.text = player.info.CurrentWeapon.CurrentAmmo.ToString();
     }
 
     void SetHUD()
     {
         image.fillAmount = 1;
-        //ammoText.text = player.CurrentWeapon.CurrentAmmo.ToString() + "/" + player.CurrentWeapon.MaxAmmo.ToString();
+        ammoText.text = player.info.CurrentWeapon.CurrentAmmo.ToString() + "/" + player.info.CurrentWeapon.MaxAmmo.ToString();
     }
 }
