@@ -57,8 +57,7 @@ public class PlayerController : MonoBehaviour
     void Awake()
     {
         Body = GetComponent<Rigidbody2D>();
-        InGameMenu = GameObject.Find("InGameMenu");
-        InGameMenu.SetActive(false);
+
     }
 
     void Update()
