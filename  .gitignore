@@ -2,7 +2,12 @@ UnityPackageManager/
 Packages/
 Library/
 Builds/
-
+[Ll]ibrary
+[Tt]emp
+[Oo]bj
+[Bb]uild
+[Bb]uilds
+/Assets/AssetStoreTools*
 # Visual Studio 2015 cache directory
 .vs/
 
@@ -25,6 +30,8 @@ obj/
 
 # Pointless meta files
 *.meta
+*.prefab.meta
+*.unity.meta
 
 # Unity3D generated meta files
 *.pidb.meta
@@ -35,7 +42,6 @@ sysinfo.txt
 # Builds
 *.apk
 *.unitypackage
-._*
 .Spotlight-V100
 .Trashes
 ehthumbs.db
