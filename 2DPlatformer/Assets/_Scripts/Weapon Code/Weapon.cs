@@ -1,16 +1,39 @@
 ﻿using UnityEngine;
+using System.Collections;
+using System;
 
 public abstract class Weapon : MonoBehaviour
 {
-    public bool IsCollectable;
-    public bool IsAutomatic;
-    public bool IsMelee;
-    public bool IsRaycast;
-    public bool IsPhysics;
+    public bool IsCollectable = true;
+    public bool IsAutomatic = false;
+    public bool IsMelee = false;
+    public bool IsRaycast = false;
+    public bool IsPhysics = false;
+    public bool IsParticle = false;
+    public bool IsReloading = false;
+
     public int MaxAmmo;
     public int CurrentAmmo;
-    public abstract void Shoot();
-    public abstract void Reload();   //Może użyć IEnumerator
+    public float ReloadTime;
+    public float TriggerTime;
+
+    private void Start()
+    {
+        MaxAmmo = Int32.MaxValue;
+        CurrentAmmo = MaxAmmo;
+    }
+
+    public virtual IEnumerator Reload()
+    {
+        IsReloading = true;
+        Debug.Log("reloading weapon");
+
+        yield return new WaitForSeconds(ReloadTime);
+
+        CurrentAmmo = MaxAmmo;
+
+        IsReloading = false;
+    }
     private void OnTriggerEnter2D(Collider2D col)
     {
         Debug.Log("Collided with " + col.name);
@@ -20,10 +43,21 @@ public abstract class Weapon : MonoBehaviour
             Destroy(gameObject);
         }
     }
-    protected virtual void Collect(GameObject player)
+    public virtual void Shoot()
     {
-        PlayerController Player = player.gameObject.GetComponent<PlayerController>();
-        //Player.WeaponList.Add(gameObject);
+        throw new System.NotImplementedException("Base implementation of Shoot() was used");
+    }
+    public virtual void Shoot(Vector3 start)
+    {
+        throw new System.NotImplementedException("Base implementation of Shoot(Vector3 start) was used");
+    }
+    public virtual void Shoot(Vector3 start,Vector3 end)
+    {
+        throw new System.NotImplementedException("Base implementation of Shoot(Vector3 start,Vector3 end) was used");
+    }
+    protected virtual void Collect(GameObject @object)
+    {
+        throw new System.NotImplementedException("Base implementation of Collect() was used");
     }
 }
 
