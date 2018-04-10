@@ -1,171 +1,83 @@
-using System;
 using UnityEngine;
+using UnityEngine.Networking;
 public class PlayerController : MonoBehaviour
 {
-    #region Fields
-    public GameObject InGameMenu;
-    public Rigidbody2D Body;
-    public bool IsControllable = true;
-
-    [Header("Player statistics")]
-    public new string name = "Default";
-    public float hp;
-    public float maxHP = 100;
-    public float shield;
-    public float maxShield = 100;
-    public float speed;
-    public float jumpForce;
-
-    [Header("Controls")]
+    [Header("Player Information")]
     [SerializeField]
-    private KeyCode ShootKey;
-    [SerializeField]
-    private KeyCode ReloadKey;
-    [SerializeField]
-    private KeyCode SprintKey;
-    [SerializeField]
-    private KeyCode JumpKey;
-    [SerializeField]
-    private KeyCode PauseKey;
-
-    [Header("Player status")]
-    [SerializeField]
-    private bool IsMoving;
-    [SerializeField]
-    private bool IsGrounded;
-    [SerializeField]
-    private bool IsSprinting;
-    [SerializeField]
-    private bool IsStanding;
-    [SerializeField]
-    private bool IsCrouching;
-    [SerializeField]
-    private bool IsLying;
-
-    #endregion
-
-    #region Weapon
-    public Weapon CurrentWeapon;
-    #endregion
+    public PlayerInfo info;
 
     void Start()
     {
-        hp = maxHP;
-        shield = maxShield;
+        info.MaxHP = info.HP;
     }
 
     void Awake()
     {
-        Body = GetComponent<Rigidbody2D>();
-
+        info.Body = GetComponent<Rigidbody2D>();
     }
-
-    void Update()
+    private void Update()
     {
-        if (Input.GetKeyDown(PauseKey) && IsControllable)
+        //Obróć rękę odpowiednio
+        info.rotationMotor.RotateMousewise(info.playerCam, info.Arm);
+
+        if ((Input.GetAxis("Fire1") != 0) || Input.GetKey(info.ShootKey))
         {
-            IsControllable = false;
-            ShowInGameMenu();
+            info.CurrentWeapon.Shoot();
         }
-        else if (Input.GetKeyDown(PauseKey) && !IsControllable)
+        if (Input.GetKey(info.ReloadKey))
         {
-            IsControllable = true;
-            HideInGameMenu();
+            info.CurrentWeapon.Reload();
         }
     }
-
     void FixedUpdate()
     {
-        if (IsControllable)
+        info.playerMotor.Move(info);
+        
+        if (Input.GetKey(info.JumpKey))
         {
-            Move();
-            if (Input.GetKey(ShootKey))
-            {
-                CurrentWeapon.Shoot();
-            }
-            if (Input.GetKey(ReloadKey))
-            {
-                CurrentWeapon.Reload();
-            }
-            if (Input.GetKey(JumpKey) && IsGrounded)
-            {
-                Jump();
-                IsGrounded = !IsGrounded;
-            }
-            if (Input.GetKey(SprintKey))
-            {
-                IsSprinting = true;
-                Sprint();
-            }
-            else
-            {
-                IsSprinting = false;
-            }
+            info.playerMotor.Jump(info);
         }
-    }
-
-    private void HideInGameMenu()
-    {
-        InGameMenu.SetActive(false);
-    }
-
-    private void ShowInGameMenu()
-    {
-        InGameMenu.SetActive(true);
-    }
-
-    #region PlayerMotor
-    void Move()
-    {
-        // Czy jest potrzebne zarówno IsMoving i IsStanding?
-        if (Body.velocity.x == 0 && Body.velocity.y == 0)
+        if (Input.GetKey(info.SprintKey))
         {
-            IsMoving = false;
-            IsStanding = true;
+            info.IsSprinting = true;
+            info.playerMotor.Sprint(info);
         }
         else
         {
-            IsMoving = true;
-            IsStanding = false;
+            info.IsSprinting = false;
         }
+        
+    }
 
-        float moveHorizontal = Input.GetAxis("Horizontal");
-        // Body.velocity, bo w ten sposób ruch jest dużo bardziej responsywny.
-        Body.velocity = new Vector2(moveHorizontal *speed, Body.velocity.y);
-    }
-    void Sprint()
-    {
-        // Sprint działa tylko gdy jest wciśnięty jakiś klawisz ruchu i nie w powietrzu.
-        if (IsGrounded == false && Input.GetAxis("Horizontal") != 0)
-        {
-            Body.velocity = new Vector2(Body.velocity.x * 2, Body.velocity.y);
-        }
-    }
-    void Jump()
-    {
-        // Na razie bez double jump.
-        if (!IsGrounded)
-        {
-            Vector2 jump = new Vector2(0, jumpForce);
-            Body.AddForce(jump, ForceMode2D.Impulse);
-        }
-    }
     public void Heal(float ammount)
     {
-        hp += ammount;
-        if (hp >= maxHP)
+        info.HP += ammount;
+        if (info.HP >= info.MaxHP)
         {
-            hp = maxHP;
+            info.HP = info.MaxHP;
         }
     }
     public void Damage(float damage)
     {
-        hp -= damage;
-        if (hp <= 0)
+        info.HP -= damage;
+        if (info.HP <= 0)
         {
-            //Kill the player
-            Destroy(gameObject);
+            info.HP = 0;
         }
     }
-    #endregion
+    public void PlayerDeath()
+    {
+        // Kill the player
+        Destroy(gameObject);
+    }
+    //Trzeba się zastanowić jak będziemy rozpoznawać poszczególne obiekty i które przez tagi a które przez warstwy
+    /*void OnCollisionEnter2D()
+    {
+        IsGrounded = false;
+    }
+    void OnCollisionExit2D()
+    {
+        IsGrounded = true;
+    }
+    */
 }
