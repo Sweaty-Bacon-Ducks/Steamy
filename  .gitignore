@@ -25,6 +25,9 @@ obj/
 *.pdb
 
 # Pointless meta files
+2DPlatformer/Assets/*/*.meta
+2DPlatformer/Assets/*/*.prefab.meta
+2DPlatformer/Assets/*/*.unity.meta
 *.meta
 *.prefab.meta
 *.unity.meta
