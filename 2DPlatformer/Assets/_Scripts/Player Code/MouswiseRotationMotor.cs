@@ -8,12 +8,12 @@ public class MouswiseRotationMotor : MonoBehaviour
     public void RotateMousewise(Camera targetCam, GameObject @object, float RotationOffset = 0f)
     {   
         Transform @objectTr = @object.transform;
-        SpriteRenderer sprite = @object.GetComponent<SpriteRenderer>();     
+        SpriteRenderer sprite = @object.GetComponent<SpriteRenderer>();
 
-        Vector3 difference = (targetCam.ScreenToWorldPoint(Input.mousePosition) - @objectTr.localPosition).normalized;   //pozycja myszy - pozycja ręki 
+        var input = targetCam.ScreenToWorldPoint(Input.mousePosition);
+        Vector3 difference = ( input - @objectTr.position).normalized;   //pozycja myszy - pozycja ręki 
         float rotationZ = Mathf.Atan2(difference.y, difference.x) * Mathf.Rad2Deg + RotationOffset;
         @objectTr.rotation = Quaternion.Euler(0f, 0f, rotationZ);   //ustawianie rotacji
-
         //Flipping the sprites of the player and the weapon
         if (Mathf.Abs(rotationZ) >= 90 && !isFlipped)
         {
@@ -32,7 +32,7 @@ public class MouswiseRotationMotor : MonoBehaviour
         {
             foreach (Transform item in tr)
             {
-                Debug.Log(item.name);
+                //Debug.Log(item.name);
                 SpriteRenderer sr = tr.GetComponent<SpriteRenderer>();
                 if (sr != null)
                 {

@@ -1,4 +1,5 @@
 ﻿using UnityEngine;
+using UnityEngine.SceneManagement;
 using UnityEngine.Networking;
 using UnityEngine.UI;
 using TMPro;
@@ -30,16 +31,17 @@ public class NetManagerCustom : NetworkManager
     {
         singleton.networkAddress = IPAddress;
     }
-    void OnLevelWasLoaded(int level)
+    void Awake()
     {
-        if (level == 0) //Menu główne
+        if (singleton != null && singleton != this)
         {
-            SetupMenuScene();
+            Destroy(gameObject);
+            return;
         }
-        else
-        {
-            SetupOtherScene();
-        }
+        DontDestroyOnLoad(gameObject);
+        singleton = this;
+
+        SetupMenuScene();
     }
     private void SetupMenuScene()
     {
@@ -61,12 +63,11 @@ public class NetManagerCustom : NetworkManager
         
         joinButton.GetComponent<Button>().onClick.RemoveAllListeners();
         joinButton.GetComponent<Button>().onClick.AddListener(JoinGame);
-
     }
     private void SetupOtherScene()
     {
-        GameObject disconnectButton = GameObject.Find("ButtonDisconnect");
-        disconnectButton.GetComponent<Button>().onClick.RemoveAllListeners();
-        disconnectButton.GetComponent<Button>().onClick.AddListener(singleton.StopClient);
+        //GameObject disconnectButton = GameObject.Find("ButtonDisconnect");
+        //disconnectButton.GetComponent<Button>().onClick.RemoveAllListeners();
+        //disconnectButton.GetComponent<Button>().onClick.AddListener(singleton.StopClient);
     }
 }

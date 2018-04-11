@@ -1,7 +1,7 @@
-2DPlatformer/UnityPackageManager/
-2DPlatformer/Packages/
-2DPlatformer/Library/
-2DPlatformer/Builds/
+UnityPackageManager/
+Packages/
+Library/
+Builds/
 
 2DPlatformer/Assets/AssetStoreTools*
 # Visual Studio 2015 cache directory

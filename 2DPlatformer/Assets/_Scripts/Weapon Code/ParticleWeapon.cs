@@ -10,19 +10,26 @@ public class ParticleWeapon : Weapon
     {
         StopParticleEffect(1);
     }
-    public void StopParticleEffect(int index)
+
+    public override void Shoot()
+    {
+        if (CurrentAmmo > 0)
+        {
+            CurrentAmmo--;
+            StartParticleEffect(0);
+        }
+        else
+        {
+            StartCoroutine(Reload());
+        }
+    }
+
+    private void StopParticleEffect(int index)
     {
         particleSystem[index].Stop();
     }
-    public void StartParticleEffect(int index)
+    private void StartParticleEffect(int index)
     {
         particleSystem[index].Play();
-    }
-    public override void Shoot()
-    {
-        if (CurrentAmmo-- > 0)
-        {
-            StartParticleEffect(0);
-        }
     }
 }

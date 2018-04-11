@@ -1,5 +1,6 @@
 using UnityEngine;
-using UnityEngine.Networking;
+using UnityEngine.UI;
+using UnityEngine.SceneManagement;
 public class PlayerController : MonoBehaviour
 {
     [Header("Player Information")]
@@ -8,7 +9,13 @@ public class PlayerController : MonoBehaviour
 
     void Start()
     {
-        info.MaxHP = info.HP;
+        info.WeaponHolder = info.Arm;
+        info.Initialize(transform);
+        info.SetupDisconnectButton();
+        info.InGameMenu.SetActive(false);
+        info.IsControllable = true;
+        info.HP = info.MaxHP;
+        info.CurrentWeapon.CurrentAmmo = info.CurrentWeapon.MaxAmmo;       
     }
 
     void Awake()
@@ -17,67 +24,48 @@ public class PlayerController : MonoBehaviour
     }
     private void Update()
     {
-        //Obróć rękę odpowiednio
-        info.rotationMotor.RotateMousewise(info.playerCam, info.Arm);
-
-        if ((Input.GetAxis("Fire1") != 0) || Input.GetKey(info.ShootKey))
+        if (Input.GetKeyDown(info.MenuKey))
         {
-            info.CurrentWeapon.Shoot();
+            info.InGameMenu.SetActive(!info.InGameMenu.activeSelf);
+            info.IsControllable = !info.IsControllable;
         }
-        if (Input.GetKey(info.ReloadKey))
+        if (info.IsControllable)
         {
-            info.CurrentWeapon.Reload();
+            //Obróć rękę odpowiednio
+            info.rotationMotor.RotateMousewise(info.PlayerCam, info.Arm);
+
+            if ((Input.GetAxis("Fire1") != 0) || Input.GetKey(info.ShootKey))
+            {
+                info.CurrentWeapon.Shoot();
+            }
+            if (Input.GetKey(info.ReloadKey))
+            {
+                info.CurrentWeapon.Reload();
+            }
         }
     }
     void FixedUpdate()
     {
-        info.playerMotor.Move(info);
-        
-        if (Input.GetKey(info.JumpKey))
+        if (info.IsControllable)
         {
-            info.playerMotor.Jump(info);
+            info.playerMotor.Move(info);
+
+            if (Input.GetKey(info.JumpKey))
+            {
+                info.playerMotor.Jump(info);
+            }
+            if (Input.GetKey(info.SprintKey))
+            {
+                info.IsSprinting = true;
+                info.playerMotor.Sprint(info);
+            }
+            else
+            {
+                info.IsSprinting = false;
+            }
         }
-        if (Input.GetKey(info.SprintKey))
-        {
-            info.IsSprinting = true;
-            info.playerMotor.Sprint(info);
-        }
-        else
-        {
-            info.IsSprinting = false;
-        }
-        
     }
 
-    public void Heal(float ammount)
-    {
-        info.HP += ammount;
-        if (info.HP >= info.MaxHP)
-        {
-            info.HP = info.MaxHP;
-        }
-    }
-    public void Damage(float damage)
-    {
-        info.HP -= damage;
-        if (info.HP <= 0)
-        {
-            info.HP = 0;
-        }
-    }
-    public void PlayerDeath()
-    {
-        // Kill the player
-        Destroy(gameObject);
-    }
-    //Trzeba się zastanowić jak będziemy rozpoznawać poszczególne obiekty i które przez tagi a które przez warstwy
-    /*void OnCollisionEnter2D()
-    {
-        IsGrounded = false;
-    }
-    void OnCollisionExit2D()
-    {
-        IsGrounded = true;
-    }
-    */
+
+  
 }

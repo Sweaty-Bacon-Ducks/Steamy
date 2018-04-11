@@ -7,7 +7,7 @@ public class HUDController : MonoBehaviour
 
     public Image image;
     public Text ammoText;
-
+    public Image weaponSprite;
     void Start()
     {
         SetHUD();
@@ -26,7 +26,9 @@ public class HUDController : MonoBehaviour
 
     void SetHUD()
     {
+        weaponSprite.sprite = player.info.CurrentWeapon.GUISprite;
         image.fillAmount = 1;
         ammoText.text = player.info.CurrentWeapon.CurrentAmmo.ToString() + "/" + player.info.CurrentWeapon.MaxAmmo.ToString();
+        Debug.Log(ammoText.text);
     }
 }

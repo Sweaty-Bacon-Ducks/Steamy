@@ -71,7 +71,7 @@ GameObject:
   - component: {fileID: 4983107330816692}
   - component: {fileID: 114565135378885930}
   m_Layer: 0
-  m_Name: Flamethrower
+  m_Name: FlameThrower
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -150,11 +150,14 @@ MonoBehaviour:
   IsPhysics: 0
   IsParticle: 1
   IsReloading: 0
-  MaxAmmo: 100
+  MaxAmmo: 0
   CurrentAmmo: 0
   ReloadTime: 0
   TriggerTime: 0
-  particleSystem: []
+  GUISprite: {fileID: 21300000, guid: dc507f2033e7edd4cb2701108a476475, type: 3}
+  particleSystem:
+  - {fileID: 0}
+  - {fileID: 0}
 --- !u!198 &198800621969348450
 ParticleSystem:
   m_ObjectHideFlags: 1
