@@ -21,7 +21,7 @@ public class HUDController : MonoBehaviour
     void Update()
     {
         image.fillAmount = player.info.HP / player.info.MaxHP;
-        ammoText.text = player.info.CurrentWeapon.CurrentAmmo.ToString();
+        ammoText.text = player.info.CurrentWeapon.CurrentAmmo.ToString() + "/" + player.info.CurrentWeapon.MaxAmmo.ToString();
     }
 
     void SetHUD()

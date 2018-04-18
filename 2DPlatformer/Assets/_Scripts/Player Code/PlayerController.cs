@@ -10,7 +10,8 @@ public class PlayerController : MonoBehaviour
     void Start()
     {
         info.WeaponHolder = info.Arm;
-        info.Initialize(transform);
+        info.Initialize(info.WeaponHolder.transform);
+        info.CurrentWeapon = info.AllWeapons[0].GetComponent<Weapon>();
         info.SetupDisconnectButton();
         info.InGameMenu.SetActive(false);
         info.IsControllable = true;
@@ -36,11 +37,16 @@ public class PlayerController : MonoBehaviour
 
             if ((Input.GetAxis("Fire1") != 0) || Input.GetKey(info.ShootKey))
             {
+                info.CurrentWeapon.Start_Shoot?.Invoke();
                 info.CurrentWeapon.Shoot();
             }
-            if (Input.GetKey(info.ReloadKey))
+            if (!info.CurrentWeapon.IsReloading && Input.GetKey(info.ReloadKey))
             {
                 info.CurrentWeapon.Reload();
+            }
+            if (Input.GetKeyUp(info.ShootKey))
+            {
+                info.CurrentWeapon.Stop_Shoot?.Invoke();
             }
         }
     }

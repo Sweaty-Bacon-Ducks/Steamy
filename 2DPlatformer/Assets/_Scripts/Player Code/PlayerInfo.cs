@@ -91,7 +91,7 @@ public class PlayerInfo
             if (tr != player.root && !AllWeapons.Contains(tr.gameObject))
             {
                 AllWeapons.Add(tr.gameObject);
-                //Debug.Log("The object " + tr.name + " was loaded!");
+                Debug.Log("The object " + tr.name + " was loaded!");
             }
         }
     }
