@@ -1,18 +1,16 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 using System;
 namespace CustomBehaviour
 {
     /// <summary>
     ///This class makes the classes deriving from it singletons 
     /// </summary>
-    public class SingletonBehaviour : MonoBehaviour
+    public class SingletonBehaviour<T> : MonoBehaviour where T : SingletonBehaviour<T>
     {
         #region Singleton
-        private static SingletonBehaviour _instance;
+        private static T _instance;
 
-        public static SingletonBehaviour Instance
+        public static T Instance
         {
             get
             { return _instance; }
@@ -27,7 +25,7 @@ namespace CustomBehaviour
             {
                 throw new SingletonException("More than one instance of " + gameObject.name + " detected!");
             }
-            _instance = this;
+            _instance = (T)this;
         }
         #endregion
     }

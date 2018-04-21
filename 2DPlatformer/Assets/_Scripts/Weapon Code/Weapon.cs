@@ -2,8 +2,12 @@
 using System.Collections;
 using System;
 
+public delegate void WeaponEvent();
 public abstract class Weapon : MonoBehaviour
 {
+    public WeaponEvent Start_Shoot;
+    public WeaponEvent Stop_Shoot;
+
     public bool IsCollectable = true;
     public bool IsAutomatic = false;
     public bool IsMelee = false;
@@ -11,12 +15,15 @@ public abstract class Weapon : MonoBehaviour
     public bool IsPhysics = false;
     public bool IsParticle = false;
     public bool IsReloading = false;
+    public bool IsShooting = false;
 
     public int MaxAmmo;
     public int CurrentAmmo;
     public float ReloadTime;
     public float TriggerTime;
 
+    public Sprite GUISprite;
+    
     private void Start()
     {
         MaxAmmo = Int32.MaxValue;

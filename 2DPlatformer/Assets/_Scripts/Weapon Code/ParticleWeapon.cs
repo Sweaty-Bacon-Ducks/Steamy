@@ -8,21 +8,30 @@ public class ParticleWeapon : Weapon
 
     void Start()
     {
-        StopParticleEffect(1);
-    }
-    public void StopParticleEffect(int index)
-    {
-        particleSystem[index].Stop();
-    }
-    public void StartParticleEffect(int index)
-    {
-        particleSystem[index].Play();
+        Start_Shoot += StartParticleEffect;
+        Stop_Shoot += StopParticleEffect;
     }
     public override void Shoot()
     {
-        if (CurrentAmmo-- > 0)
+        if (CurrentAmmo > 0)
         {
-            StartParticleEffect(0);
+            CurrentAmmo--;
+            IsShooting = true;
         }
+        else
+        {
+            IsShooting = false;
+            StopParticleEffect();
+            StartCoroutine(Reload());
+        }
+    }
+
+    private void StopParticleEffect()
+    {
+        particleSystem[1].Stop();
+    }
+    private void StartParticleEffect()
+    {
+        particleSystem[1].Play();
     }
 }

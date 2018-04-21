@@ -1,40 +1,31 @@
-﻿using System.Collections;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Networking;
+using UnityEngine.SceneManagement;
 using CustomBehaviour;
 /// <summary>
 /// The GameMaster class is responsible for handling all events which are independent from the player
 /// </summary>
-public class GameMaster : SingletonBehaviour
+public class GameMaster : SingletonBehaviour<GameMaster>
 {
-    #region Weapons
-    public Transform WeaponHolder;
-    /// <summary>
-    /// List of all gameObjects under Player.Weapons in the hierarchy
-    /// </summary>
-    public List<GameObject> AllWeapons;
-    /// <summary>
-    /// Initializes the AllWeapons list with all gameObjects which represents weapons
-    /// </summary>
-    /// <returns>
-    /// Return the list of all weapons
-    /// </returns>
-    public List<GameObject> Initialize(Transform player)
+    public GameObject NetManager;
+    void Awake()
     {
-        foreach (Transform tr in player)
+        if (NetworkManager.singleton == null)
         {
-            if (tr != player.root && !AllWeapons.Contains(tr.gameObject))
-            {
-                AllWeapons.Add(tr.gameObject);
-                Debug.Log("The object " + tr.name + " was loaded!");
-            }
+            Instantiate(NetManager, Vector3.zero, Quaternion.identity);
         }
-        return AllWeapons;
+        else
+        {
+            Destroy(NetworkManager.singleton.gameObject);
+            NetworkManager.singleton = null;
+            Instantiate(NetManager, Vector3.zero, Quaternion.identity);
+        }
+        //DontDestroyOnLoad(gameObject);
     }
-    #endregion
-
-    private void OnEnable()
+    public void LoadMainMenuScene()
     {
-        Initialize(WeaponHolder);
+        SceneManager.LoadScene("MenuTest");
     }
+
 }

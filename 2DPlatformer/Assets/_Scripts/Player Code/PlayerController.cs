@@ -1,83 +1,78 @@
 using UnityEngine;
-using UnityEngine.Networking;
-public class PlayerController : MonoBehaviour
+using UnityEngine.UI;
+using UnityEngine.SceneManagement;
+
+namespace Platformer
 {
-    [Header("Player Information")]
-    [SerializeField]
-    public PlayerInfo info;
+    public class PlayerController : MonoBehaviour
+    {
+        [Header("Player Information")]
+        [SerializeField]
+        public PlayerInfo info;
 
-    void Start()
-    {
-        info.MaxHP = info.HP;
-    }
-
-    void Awake()
-    {
-        info.Body = GetComponent<Rigidbody2D>();
-    }
-    private void Update()
-    {
-        //Obróć rękę odpowiednio
-        info.rotationMotor.RotateMousewise(info.playerCam, info.Arm);
-
-        if ((Input.GetAxis("Fire1") != 0) || Input.GetKey(info.ShootKey))
+        void Start()
         {
-            info.CurrentWeapon.Shoot();
-        }
-        if (Input.GetKey(info.ReloadKey))
-        {
-            info.CurrentWeapon.Reload();
-        }
-    }
-    void FixedUpdate()
-    {
-        info.playerMotor.Move(info);
-        
-        if (Input.GetKey(info.JumpKey))
-        {
-            info.playerMotor.Jump(info);
-        }
-        if (Input.GetKey(info.SprintKey))
-        {
-            info.IsSprinting = true;
-            info.playerMotor.Sprint(info);
-        }
-        else
-        {
-            info.IsSprinting = false;
-        }
-        
-    }
-
-    public void Heal(float ammount)
-    {
-        info.HP += ammount;
-        if (info.HP >= info.MaxHP)
-        {
+            info.WeaponHolder = info.Arm;
+            info.Initialize(info.WeaponHolder.transform);
+            info.CurrentWeapon = info.AllWeapons[0].GetComponent<Weapon>();
+            info.SetupDisconnectButton();
+            info.InGameMenu.SetActive(false);
+            info.IsControllable = true;
             info.HP = info.MaxHP;
+            info.CurrentWeapon.CurrentAmmo = info.CurrentWeapon.MaxAmmo;
         }
-    }
-    public void Damage(float damage)
-    {
-        info.HP -= damage;
-        if (info.HP <= 0)
+
+        void Awake()
         {
-            info.HP = 0;
+            info.Body = GetComponent<Rigidbody2D>();
+        }
+        private void Update()
+        {
+            if (Input.GetKeyDown(info.MenuKey))
+            {
+                info.InGameMenu.SetActive(!info.InGameMenu.activeSelf);
+                info.IsControllable = !info.IsControllable;
+            }
+            if (info.IsControllable)
+            {
+                //Obróć rękę odpowiednio
+                info.rotationMotor.RotateMousewise(info.PlayerCam, info.Arm);
+
+                if ((Input.GetAxis("Fire1") != 0) || Input.GetKey(info.ShootKey))
+                {
+                    info.CurrentWeapon.Start_Shoot?.Invoke();
+                    info.CurrentWeapon.Shoot();
+                }
+                if (!info.CurrentWeapon.IsReloading && Input.GetKey(info.ReloadKey))
+                {
+                    info.CurrentWeapon.Reload();
+                }
+                if (Input.GetKeyUp(info.ShootKey))
+                {
+                    info.CurrentWeapon.Stop_Shoot?.Invoke();
+                }
+            }
+        }
+        void FixedUpdate()
+        {
+            if (info.IsControllable)
+            {
+                info.playerMotor.Move(info);
+
+                if (Input.GetKey(info.JumpKey))
+                {
+                    info.playerMotor.Jump(info);
+                }
+                if (Input.GetKey(info.SprintKey))
+                {
+                    info.IsSprinting = true;
+                    info.playerMotor.Sprint(info);
+                }
+                else
+                {
+                    info.IsSprinting = false;
+                }
+            }
         }
     }
-    public void PlayerDeath()
-    {
-        // Kill the player
-        Destroy(gameObject);
-    }
-    //Trzeba się zastanowić jak będziemy rozpoznawać poszczególne obiekty i które przez tagi a które przez warstwy
-    /*void OnCollisionEnter2D()
-    {
-        IsGrounded = false;
-    }
-    void OnCollisionExit2D()
-    {
-        IsGrounded = true;
-    }
-    */
 }

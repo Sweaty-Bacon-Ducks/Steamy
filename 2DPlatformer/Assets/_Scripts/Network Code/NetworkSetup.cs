@@ -2,25 +2,30 @@
 using UnityEngine.Networking;
 public class NetworkSetup : NetworkBehaviour
 {
-    [SerializeField]
-    Camera networkCamera;
-
+    private GameObject lobbyCam;
+    private void Awake()
+    {
+        if (!isLocalPlayer)
+        {
+            lobbyCam = GameObject.Find("LobbyCam");
+        }
+    }
     void Start()
     {
         if (isLocalPlayer)
         {
-            networkCamera = Camera.main;
-            if (networkCamera != null)
+            lobbyCam = Camera.main.gameObject;
+            if (lobbyCam != null)
             {
-                networkCamera.gameObject.SetActive(false);
+                lobbyCam.SetActive(false);
             }
         }
     }
     void OnDisable()
     {
-        if (networkCamera!= null)
+        if (lobbyCam!= null)
         {
-            networkCamera.gameObject.SetActive(true);
+            lobbyCam.SetActive(true);
         }    
     }
 }
