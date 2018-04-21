@@ -1,34 +1,37 @@
 ﻿using UnityEngine;
 using UnityEngine.UI;
 
-public class HUDController : MonoBehaviour
+namespace Platformer
 {
-    private PlayerController player;
-
-    public Image image;
-    public Text ammoText;
-    public Image weaponSprite;
-    void Start()
+    public class HUDController : MonoBehaviour
     {
-        SetHUD();
-    }
+        private PlayerController player;
 
-    void Awake()
-    {
-        player = transform.root.GetComponent<PlayerController>();
-    }
+        public Image image;
+        public Text ammoText;
+        public Image weaponSprite;
+        void Start()
+        {
+            SetHUD();
+        }
 
-    void Update()
-    {
-        image.fillAmount = player.info.HP / player.info.MaxHP;
-        ammoText.text = player.info.CurrentWeapon.CurrentAmmo.ToString() + "/" + player.info.CurrentWeapon.MaxAmmo.ToString();
-    }
+        void Awake()
+        {
+            player = transform.root.GetComponent<PlayerController>();
+        }
 
-    void SetHUD()
-    {
-        weaponSprite.sprite = player.info.CurrentWeapon.GUISprite;
-        image.fillAmount = 1;
-        ammoText.text = player.info.CurrentWeapon.CurrentAmmo.ToString() + "/" + player.info.CurrentWeapon.MaxAmmo.ToString();
-        Debug.Log(ammoText.text);
+        void Update()
+        {
+            image.fillAmount = player.info.HP / player.info.MaxHP;
+            ammoText.text = player.info.CurrentWeapon.CurrentAmmo.ToString() + "/" + player.info.CurrentWeapon.MaxAmmo.ToString();
+        }
+
+        void SetHUD()
+        {
+            weaponSprite.sprite = player.info.CurrentWeapon.GUISprite;
+            image.fillAmount = 1;
+            ammoText.text = player.info.CurrentWeapon.CurrentAmmo.ToString() + "/" + player.info.CurrentWeapon.MaxAmmo.ToString();
+            Debug.Log(ammoText.text);
+        }
     }
 }
