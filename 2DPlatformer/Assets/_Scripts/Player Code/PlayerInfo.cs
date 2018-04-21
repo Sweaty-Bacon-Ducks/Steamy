@@ -5,6 +5,7 @@ using UnityEngine.Networking;
 using System.Collections.Generic;
 using UnityEngine.SceneManagement;
 
+
 [Serializable]
 public class PlayerInfo
 {
@@ -50,7 +51,7 @@ public class PlayerInfo
     public float Speed;
     public float JumpForce;
     public float SprintMult;
-
+  
     public void SetupDisconnectButton()
     {
         var button = InGameMenu.FindObject("ButtonDisconnect").GetComponent<Button>();

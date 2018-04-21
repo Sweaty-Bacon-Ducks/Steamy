@@ -11,7 +11,6 @@ public class ParticleWeapon : Weapon
         Start_Shoot += StartParticleEffect;
         Stop_Shoot += StopParticleEffect;
     }
-
     public override void Shoot()
     {
         if (CurrentAmmo > 0)

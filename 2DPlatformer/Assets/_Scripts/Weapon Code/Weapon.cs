@@ -23,7 +23,7 @@ public abstract class Weapon : MonoBehaviour
     public float TriggerTime;
 
     public Sprite GUISprite;
-
+    
     private void Start()
     {
         MaxAmmo = Int32.MaxValue;
