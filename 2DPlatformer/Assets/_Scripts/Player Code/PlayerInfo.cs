@@ -4,7 +4,7 @@ using UnityEngine.UI;
 using UnityEngine.Networking;
 using System.Collections.Generic;
 using UnityEngine.SceneManagement;
-
+using Platformer.Utility;
 
 [Serializable]
 public class PlayerInfo
