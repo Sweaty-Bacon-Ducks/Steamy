@@ -34,7 +34,7 @@ public class MouswiseRotationMotor : MonoBehaviour
         {
             foreach (Transform item in tr)
             {
-                //Debug.Log(item.name);
+                Debug.Log(item.name);
                 SpriteRenderer sr = tr.GetComponent<SpriteRenderer>();
                 if (sr != null)
                 {

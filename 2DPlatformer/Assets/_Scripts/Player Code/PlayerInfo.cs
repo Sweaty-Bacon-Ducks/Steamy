@@ -4,11 +4,8 @@ using UnityEngine.UI;
 using UnityEngine.Networking;
 using System.Collections.Generic;
 using UnityEngine.SceneManagement;
-using Platformer.Utility;
 
-/// <summary>
-/// Zawiera informacje o graczu
-/// </summary>
+
 [Serializable]
 public class PlayerInfo
 {
@@ -18,7 +15,7 @@ public class PlayerInfo
     public Weapon CurrentWeapon;
     public GameObject Arm;
     public Camera PlayerCam;
-    public GameObject DisconnectButton;
+    public GameObject InGameMenu;
     #endregion
 
     #region Motors
@@ -57,9 +54,8 @@ public class PlayerInfo
   
     public void SetupDisconnectButton()
     {
-        var button = DisconnectButton.FindObject("ButtonDisconnect").GetComponent<Button>();
+        var button = InGameMenu.FindObject("ButtonDisconnect").GetComponent<Button>();
         button.onClick.RemoveAllListeners();
-        Debug.Log("Ustawiam przycisk rozłączenia");
         button.onClick.AddListener(NetworkManager.singleton.StopHost);
         //button.onClick.AddListener(LoadMainMenuScene);
     }
