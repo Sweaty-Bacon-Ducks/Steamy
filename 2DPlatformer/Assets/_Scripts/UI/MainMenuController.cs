@@ -21,11 +21,14 @@ namespace Platformer
             {
                 try
                 {
-                    StartCoroutine(FadeIn(@object.GetComponentInChildren<TMP_Text>(), fadeSpeed));
+                    TMP_Text text = @object.GetComponentInChildren<TMP_Text>();
+                    string name = @object.name;
+                    //Debug.Log(name);
+                    StartCoroutine(FadeIn(text, fadeSpeed));
                 }
                 catch (System.NullReferenceException)
                 {
-                    Debug.Log(@object.name);
+                    Debug.LogWarning("Nothing to fade in");
                 }
             }
         }

@@ -68,9 +68,9 @@ namespace Platformer
         }
         private void SetupOtherScene()
         {
-            //GameObject disconnectButton = GameObject.Find("ButtonDisconnect");
-            //disconnectButton.GetComponent<Button>().onClick.RemoveAllListeners();
-            //disconnectButton.GetComponent<Button>().onClick.AddListener(singleton.StopClient);
+            GameObject disconnectButton = GameObject.Find("ButtonDisconnect");
+            disconnectButton.GetComponent<Button>().onClick.RemoveAllListeners();
+            disconnectButton.GetComponent<Button>().onClick.AddListener(singleton.StopClient);
         }
     }
 }

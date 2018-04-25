@@ -2,8 +2,15 @@
 using System.Collections.Generic;
 using UnityEngine;
 
+/// <summary>
+/// Przechowuje wszelkie funkcje związane z ruchem gracza na scenie
+/// </summary>
 public class PlayerMotor : MonoBehaviour
 {
+    /// <summary>
+    /// Nadaje graczowi prędkość.
+    /// </summary>
+    /// <param name="info">Obiekt zawierający informacje o graczu</param>
     public void Move(PlayerInfo info)
     {
         // Czy jest potrzebne zarówno IsMoving i IsStanding?
@@ -22,6 +29,10 @@ public class PlayerMotor : MonoBehaviour
         // Body.velocity, bo w ten sposób ruch jest dużo bardziej responsywny.
         info.Body.velocity = new Vector2(moveHorizontal * info.Speed, info.Body.velocity.y);
     }
+    /// <summary>
+    /// Zwiększa aktualną prędkość gracza o pewien ustalony mnożnik.
+    /// </summary>
+    /// <param name="info">Obiekt zawierający informacje o graczu</param>
     public void Sprint(PlayerInfo info)
     {
         // Sprint działa tylko gdy jest wciśnięty jakiś klawisz ruchu i nie w powietrzu.
@@ -30,6 +41,10 @@ public class PlayerMotor : MonoBehaviour
             info.Body.velocity = new Vector2(info.Body.velocity.x * info.SprintMult, info.Body.velocity.y);
         }
     }
+    /// <summary>
+    /// Nadaje graczowi prędkość na osi Y.
+    /// </summary>
+    /// <param name="info">Obiekt zawierający informacje o graczu</param>
     public void Jump(PlayerInfo info)
     {
         // Na razie bez double jump.
