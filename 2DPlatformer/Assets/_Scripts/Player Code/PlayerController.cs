@@ -15,12 +15,11 @@ namespace Platformer
             info.WeaponHolder = info.Arm;
             info.Initialize(info.WeaponHolder.transform);
             info.CurrentWeapon = info.AllWeapons[0].GetComponent<Weapon>();
+            info.SetupDisconnectButton();
+            info.InGameMenu.SetActive(false);
+            info.IsControllable = true;
             info.HP = info.MaxHP;
             info.CurrentWeapon.CurrentAmmo = info.CurrentWeapon.MaxAmmo;
-            info.IsControllable = true;
-
-            info.SetupDisconnectButton();
-            info.DisconnectButton.SetActive(false);
         }
 
         void Awake()
@@ -31,11 +30,12 @@ namespace Platformer
         {
             if (Input.GetKeyDown(info.MenuKey))
             {
-                info.DisconnectButton.SetActive(!info.DisconnectButton.activeSelf);
+                info.InGameMenu.SetActive(!info.InGameMenu.activeSelf);
                 info.IsControllable = !info.IsControllable;
             }
             if (info.IsControllable)
             {
+                //Obróć rękę odpowiednio
                 info.rotationMotor.RotateMousewise(info.PlayerCam, info.Arm);
 
                 if ((Input.GetAxis("Fire1") != 0) || Input.GetKey(info.ShootKey))
