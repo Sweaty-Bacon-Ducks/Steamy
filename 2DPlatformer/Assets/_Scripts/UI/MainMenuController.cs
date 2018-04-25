@@ -5,62 +5,75 @@ using UnityEngine.UI;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
-public class MainMenuController : MonoBehaviour
+namespace Platformer
 {
-    [SerializeField]
-    List<GameObject> objectsToFadeIn;
-
-    [SerializeField]
-    float fadeSpeed;
-
-    void Start()
+    public class MainMenuController : MonoBehaviour
     {
-        foreach (GameObject @object in objectsToFadeIn)
-        {
-            StartCoroutine(FadeIn(@object.GetComponentInChildren<TMP_Text>(), fadeSpeed));
-        }
-    }
+        [SerializeField]
+        List<GameObject> objectsToFadeIn;
 
-    IEnumerator FadeIn(TMP_Text text, float fadeSpeed)
-    {
-        float targetAlpha = 1;
-        float newAlpha = 0;
-        while (text.color.a < targetAlpha)
+        [SerializeField]
+        float fadeSpeed;
+
+        void Start()
         {
-            newAlpha += Time.deltaTime * fadeSpeed;
-            text.color = new Color(text.color.r, text.color.g, text.color.b, newAlpha);
-            yield return null;
-        }
-    }
-    IEnumerator FadeIn(Button button, float fadeSpeed)
-    {
-        float targetAlpha = 1;
-        float newAlpha = 0;
-        while (button.colors.disabledColor.a < targetAlpha)
-        {
-            newAlpha += Time.deltaTime * fadeSpeed;
-            Color color = new Color(button.colors.disabledColor.r, button.colors.disabledColor.g, button.colors.disabledColor.b, newAlpha);
-            ColorBlock colorBlock = new ColorBlock
+            foreach (GameObject @object in objectsToFadeIn)
             {
-                colorMultiplier = button.colors.colorMultiplier,
-                fadeDuration = button.colors.fadeDuration,
-                highlightedColor = button.colors.highlightedColor,
-                normalColor = button.colors.normalColor,
-                pressedColor = button.colors.pressedColor,
-                disabledColor = color
-            };
-            button.colors = colorBlock;
-            yield return null;
+                try
+                {
+                    TMP_Text text = @object.GetComponentInChildren<TMP_Text>();
+                    string name = @object.name;
+                    //Debug.Log(name);
+                    StartCoroutine(FadeIn(text, fadeSpeed));
+                }
+                catch (System.NullReferenceException)
+                {
+                    Debug.LogWarning("Nothing to fade in");
+                }
+            }
         }
-    }
 
-    public void PlayGame()
-    {
-        LoadingScreenController.Instance.LoadLevel(SceneManager.GetActiveScene().buildIndex + 1);
-    }
+        IEnumerator FadeIn(TMP_Text text, float fadeSpeed)
+        {
+            float targetAlpha = 1;
+            float newAlpha = 0;
+            while (text.color.a < targetAlpha)
+            {
+                newAlpha += Time.deltaTime * fadeSpeed;
+                text.color = new Color(text.color.r, text.color.g, text.color.b, newAlpha);
+                yield return null;
+            }
+        }
+        IEnumerator FadeIn(Button button, float fadeSpeed)
+        {
+            float targetAlpha = 1;
+            float newAlpha = 0;
+            while (button.colors.disabledColor.a < targetAlpha)
+            {
+                newAlpha += Time.deltaTime * fadeSpeed;
+                Color color = new Color(button.colors.disabledColor.r, button.colors.disabledColor.g, button.colors.disabledColor.b, newAlpha);
+                ColorBlock colorBlock = new ColorBlock
+                {
+                    colorMultiplier = button.colors.colorMultiplier,
+                    fadeDuration = button.colors.fadeDuration,
+                    highlightedColor = button.colors.highlightedColor,
+                    normalColor = button.colors.normalColor,
+                    pressedColor = button.colors.pressedColor,
+                    disabledColor = color
+                };
+                button.colors = colorBlock;
+                yield return null;
+            }
+        }
 
-    public void QuitGame()
-    {
-        Application.Quit();
+        public void PlayGame()
+        {
+            LoadingScreenController.Instance.LoadLevel(SceneManager.GetActiveScene().buildIndex + 1);
+        }
+
+        public void QuitGame()
+        {
+            Application.Quit();
+        }
     }
 }
