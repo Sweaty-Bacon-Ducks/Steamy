@@ -1,0 +1,7 @@
+﻿ 2DPlatformer/Library
+ 2DPlatformer/Builds
+ *.sln
+ *.csproj
+ *.unityproj
+ *.pidb
+ *.userprefs
