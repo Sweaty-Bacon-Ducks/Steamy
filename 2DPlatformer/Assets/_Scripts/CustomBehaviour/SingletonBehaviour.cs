@@ -8,7 +8,7 @@ namespace CustomBehaviour
     public class SingletonBehaviour<T> : MonoBehaviour where T : SingletonBehaviour<T>
     {
         #region Singleton
-        private static T _instance;
+       protected static T _instance;
 
         public static T Instance
         {
