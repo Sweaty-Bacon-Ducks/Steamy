@@ -31,7 +31,7 @@ namespace Platformer
             weaponSprite.sprite = player.info.CurrentWeapon.GUISprite;
             image.fillAmount = 1;
             ammoText.text = player.info.CurrentWeapon.CurrentAmmo.ToString() + "/" + player.info.CurrentWeapon.MaxAmmo.ToString();
-            Debug.Log(ammoText.text);
+            //Debug.Log(ammoText.text);
         }
     }
 }

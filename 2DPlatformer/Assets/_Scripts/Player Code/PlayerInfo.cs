@@ -18,7 +18,11 @@ public class PlayerInfo
     public Weapon CurrentWeapon;
     public GameObject Arm;
     public Camera PlayerCam;
+    public GameObject InGameMenu;
     public GameObject DisconnectButton;
+    public GameObject RespawnTimer;
+    public GameObject HUD;
+    public GameObject PlayerModel;
     #endregion
 
     #region Motors
@@ -32,7 +36,8 @@ public class PlayerInfo
     [Header("Player statistics")]
     public string Name = "Default";
     public float HP;
-    public float MaxHP = 100;
+    public float MaxHP = 100f;
+    public float RespawnTime = 3f;
 
     [Header("Controls")]
     public KeyCode ShootKey;
@@ -42,6 +47,7 @@ public class PlayerInfo
     public KeyCode MenuKey;
 
     [Header("Player status")]
+    public bool IsDead;
     public bool IsControllable;
     public bool IsMoving;
     public bool IsGrounded;
@@ -57,11 +63,10 @@ public class PlayerInfo
   
     public void SetupDisconnectButton()
     {
-        var button = DisconnectButton.FindObject("ButtonDisconnect").GetComponent<Button>();
+        var button = InGameMenu.FindObject("ButtonDisconnect").GetComponent<Button>();
         button.onClick.RemoveAllListeners();
         Debug.Log("Ustawiam przycisk rozłączenia");
         button.onClick.AddListener(NetworkManager.singleton.StopHost);
-        //button.onClick.AddListener(LoadMainMenuScene);
     }
     public void Heal(float ammount)
     {
@@ -78,15 +83,6 @@ public class PlayerInfo
         {
             HP = 0;
         }
-    }
-    public void PlayerDeath(GameObject player)
-    {
-        // Kill the player
-        UnityEngine.Object.Destroy(player);
-    }
-    public void LoadMainMenuScene()
-    {
-        SceneManager.LoadScene("MenuTest");
     }
 
     public void Initialize(Transform player)

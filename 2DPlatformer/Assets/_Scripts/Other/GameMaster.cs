@@ -8,24 +8,23 @@ using CustomBehaviour;
 /// </summary>
 public class GameMaster : SingletonBehaviour<GameMaster>
 {
-    public GameObject NetManager;
+    public GameObject NetManagerObject;
+    public GameObject EventManagerObject;
     void Awake()
+    {
+        InstantiateNetMenager();
+    }
+    void InstantiateNetMenager()
     {
         if (NetworkManager.singleton == null)
         {
-            Instantiate(NetManager, Vector3.zero, Quaternion.identity);
+            Instantiate(NetManagerObject, Vector3.zero, Quaternion.identity);
         }
         else
         {
             Destroy(NetworkManager.singleton.gameObject);
             NetworkManager.singleton = null;
-            Instantiate(NetManager, Vector3.zero, Quaternion.identity);
+            Instantiate(NetManagerObject, Vector3.zero, Quaternion.identity);
         }
-        //DontDestroyOnLoad(gameObject);
     }
-    public void LoadMainMenuScene()
-    {
-        SceneManager.LoadScene("MenuTest");
-    }
-
 }
