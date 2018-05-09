@@ -8,10 +8,10 @@ public class ParticleWeapon : Weapon
 
     void Awake()
     {
-        particleSystem[1].Stop();
-
         Start_Shoot += StartShootParticleEffect;
         Stop_Shoot += StopShootParticleEffect;
+
+        StopShootParticleEffect();
     }
     public override void Shoot()
     {
