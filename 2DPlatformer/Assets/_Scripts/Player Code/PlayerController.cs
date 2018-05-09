@@ -47,11 +47,7 @@ namespace Platformer
                 {
                     info.CurrentWeapon.Reload();
                 }
-                if (Input.GetKeyUp(info.ShootKey))
-                {
-                    info.CurrentWeapon.Stop_Shoot?.Invoke();
-                }
-                if (Input.GetAxis("Fire1") == 0) // fix stop mouse fire
+                if (Input.GetAxis("Fire1") == 0 || (Input.GetKeyUp(info.ShootKey))) // fix stop mouse fire
                 {
                     info.CurrentWeapon.Stop_Shoot?.Invoke();
                 }
