@@ -51,6 +51,10 @@ namespace Platformer
                 {
                     info.CurrentWeapon.Stop_Shoot?.Invoke();
                 }
+                if (Input.GetAxis("Fire1") == 0) // fix stop mouse fire
+                {
+                    info.CurrentWeapon.Stop_Shoot?.Invoke();
+                }
             }
         }
         void FixedUpdate()
