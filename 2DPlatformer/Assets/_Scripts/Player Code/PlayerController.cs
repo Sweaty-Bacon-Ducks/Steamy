@@ -14,20 +14,25 @@ namespace Platformer
         void Start()
         {
             info.WeaponHolder = info.Arm;
-            //info.Initialize(info.WeaponHolder.transform);
 
             info.SetupDisconnectButton();
             info.InGameMenu.SetActive(false);
         }
         private void OnEnable()
         {
-            //Wszystkie statystyki gracza, maj¹ce byæ zresetowane po œmierci gracza musz¹ byæ ustawiane w OnEnable
+            //Wszystkie statystyki gracza, majÂ¹ce byÃ¦ zresetowane po Å“mierci gracza muszÂ¹ byÃ¦ ustawiane w OnEnable
             info.IsDead = false;
             info.CurrentWeapon = info.AllWeapons[0].GetComponent<Weapon>();
             info.HP = info.MaxHP;
             info.CurrentWeapon.CurrentAmmo = info.CurrentWeapon.MaxAmmo;
             info.IsControllable = true;
         }
+        
+        void OnDestroy()
+        {
+            EventManager.StopListening("OnPlayerDeath",Respawn);        
+        }
+
         void Awake()
         {
             info.Body = GetComponent<Rigidbody2D>();
@@ -99,7 +104,7 @@ namespace Platformer
                 await TimeSpan.FromSeconds(Time.deltaTime);
             } while (counter > 0);
         }
-        public async void Respawn() //void poniewa¿ jest to metoda, która subskrybuje zdarzenie
+        public async void Respawn() //void poniewaÂ¿ jest to metoda, ktÃ³ra subskrybuje zdarzenie
         {
             info.IsDead = true;
             info.IsControllable = false;

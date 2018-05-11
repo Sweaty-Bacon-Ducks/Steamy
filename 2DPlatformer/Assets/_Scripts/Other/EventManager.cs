@@ -3,14 +3,24 @@ using UnityEngine;
 using UnityEngine.Events;
 using CustomBehaviour;
 
+/// <summary>
+/// Klasa obsługująca zdarzenia.
+/// </summary>
 public class EventManager : SingletonBehaviour<EventManager>
 {
+    /// <summary>
+    /// Słownik przechowujący parę - nazwa zdarzenia, funckje wywoływane przy danym zdarzeniu
+    /// </summary>
     private Dictionary<string, UnityEvent> EventDict = new Dictionary<string, UnityEvent>();
 
     void Awake()
     {
         Debug.Log("Starting event manager");
     }
+    
+    /// <summary>
+    /// Instancja obiektu typu EventManager
+    /// </summary>
     public new static EventManager Instance
     {
         get
@@ -27,10 +37,15 @@ public class EventManager : SingletonBehaviour<EventManager>
             return _instance;
         }
     }
+
+    /// <summary>
+    /// Subskrybuje funkcję do danego zdarzenia 
+    /// </summary>
+    /// <param name="EventName">Nazwa zdarzenia</param>
+    /// <param name="listener">Funckja subskrybująca</param>
     public static void StartListening(string EventName, UnityAction listener)
     {
         UnityEvent @event = new UnityEvent();
-        //Debug.Log(Instance.EventDict.Count);
         if (Instance.EventDict.TryGetValue(EventName, out @event))
         {
             @event.AddListener(listener);
@@ -42,6 +57,12 @@ public class EventManager : SingletonBehaviour<EventManager>
             Instance.EventDict.Add(EventName, @event);
         }
     }
+
+    /// <summary>
+    /// Usuwa daną funckję zasubskrybowaną do danego zdarzenia
+    /// </summary>
+    /// <param name="EventName">Nazwa zdarzenia</param>
+    /// <param name="listener">Fukcja, która ma zostać odsubskrybowana</param>
     public static void StopListening(string EventName, UnityAction listener)
     {
         if (_instance == null) return;
