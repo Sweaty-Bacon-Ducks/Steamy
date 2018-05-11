@@ -14,7 +14,6 @@ namespace Platformer
         void Start()
         {
             info.WeaponHolder = info.Arm;
-            //info.Initialize(info.WeaponHolder.transform);
 
             info.SetupDisconnectButton();
             info.InGameMenu.SetActive(false);
@@ -27,6 +26,10 @@ namespace Platformer
             info.HP = info.MaxHP;
             info.CurrentWeapon.CurrentAmmo = info.CurrentWeapon.MaxAmmo;
             info.IsControllable = true;
+        }
+        void OnDestroy()
+        {
+            EventManager.StopListening("OnPlayerDeath",Respawn);        
         }
         void Awake()
         {
