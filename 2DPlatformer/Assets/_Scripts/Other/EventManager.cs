@@ -17,6 +17,7 @@ public class EventManager : SingletonBehaviour<EventManager>
     {
         Debug.Log("Starting event manager");
     }
+    
     /// <summary>
     /// Instancja obiektu typu EventManager
     /// </summary>
@@ -36,6 +37,7 @@ public class EventManager : SingletonBehaviour<EventManager>
             return _instance;
         }
     }
+
     /// <summary>
     /// Subskrybuje funkcję do danego zdarzenia 
     /// </summary>
@@ -55,6 +57,7 @@ public class EventManager : SingletonBehaviour<EventManager>
             Instance.EventDict.Add(EventName, @event);
         }
     }
+
     /// <summary>
     /// Usuwa daną funckję zasubskrybowaną do danego zdarzenia
     /// </summary>
