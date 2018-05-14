@@ -27,10 +27,10 @@ namespace Platformer
             info.CurrentWeapon.CurrentAmmo = info.CurrentWeapon.MaxAmmo;
             info.IsControllable = true;
         }
-        
+
         void OnDestroy()
         {
-            EventManager.StopListening("OnPlayerDeath",Respawn);        
+            EventManager.StopListening("OnPlayerDeath", Respawn);
         }
 
         void Awake()
@@ -98,8 +98,7 @@ namespace Platformer
             float counter = info.RespawnTime;
             do
             {
-                Debug.Log(counter);
-                info.RespawnTimer.GetComponent<TMPro.TMP_Text>().text = Math.Round(counter,2).ToString();
+                info.RespawnTimer.GetComponent<TMPro.TMP_Text>().text = Math.Round(counter, 2).ToString();
                 counter -= Time.deltaTime;
                 await TimeSpan.FromSeconds(Time.deltaTime);
             } while (counter > 0);
@@ -112,8 +111,14 @@ namespace Platformer
             info.Arm.SetActive(false);
             info.InGameMenu.SetActive(true);
 
-            await RespawnTimer();
-
+            try
+            {
+                await RespawnTimer();
+            }
+            catch (MissingReferenceException)
+            {
+                Debug.Log("Player was destroyed");
+            }
             Vector2 spawnPlace = SpawnPointManager.Instance.SpawnPoints[UnityEngine.Random.Range(0, SpawnPointManager.Instance.SpawnPoints.Count - 1)].transform.position;       //Losowanie spawn pointa
             transform.position = spawnPlace;
 
