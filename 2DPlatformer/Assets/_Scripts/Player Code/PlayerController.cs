@@ -52,11 +52,12 @@ namespace Platformer
                     info.InGameMenu.SetActive(!info.InGameMenu.activeSelf);
                     info.IsControllable = !info.IsControllable;
                 }
+
                 if (info.IsControllable)
                 {
                     info.rotationMotor.RotateMousewise(info.PlayerCam, info.Arm);
 
-                    if (Input.GetKey(info.ShootKey))
+                    if (Input.GetButtonDown("Fire1") || Input.GetKey(info.ShootKey))
                     {
                         info.CurrentWeapon.Start_Shoot?.Invoke();
                         info.CurrentWeapon.Shoot();
@@ -65,7 +66,7 @@ namespace Platformer
                     {
                         info.CurrentWeapon.Reload();
                     }
-                    if (Input.GetKeyUp(info.ShootKey))
+                    if (Input.GetButtonUp("Fire1") || Input.GetKeyUp(info.ShootKey))
                     {
                         info.CurrentWeapon.Stop_Shoot?.Invoke();
                     }

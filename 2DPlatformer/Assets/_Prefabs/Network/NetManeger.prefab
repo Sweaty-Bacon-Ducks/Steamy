@@ -80,8 +80,8 @@ MonoBehaviour:
     type: 2}
   m_AutoCreatePlayer: 1
   m_PlayerSpawnMethod: 0
-  m_OfflineScene: MenuTest
-  m_OnlineScene: OnlineTest
+  m_OfflineScene: MenuTestFlameThrower
+  m_OnlineScene: OnlineTestFlameThrower
   m_SpawnPrefabs: []
   m_CustomConfig: 0
   m_MaxConnections: 4
