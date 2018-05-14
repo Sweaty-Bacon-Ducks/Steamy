@@ -9,7 +9,7 @@ public class DeadZoneController : MonoBehaviour
         PlayerController player;
         if (player = collision.GetComponent<PlayerController>())
         {
-            player.Respawn();
+            StartCoroutine(player.Respawn());
         }
     }
 }

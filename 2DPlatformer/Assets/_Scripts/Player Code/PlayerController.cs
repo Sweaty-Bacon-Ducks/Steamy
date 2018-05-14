@@ -2,6 +2,7 @@ using System;
 using System.Threading.Tasks;
 using UnityEngine;
 using Platformer.Utility;
+using System.Collections;
 
 namespace Platformer
 {
@@ -30,14 +31,14 @@ namespace Platformer
 
         void OnDestroy()
         {
-            EventManager.StopListening("OnPlayerDeath", Respawn);
+            EventManager.StopListening("OnPlayerDeath",() =>StartCoroutine(Respawn()));
         }
 
         void Awake()
         {
             info.Body = GetComponent<Rigidbody2D>();
 
-            EventManager.StartListening("OnPlayerDeath", Respawn);
+            EventManager.StartListening("OnPlayerDeath", () => StartCoroutine(Respawn()));
         }
         private void Update()
         {
@@ -94,17 +95,17 @@ namespace Platformer
                 }
             }
         }
-        private async Task RespawnTimer()
+        private IEnumerator RespawnTimer()
         {
             float counter = info.RespawnTime;
             do
             {
                 info.RespawnTimer.GetComponent<TMPro.TMP_Text>().text = Math.Round(counter, 2).ToString();
                 counter -= Time.deltaTime;
-                await TimeSpan.FromSeconds(Time.deltaTime);
+                yield return null;
             } while (counter > 0);
         }
-        public async void Respawn() //void poniewa¿ jest to metoda, która subskrybuje zdarzenie
+        public IEnumerator Respawn() //void poniewa¿ jest to metoda, która subskrybuje zdarzenie
         {
             info.IsDead = true;
             info.IsControllable = false;
@@ -112,14 +113,8 @@ namespace Platformer
             info.Arm.SetActive(false);
             info.InGameMenu.SetActive(true);
 
-            try
-            {
-                await RespawnTimer();
-            }
-            catch (MissingReferenceException)
-            {
-                Debug.Log("Player was destroyed");
-            }
+            yield return StartCoroutine(RespawnTimer());
+
             Vector2 spawnPlace = SpawnPointManager.Instance.SpawnPoints[UnityEngine.Random.Range(0, SpawnPointManager.Instance.SpawnPoints.Count - 1)].transform.position;       //Losowanie spawn pointa
             transform.position = spawnPlace;
 
