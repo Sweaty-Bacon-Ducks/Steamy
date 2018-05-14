@@ -23,6 +23,7 @@ public class PlayerInfo
     public GameObject RespawnTimer;
     public GameObject HUD;
     public GameObject PlayerModel;
+    public Animator AnimationController;
     #endregion
 
     #region Motors

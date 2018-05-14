@@ -28,6 +28,7 @@ public class PlayerMotor : MonoBehaviour
         float moveHorizontal = Input.GetAxis("Horizontal");
         // Body.velocity, bo w ten sposób ruch jest dużo bardziej responsywny.
         info.Body.velocity = new Vector2(moveHorizontal * info.Speed, info.Body.velocity.y);
+        info.AnimationController.SetBool("IsRunning",info.IsMoving);
     }
     /// <summary>
     /// Zwiększa aktualną prędkość gracza o pewien ustalony mnożnik.
