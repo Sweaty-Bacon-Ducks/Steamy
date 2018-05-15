@@ -6,8 +6,8 @@ EditorBuildSettings:
   serializedVersion: 2
   m_Scenes:
   - enabled: 1
-    path: Assets/_Scenes/Offline/MenuTestFlameThrower.unity
-    guid: 12e44006b493c824ab587748de5ebbeb
+    path: Assets/_Scenes/Offline/MenuTest.unity
+    guid: d5d9f7480e2e7e044be6a891cb78f1ff
   - enabled: 1
-    path: Assets/_Scenes/Online/OnlineTestFlameThrower.unity
-    guid: f9d89da1fe0e836488616c8125223d17
+    path: Assets/_Scenes/Online/OnlineTest.unity
+    guid: 68b3b34e3dd29b64198e19af3860282a

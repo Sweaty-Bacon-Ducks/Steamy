@@ -5,7 +5,7 @@ namespace Platformer
 {
     public class HUDController : MonoBehaviour
     {
-        private PlayerController player;
+        private Player player;
 
         public Image image;
         public Text ammoText;
@@ -17,18 +17,17 @@ namespace Platformer
 
         void Awake()
         {
-            player = transform.root.GetComponent<PlayerController>();
+            player = transform.root.GetComponent<Player>();
         }
 
         void Update()
         {
-            image.fillAmount = player.info.HP / player.info.MaxHP;
+            image.fillAmount = player.HP / player.MaxHP;
             ammoText.text = player.info.CurrentWeapon.CurrentAmmo.ToString() + "/" + player.info.CurrentWeapon.MaxAmmo.ToString();
         }
 
         void SetHUD()
         {
-            weaponSprite.sprite = player.info.CurrentWeapon.GUISprite;
             image.fillAmount = 1;
             ammoText.text = player.info.CurrentWeapon.CurrentAmmo.ToString() + "/" + player.info.CurrentWeapon.MaxAmmo.ToString();
             //Debug.Log(ammoText.text);

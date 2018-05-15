@@ -6,121 +6,90 @@ using System.Collections;
 
 namespace Platformer
 {
+    [RequireComponent(typeof(Rigidbody2D))]
     public class PlayerController : MonoBehaviour
     {
-        [Header("Player Information")]
-        [SerializeField]
-        public PlayerInfo info;
+        private Player player;
 
+        void Awake()
+        {
+            player = GetComponent<Player>();
+
+            player.info.Body = GetComponent<Rigidbody2D>();
+
+            EventManager.StartListening("OnPlayerDeath", () => StartCoroutine(player.Respawn()));
+        }
         void Start()
         {
-            info.WeaponHolder = info.Arm;
-
-            info.SetupDisconnectButton();
-            info.InGameMenu.SetActive(false);
+            player.SetupDisconnectButton();
+            player.info.InGameMenu.SetActive(false);
         }
         private void OnEnable()
         {
             //Wszystkie statystyki gracza, maj¹ce byæ zresetowane po œmierci gracza musz¹ byæ ustawiane w OnEnable
-            info.IsDead = false;
-            info.CurrentWeapon = info.AllWeapons[0].GetComponent<Weapon>();
-            info.HP = info.MaxHP;
-            info.CurrentWeapon.CurrentAmmo = info.CurrentWeapon.MaxAmmo;
-            info.IsControllable = true;
+            player.SetDefaults();
         }
 
         void OnDestroy()
         {
-            EventManager.StopListening("OnPlayerDeath",() =>StartCoroutine(Respawn()));
+            EventManager.StopListening("OnPlayerDeath",() =>StartCoroutine(player.Respawn()));
         }
-
-        void Awake()
-        {
-            info.Body = GetComponent<Rigidbody2D>();
-
-            EventManager.StartListening("OnPlayerDeath", () => StartCoroutine(Respawn()));
-        }
+        
         private void Update()
         {
-            if (!info.IsDead)
+            if (!player.info.IsDead)
             {
                 if (Input.GetKeyDown("o"))
                 {
                     EventManager.TriggerEvent("OnPlayerDeath");
                 }
-                if (Input.GetKeyDown(info.MenuKey))
+                if (Input.GetKeyDown(player.info.MenuKey))
                 {
-                    info.InGameMenu.SetActive(!info.InGameMenu.activeSelf);
-                    info.IsControllable = !info.IsControllable;
+                    player.info.InGameMenu.SetActive(!player.info.InGameMenu.activeSelf);
+                    player.info.IsControllable = !player.info.IsControllable;
                 }
 
-                if (info.IsControllable)
+                if (player.info.IsControllable)
                 {
-                    info.rotationMotor.RotateMousewise(info.PlayerCam, info.Arm);
+                    player.info.rotationMotor.RotateMousewise(player.info.PlayerCam, player.info.Arm);
 
-                    if (Input.GetButtonDown("Fire1") || Input.GetKey(info.ShootKey))
+                    if (Input.GetButtonDown("Fire1") || Input.GetKey(player.info.ShootKey))
                     {
-                        info.CurrentWeapon.Start_Shoot?.Invoke();
-                        info.CurrentWeapon.Shoot();
+                        player.info.CurrentWeapon.Start_Shoot?.Invoke();
+                        player.info.CurrentWeapon.Shoot();
                     }
-                    if (!info.CurrentWeapon.IsReloading && Input.GetKey(info.ReloadKey))
+                    if (!player.info.CurrentWeapon.IsReloading && Input.GetKey(player.info.ReloadKey))
                     {
-                        info.CurrentWeapon.Reload();
+                        player.info.CurrentWeapon.Reload();
                     }
-                    if (Input.GetButtonUp("Fire1") || Input.GetKeyUp(info.ShootKey))
+                    if (Input.GetButtonUp("Fire1") || Input.GetKeyUp(player.info.ShootKey))
                     {
-                        info.CurrentWeapon.Stop_Shoot?.Invoke();
+                        player.info.CurrentWeapon.Stop_Shoot?.Invoke();
                     }
                 }
             }
         }
         void FixedUpdate()
         {
-            if (info.IsControllable && !info.IsDead)
+            if (player.info.IsControllable && !player.info.IsDead)
             {
-                info.playerMotor.Move(info);
+                player.info.playerMotor.Move(player.info);
 
-                if (Input.GetKey(info.JumpKey))
+                if (Input.GetKey(player.info.JumpKey))
                 {
-                    info.playerMotor.Jump(info);
+                    player.info.playerMotor.Jump(player.info);
                 }
-                if (Input.GetKey(info.SprintKey))
+                if (Input.GetKey(player.info.SprintKey))
                 {
-                    info.IsSprinting = true;
-                    info.playerMotor.Sprint(info);
+                    player.info.IsSprinting = true;
+                    player.info.playerMotor.Sprint(player.info);
                 }
                 else
                 {
-                    info.IsSprinting = false;
+                    player.info.IsSprinting = false;
                 }
             }
         }
-        private IEnumerator RespawnTimer()
-        {
-            float counter = info.RespawnTime;
-            do
-            {
-                info.RespawnTimer.GetComponent<TMPro.TMP_Text>().text = Math.Round(counter, 2).ToString();
-                counter -= Time.deltaTime;
-                yield return null;
-            } while (counter > 0);
-        }
-        public IEnumerator Respawn() //void poniewa¿ jest to metoda, która subskrybuje zdarzenie
-        {
-            info.IsDead = true;
-            info.IsControllable = false;
-            info.PlayerModel.SetActive(false);
-            info.Arm.SetActive(false);
-            info.InGameMenu.SetActive(true);
-
-            yield return StartCoroutine(RespawnTimer());
-
-            Vector2 spawnPlace = SpawnPointManager.Instance.SpawnPoints[UnityEngine.Random.Range(0, SpawnPointManager.Instance.SpawnPoints.Count - 1)].transform.position;       //Losowanie spawn pointa
-            transform.position = spawnPlace;
-
-            info.IsDead = false;
-            info.PlayerModel.SetActive(true);
-            info.Arm.SetActive(true);
-        }
+        
     }
 }
