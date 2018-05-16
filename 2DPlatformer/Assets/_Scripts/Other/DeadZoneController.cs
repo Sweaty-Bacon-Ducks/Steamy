@@ -6,8 +6,8 @@ public class DeadZoneController : MonoBehaviour
 {
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        PlayerController player;
-        if (player = collision.GetComponent<PlayerController>())
+        Player player;
+        if (player = collision.GetComponent<Player>())
         {
             StartCoroutine(player.Respawn());
         }

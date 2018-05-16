@@ -1,6 +1,7 @@
 ﻿using UnityEngine;
 using System.Collections;
 using System;
+using UnityEngine.Networking;
 
 public delegate void WeaponEvent();
 public abstract class Weapon : MonoBehaviour
@@ -21,8 +22,6 @@ public abstract class Weapon : MonoBehaviour
     public int CurrentAmmo;
     public float ReloadTime;
     public float TriggerTime;
-
-    public Sprite GUISprite;
     
     private void Start()
     {

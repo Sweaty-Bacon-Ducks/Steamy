@@ -214,7 +214,6 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
-
 --- !u!1 &1615123227403910
 GameObject:
   m_ObjectHideFlags: 1
@@ -261,6 +260,7 @@ GameObject:
   - component: {fileID: 50544428752276220}
   - component: {fileID: 114349263138149086}
   - component: {fileID: 114471225314048408}
+  - component: {fileID: 114585222209323038}
   - component: {fileID: 114136751695751272}
   - component: {fileID: 114377046328274754}
   - component: {fileID: 114101309056203186}
@@ -413,7 +413,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1714075016065504}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -66.33331, y: -17.904694, z: 0}
+  m_LocalPosition: {x: -263.0978, y: 112.69287, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 4728377649661206}
@@ -551,44 +551,39 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 762d2568871db354497a9aa72c0a7af9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  HP: 0
+  Name: Default
+  MaxHP: 100
+  RespawnTime: 3
   info:
-    WeaponHolder: {fileID: 1207992244311916}
-    AllWeapons:
-    - {fileID: 1191817954859246}
-    - {fileID: 0}
-    - {fileID: 0}
-    CurrentWeapon: {fileID: 114672435572682826}
-    Arm: {fileID: 1207992244311916}
-    PlayerCam: {fileID: 20144234129440406}
-    InGameMenu: {fileID: 1776695551142076}
-    DisconnectButton: {fileID: 1466859288722724}
-    RespawnTimer: {fileID: 1124301344256896}
-    HUD: {fileID: 1422104487000970}
-    PlayerModel: {fileID: 1969785874836140}
-    AnimationController: {fileID: 95784804638836254}
-    rotationMotor: {fileID: 114377046328274754}
-    playerMotor: {fileID: 114101309056203186}
+    PlayerCam: {fileID: 0}
+    CurrentWeapon: {fileID: 0}
+    AnimationController: {fileID: 0}
+    Arm: {fileID: 0}
+    InGameMenu: {fileID: 0}
+    DisconnectButton: {fileID: 0}
+    RespawnTimer: {fileID: 0}
+    HUD: {fileID: 0}
+    PlayerModel: {fileID: 0}
+    rotationMotor: {fileID: 0}
+    playerMotor: {fileID: 0}
     Body: {fileID: 0}
-    Name: Default
-    HP: 0
-    MaxHP: 100
-    RespawnTime: 3
-    ShootKey: 323
-    ReloadKey: 114
-    SprintKey: 304
-    JumpKey: 32
-    MenuKey: 27
+    ShootKey: 0
+    ReloadKey: 0
+    SprintKey: 0
+    JumpKey: 0
+    MenuKey: 0
     IsDead: 0
     IsControllable: 0
     IsMoving: 0
     IsGrounded: 0
     IsSprinting: 0
     IsStanding: 0
-    IsCrouching: 1
+    IsCrouching: 0
     IsLying: 0
-    Speed: 2
-    JumpForce: 2
-    SprintMult: 1.5
+    Speed: 0
+    JumpForce: 0
+    SprintMult: 0
 --- !u!114 &114349263138149086
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -828,6 +823,50 @@ MonoBehaviour:
   m_FillAmount: 1
   m_FillClockwise: 1
   m_FillOrigin: 0
+--- !u!114 &114585222209323038
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1714075016065504}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c995314a3a6c8104aab6782c869f1c32, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  HP: 0
+  Name: Default
+  MaxHP: 100
+  RespawnTime: 3
+  info:
+    PlayerCam: {fileID: 20144234129440406}
+    CurrentWeapon: {fileID: 114672435572682826}
+    AnimationController: {fileID: 0}
+    Arm: {fileID: 1207992244311916}
+    InGameMenu: {fileID: 1776695551142076}
+    DisconnectButton: {fileID: 1466859288722724}
+    RespawnTimer: {fileID: 1537242211057892}
+    HUD: {fileID: 1422104487000970}
+    PlayerModel: {fileID: 1969785874836140}
+    rotationMotor: {fileID: 0}
+    playerMotor: {fileID: 0}
+    Body: {fileID: 0}
+    ShootKey: 306
+    ReloadKey: 114
+    SprintKey: 304
+    JumpKey: 32
+    MenuKey: 27
+    IsDead: 0
+    IsControllable: 0
+    IsMoving: 0
+    IsGrounded: 0
+    IsSprinting: 0
+    IsStanding: 0
+    IsCrouching: 0
+    IsLying: 0
+    Speed: 7
+    JumpForce: 1
+    SprintMult: 1.5
 --- !u!114 &114594953505809672
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -1220,6 +1259,39 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7a6d763ed7151e74d9d8a59d57fa842d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  HP: 0
+  Name: Default
+  MaxHP: 100
+  RespawnTime: 3
+  info:
+    PlayerCam: {fileID: 0}
+    CurrentWeapon: {fileID: 0}
+    AnimationController: {fileID: 0}
+    Arm: {fileID: 0}
+    InGameMenu: {fileID: 0}
+    DisconnectButton: {fileID: 0}
+    RespawnTimer: {fileID: 0}
+    HUD: {fileID: 0}
+    PlayerModel: {fileID: 0}
+    rotationMotor: {fileID: 0}
+    playerMotor: {fileID: 0}
+    Body: {fileID: 0}
+    ShootKey: 0
+    ReloadKey: 0
+    SprintKey: 0
+    JumpKey: 0
+    MenuKey: 0
+    IsDead: 0
+    IsControllable: 0
+    IsMoving: 0
+    IsGrounded: 0
+    IsSprinting: 0
+    IsStanding: 0
+    IsCrouching: 0
+    IsLying: 0
+    Speed: 0
+    JumpForce: 0
+    SprintMult: 0
   image: {fileID: 114690039696669938}
   ammoText: {fileID: 114551225261278196}
   weaponSprite: {fileID: 0}
