@@ -21,7 +21,7 @@ GameObject:
   - component: {fileID: 224675540059719970}
   - component: {fileID: 222917740808889064}
   - component: {fileID: 114695962807851096}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: WaitForRespawn
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -38,7 +38,7 @@ GameObject:
   - component: {fileID: 4806579938911330}
   - component: {fileID: 198153071797817442}
   - component: {fileID: 199050198353512208}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: IgnitionFlame
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -55,7 +55,7 @@ GameObject:
   - component: {fileID: 224694357814232548}
   - component: {fileID: 222102641998087740}
   - component: {fileID: 114454011849112722}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Timer
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -70,8 +70,7 @@ GameObject:
   serializedVersion: 5
   m_Component:
   - component: {fileID: 4286232321144878}
-  - component: {fileID: 114672435572682826}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Flamethrower
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -86,7 +85,7 @@ GameObject:
   serializedVersion: 5
   m_Component:
   - component: {fileID: 4789558407877702}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Arm
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -104,7 +103,7 @@ GameObject:
   - component: {fileID: 20144234129440406}
   - component: {fileID: 124643686697623700}
   - component: {fileID: 81939462532221070}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: PlayerCam
   m_TagString: PlayerCam
   m_Icon: {fileID: 0}
@@ -121,7 +120,7 @@ GameObject:
   - component: {fileID: 224455874401836954}
   - component: {fileID: 222979422319604150}
   - component: {fileID: 114690039696669938}
-  m_Layer: 5
+  m_Layer: 8
   m_Name: HP
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -138,7 +137,7 @@ GameObject:
   - component: {fileID: 4770399232992660}
   - component: {fileID: 198087804232797156}
   - component: {fileID: 199668187355964112}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Flame
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -157,7 +156,7 @@ GameObject:
   - component: {fileID: 114617082502772172}
   - component: {fileID: 114533886755932338}
   - component: {fileID: 114892171626303526}
-  m_Layer: 5
+  m_Layer: 8
   m_Name: HUD
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -175,7 +174,7 @@ GameObject:
   - component: {fileID: 222149810462514592}
   - component: {fileID: 114564682280128718}
   - component: {fileID: 114960212301200160}
-  m_Layer: 5
+  m_Layer: 8
   m_Name: ButtonDisconnect
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -192,7 +191,7 @@ GameObject:
   - component: {fileID: 224550386876050092}
   - component: {fileID: 222112050108618430}
   - component: {fileID: 114630856222166532}
-  m_Layer: 5
+  m_Layer: 8
   m_Name: TextMeshPro Text
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -207,7 +206,7 @@ GameObject:
   serializedVersion: 5
   m_Component:
   - component: {fileID: 224397273323899978}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: RespawnTimer
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -224,7 +223,7 @@ GameObject:
   - component: {fileID: 224661308600261278}
   - component: {fileID: 222358824594549412}
   - component: {fileID: 114919887831484684}
-  m_Layer: 5
+  m_Layer: 8
   m_Name: GameObject
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -241,7 +240,7 @@ GameObject:
   - component: {fileID: 224516806369239270}
   - component: {fileID: 222730173494691710}
   - component: {fileID: 114651054362480202}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Background
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -266,7 +265,9 @@ GameObject:
   - component: {fileID: 114101309056203186}
   - component: {fileID: 114905693071623494}
   - component: {fileID: 114594953505809672}
-  m_Layer: 0
+  - component: {fileID: 114524247354521290}
+  - component: {fileID: 114972149405694978}
+  m_Layer: 8
   m_Name: SteamBlow
   m_TagString: Player
   m_Icon: {fileID: 0}
@@ -284,13 +285,13 @@ GameObject:
   - component: {fileID: 223138670725465854}
   - component: {fileID: 114717875630522412}
   - component: {fileID: 114928705489363698}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: InGameMenu
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!1 &1850990547267574
 GameObject:
   m_ObjectHideFlags: 1
@@ -301,7 +302,7 @@ GameObject:
   - component: {fileID: 224179849763020726}
   - component: {fileID: 222949724342587062}
   - component: {fileID: 114551225261278196}
-  m_Layer: 5
+  m_Layer: 8
   m_Name: Ammo
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -318,7 +319,7 @@ GameObject:
   - component: {fileID: 4510256460606806}
   - component: {fileID: 212711098328569586}
   - component: {fileID: 95784804638836254}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Model
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -413,7 +414,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1714075016065504}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -263.0978, y: 112.69287, z: 0}
+  m_LocalPosition: {x: 170.56433, y: 113.70691, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 4728377649661206}
@@ -551,39 +552,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 762d2568871db354497a9aa72c0a7af9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  HP: 0
-  Name: Default
-  MaxHP: 100
-  RespawnTime: 3
-  info:
-    PlayerCam: {fileID: 0}
-    CurrentWeapon: {fileID: 0}
-    AnimationController: {fileID: 0}
-    Arm: {fileID: 0}
-    InGameMenu: {fileID: 0}
-    DisconnectButton: {fileID: 0}
-    RespawnTimer: {fileID: 0}
-    HUD: {fileID: 0}
-    PlayerModel: {fileID: 0}
-    rotationMotor: {fileID: 0}
-    playerMotor: {fileID: 0}
-    Body: {fileID: 0}
-    ShootKey: 0
-    ReloadKey: 0
-    SprintKey: 0
-    JumpKey: 0
-    MenuKey: 0
-    IsDead: 0
-    IsControllable: 0
-    IsMoving: 0
-    IsGrounded: 0
-    IsSprinting: 0
-    IsStanding: 0
-    IsCrouching: 0
-    IsLying: 0
-    Speed: 0
-    JumpForce: 0
-    SprintMult: 0
 --- !u!114 &114349263138149086
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -747,6 +715,32 @@ MonoBehaviour:
   m_MovementThreshold: 0.001
   m_InterpolateRotation: 0.5
   m_InterpolateMovement: 1
+--- !u!114 &114524247354521290
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1714075016065504}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 479d9346f31a7db418ac31784c495e37, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  IsCollectable: 1
+  IsAutomatic: 0
+  IsMelee: 0
+  IsRaycast: 0
+  IsPhysics: 0
+  IsParticle: 0
+  IsReloading: 0
+  IsShooting: 0
+  MaxAmmo: 100
+  CurrentAmmo: 0
+  ReloadTime: 3
+  TriggerTime: 0.3
+  particleSystem:
+  - {fileID: 198153071797817442}
+  - {fileID: 198087804232797156}
 --- !u!114 &114533886755932338
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -840,12 +834,12 @@ MonoBehaviour:
   RespawnTime: 3
   info:
     PlayerCam: {fileID: 20144234129440406}
-    CurrentWeapon: {fileID: 114672435572682826}
+    CurrentWeapon: {fileID: 0}
     AnimationController: {fileID: 0}
     Arm: {fileID: 1207992244311916}
     InGameMenu: {fileID: 1776695551142076}
     DisconnectButton: {fileID: 1466859288722724}
-    RespawnTimer: {fileID: 1537242211057892}
+    RespawnTimer: {fileID: 1124301344256896}
     HUD: {fileID: 1422104487000970}
     PlayerModel: {fileID: 1969785874836140}
     rotationMotor: {fileID: 0}
@@ -986,7 +980,7 @@ MonoBehaviour:
   m_enableWordWrapping: 1
   m_wordWrappingRatios: 0.4
   m_overflowMode: 0
-  m_firstOverflowCharacterIndex: 0
+  m_firstOverflowCharacterIndex: -1
   m_linkedTextComponent: {fileID: 0}
   m_isLinkedTextComponent: 0
   m_enableKerning: 1
@@ -1061,33 +1055,6 @@ MonoBehaviour:
   m_FillAmount: 1
   m_FillClockwise: 1
   m_FillOrigin: 0
---- !u!114 &114672435572682826
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1191817954859246}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 479d9346f31a7db418ac31784c495e37, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  IsCollectable: 1
-  IsAutomatic: 0
-  IsMelee: 0
-  IsRaycast: 0
-  IsPhysics: 0
-  IsParticle: 0
-  IsReloading: 0
-  IsShooting: 0
-  MaxAmmo: 100
-  CurrentAmmo: 0
-  ReloadTime: 3
-  TriggerTime: 0.3
-  GUISprite: {fileID: 21300000, guid: dc507f2033e7edd4cb2701108a476475, type: 3}
-  particleSystem:
-  - {fileID: 198153071797817442}
-  - {fileID: 198087804232797156}
 --- !u!114 &114690039696669938
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -1259,39 +1226,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7a6d763ed7151e74d9d8a59d57fa842d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  HP: 0
-  Name: Default
-  MaxHP: 100
-  RespawnTime: 3
-  info:
-    PlayerCam: {fileID: 0}
-    CurrentWeapon: {fileID: 0}
-    AnimationController: {fileID: 0}
-    Arm: {fileID: 0}
-    InGameMenu: {fileID: 0}
-    DisconnectButton: {fileID: 0}
-    RespawnTimer: {fileID: 0}
-    HUD: {fileID: 0}
-    PlayerModel: {fileID: 0}
-    rotationMotor: {fileID: 0}
-    playerMotor: {fileID: 0}
-    Body: {fileID: 0}
-    ShootKey: 0
-    ReloadKey: 0
-    SprintKey: 0
-    JumpKey: 0
-    MenuKey: 0
-    IsDead: 0
-    IsControllable: 0
-    IsMoving: 0
-    IsGrounded: 0
-    IsSprinting: 0
-    IsStanding: 0
-    IsCrouching: 0
-    IsLying: 0
-    Speed: 0
-    JumpForce: 0
-    SprintMult: 0
   image: {fileID: 114690039696669938}
   ammoText: {fileID: 114551225261278196}
   weaponSprite: {fileID: 0}
@@ -1408,6 +1342,29 @@ MonoBehaviour:
         m_CallState: 2
     m_TypeName: UnityEngine.UI.Button+ButtonClickedEvent, UnityEngine.UI, Version=1.0.0.0,
       Culture=neutral, PublicKeyToken=null
+--- !u!114 &114972149405694978
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1714075016065504}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0f7304a13747ab54781dc8bb97d39364, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  IsCollectable: 1
+  IsAutomatic: 0
+  IsMelee: 0
+  IsRaycast: 0
+  IsPhysics: 0
+  IsParticle: 0
+  IsReloading: 0
+  IsShooting: 0
+  MaxAmmo: 0
+  CurrentAmmo: 0
+  ReloadTime: 0
+  TriggerTime: 0
 --- !u!124 &124643686697623700
 Behaviour:
   m_ObjectHideFlags: 1
@@ -8378,8 +8335,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: 0, y: -3.2}
-  m_SizeDelta: {x: -1730.2, y: -1036.9}
+  m_AnchoredPosition: {x: 0, y: 0}
+  m_SizeDelta: {x: -551, y: -325.2}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!224 &224179849763020726
 RectTransform:

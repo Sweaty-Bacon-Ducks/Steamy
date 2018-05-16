@@ -8,6 +8,7 @@ using UnityEngine.Networking;
 [RequireComponent(typeof(Player))]
 public class PlayerSetup : NetworkBehaviour
 {
+    private const string REMOTE_LAYER_MASK = "RemotePlayer";  
     /// <summary>
     /// Lista komponentów, którą należy wypełnić w inspektorze
     /// </summary>
@@ -19,7 +20,13 @@ public class PlayerSetup : NetworkBehaviour
         if (!isLocalPlayer)
         {
             DisableComponents();
+            AssignRemoteLayer();
         }
+    }
+
+    public void AssignRemoteLayer()
+    {
+        gameObject.layer = LayerMask.NameToLayer(REMOTE_LAYER_MASK);
     }
 
     public override void OnStartClient()

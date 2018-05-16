@@ -20,7 +20,15 @@ public class Player : NetworkBehaviour
     private void Awake()
     {
         info.PlayerCam = GetComponentInChildren<Camera>();
-        info.CurrentWeapon = info.Arm.GetComponentInChildren<Weapon>();
+        var weapons = GetComponents<Weapon>();
+        foreach (var item in weapons)
+        {
+            if (item.GetType() != typeof(PhysicsWeapon))
+            {
+                info.CurrentWeapon = item;
+                break;
+            }
+        }
         info.AnimationController = GetComponentInChildren<Animator>();
         info.rotationMotor = GetComponent<MouswiseRotationMotor>();
         info.playerMotor = GetComponent<PlayerMotor>();
