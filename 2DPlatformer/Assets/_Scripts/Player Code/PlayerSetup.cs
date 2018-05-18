@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Networking;
 
@@ -8,7 +9,7 @@ using UnityEngine.Networking;
 [RequireComponent(typeof(Player))]
 public class PlayerSetup : NetworkBehaviour
 {
-    private const string REMOTE_LAYER_MASK = "RemotePlayer";  
+    private const string REMOTE_LAYER_MASK = "RemotePlayer";
     /// <summary>
     /// Lista komponentów, którą należy wypełnić w inspektorze
     /// </summary>
@@ -22,6 +23,8 @@ public class PlayerSetup : NetworkBehaviour
             DisableComponents();
             AssignRemoteLayer();
         }
+
+        GetComponent<Player>().Setup();
     }
 
     public void AssignRemoteLayer()
@@ -35,8 +38,10 @@ public class PlayerSetup : NetworkBehaviour
         Player _player = GetComponent<Player>();
         GameMaster.RegisterPlayer(_netID, _player);
     }
-    private void OnDisable()
+
+    private void OnDestroy()
     {
+        Debug.Log("Unregistered " + transform.name);
         GameMaster.UnRegisterPlayer(transform.name);
     }
     void DisableComponents()

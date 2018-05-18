@@ -20,7 +20,6 @@ GameObject:
   m_Component:
   - component: {fileID: 4917117851639222}
   - component: {fileID: 114607544966419506}
-  - component: {fileID: 114215422377732884}
   m_Layer: 0
   m_Name: NetManeger
   m_TagString: Untagged
@@ -41,21 +40,6 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &114215422377732884
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1261615193502280}
-  m_Enabled: 0
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 1180575928, guid: dc443db3e92b4983b9738c1131f555cb, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  m_HostMigration: 1
-  m_ShowGUI: 1
-  m_OffsetX: 10
-  m_OffsetY: 300
 --- !u!114 &114607544966419506
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -76,13 +60,16 @@ MonoBehaviour:
   m_ScriptCRCCheck: 1
   m_MaxDelay: 0.01
   m_LogLevel: 2
-  m_PlayerPrefab: {fileID: 1714075016065504, guid: 05ba626b072f9b54da8414903d917e8c,
+  m_PlayerPrefab: {fileID: 1384817434151972, guid: 213aa3b1c50d63d4b89ef9407e7c12ae,
     type: 2}
   m_AutoCreatePlayer: 1
-  m_PlayerSpawnMethod: 0
+  m_PlayerSpawnMethod: 1
   m_OfflineScene: MenuTest
   m_OnlineScene: OnlineTest
-  m_SpawnPrefabs: []
+  m_SpawnPrefabs:
+  - {fileID: 1714075016065504, guid: 05ba626b072f9b54da8414903d917e8c, type: 2}
+  - {fileID: 1471898132282516, guid: 07fce7eeafa498347bf3b21be2faf180, type: 2}
+  - {fileID: 1252614803407070, guid: c1c3c05405cf4a34bbb3522cfc667258, type: 2}
   m_CustomConfig: 0
   m_MaxConnections: 4
   m_ConnectionConfig:

@@ -24,12 +24,22 @@ public class PlayerMotor : MonoBehaviour
             info.IsMoving = true;
             info.IsStanding = false;
         }
-
+        if (info.Body.velocity.y == 0)
+        {
+            info.IsGrounded = true;
+        }
+        else
+        {
+            info.IsGrounded = false;
+        }
         float moveHorizontal = Input.GetAxis("Horizontal");
         // Body.velocity, bo w ten sposób ruch jest dużo bardziej responsywny.
         info.Body.velocity = new Vector2(moveHorizontal * info.Speed, info.Body.velocity.y);
-        info.AnimationController.SetBool("IsRunning",info.IsMoving);
+        info.AnimationController.SetBool("IsRunning", info.IsMoving);
     }
+
+    // zmienione od tego miejsca
+
     /// <summary>
     /// Zwiększa aktualną prędkość gracza o pewien ustalony mnożnik.
     /// </summary>
@@ -37,7 +47,7 @@ public class PlayerMotor : MonoBehaviour
     public void Sprint(PlayerInfo info)
     {
         // Sprint działa tylko gdy jest wciśnięty jakiś klawisz ruchu i nie w powietrzu.
-        if (info.IsGrounded == false && Input.GetAxis("Horizontal") != 0)
+        if (info.IsGrounded == true && Input.GetAxis("Horizontal") != 0)
         {
             info.Body.velocity = new Vector2(info.Body.velocity.x * info.SprintMult, info.Body.velocity.y);
         }
@@ -49,7 +59,7 @@ public class PlayerMotor : MonoBehaviour
     public void Jump(PlayerInfo info)
     {
         // Na razie bez double jump.
-        if (info.IsGrounded == false)
+        if (info.IsGrounded == true)
         {
             Vector2 jump = new Vector2(0, info.JumpForce);
             info.Body.AddForce(jump, ForceMode2D.Impulse);

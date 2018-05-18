@@ -8,36 +8,58 @@ using CustomBehaviour;
 /// </summary>
 public class GameMaster : SingletonBehaviour<GameMaster>
 {
+    public GameObject[] PlayerPrefabs;
+
+    #region PlayerTracking
     private const string PLAYER_ID_PREFIX = "Player ";
 
     [SerializeField]
     private static Dictionary<string, Player> players = new Dictionary<string, Player>();
-
-    [SerializeField]
-    private GameObject NetManagerObject;
-
-
-    void Awake()
-    {
-        InstantiateNetMenager();
-    }
 
     public static void RegisterPlayer(string _netID, Player _player)
     {
         string _playerID = PLAYER_ID_PREFIX + _netID;
         players.Add(_playerID, _player);
         _player.transform.name = _playerID;
+
+        //LogPlayers();
     }
+
     public static Player GetPlayer(string _playerID)
     {
         return players[_playerID];
     }
+
     public static void UnRegisterPlayer(string _playerID)
     {
         players.Remove(_playerID);
     }
 
-    void InstantiateNetMenager()
+    private static void LogPlayers()
+    {
+        string res = "";
+        foreach (string _playerID in players.Keys)
+        {
+            res += _playerID + " : " + players[_playerID].transform.name + "\n";
+        }
+        Debug.Log(res);
+    }
+    #endregion
+
+    public MatchSettings GameSettings;
+
+    [SerializeField]
+    private GameObject NetManagerObject;
+
+    private void Start()
+    {
+        if (SceneManager.GetActiveScene().buildIndex == 0)  //Instantiate the network manager only if the current scene is the main menu
+        {
+            InstantiateNetMenager();
+        }
+    }
+
+    private void InstantiateNetMenager()
     {
         if (NetworkManager.singleton == null)
         {
@@ -50,4 +72,5 @@ public class GameMaster : SingletonBehaviour<GameMaster>
             Instantiate(NetManagerObject, Vector3.zero, Quaternion.identity);
         }
     }
+    
 }

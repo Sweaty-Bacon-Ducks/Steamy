@@ -14,6 +14,8 @@ public class PlayerInfo
     public Weapon CurrentWeapon;
     [HideInInspector]
     public Animator AnimationController;
+    [HideInInspector]
+    public Rigidbody2D Body;
     public GameObject Arm;
     public GameObject InGameMenu;
     public GameObject DisconnectButton;
@@ -30,8 +32,8 @@ public class PlayerInfo
     public PlayerMotor playerMotor;
     #endregion
 
-    [HideInInspector]
-    public Rigidbody2D Body;
+    [Header("Selected Prefab")]
+    public int SelectedAvatar;
 
     [Header("Controls")]
     public KeyCode ShootKey;
@@ -39,9 +41,9 @@ public class PlayerInfo
     public KeyCode SprintKey;
     public KeyCode JumpKey;
     public KeyCode MenuKey;
+    public KeyCode GrenadeKey;
 
     [Header("Player status")]
-    public bool IsDead;
     public bool IsControllable;
     public bool IsMoving;
     public bool IsGrounded;
@@ -54,6 +56,7 @@ public class PlayerInfo
     public float Speed;
     public float JumpForce;
     public float SprintMult;
+   
 
     //Private constructor disallows the object from being created
     private PlayerInfo(){   }

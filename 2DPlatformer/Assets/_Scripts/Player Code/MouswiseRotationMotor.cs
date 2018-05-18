@@ -3,6 +3,9 @@
 //This script only works when the camera attached is ortographic
 public class MouswiseRotationMotor : MonoBehaviour
 {
+    [SerializeField]
+    private SpriteRenderer[] spritesToFlip;
+
     bool isFlipped = true;
 
     public void RotateMousewise(Camera targetCam, GameObject @object, float RotationOffset = 0f)
@@ -20,28 +23,17 @@ public class MouswiseRotationMotor : MonoBehaviour
         if (Mathf.Abs(rotationZ) >= 90 && !isFlipped)
         {
             isFlipped = true;
-            FlipChilds(@object);
         }
         if (Mathf.Abs(rotationZ) < 90 && isFlipped)
         {
             isFlipped = false;
-            FlipChilds(@object);
         }
     }
-    void FlipChilds(GameObject @object)
+    void FlipSprites()
     {
-        foreach (Transform tr in @object.transform)
+        foreach (SpriteRenderer rend in spritesToFlip)
         {
-            foreach (Transform item in tr)
-            {
-                //Debug.Log(item.name);
-                SpriteRenderer sr = tr.GetComponent<SpriteRenderer>();
-                if (sr != null)
-                {
-                    sr.flipY = !sr.flipY;
-                }
-            }
-            
+
         }
     }
 }

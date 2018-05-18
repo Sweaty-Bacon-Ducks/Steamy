@@ -1,6 +1,6 @@
 ﻿using Platformer.Utility;
-using System;
 using System.Collections;
+using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Networking;
 using UnityEngine.UI;
@@ -9,11 +9,19 @@ public class Player : NetworkBehaviour
 {
     [SyncVar]
     public float HP;
+    [SyncVar]
+    public bool IsDead;
+
+    //Lista aktywnych buffów
+    List<Buff> activeEffects = new List<Buff>();
 
     [Header("Player statistics")]
     public string Name = "Default";
     public float MaxHP = 100f;
-    public float RespawnTime = 3f;
+
+    [SerializeField]
+    private Behaviour[] disableOnDeath;
+    private bool[] wasEnabled;
 
     public PlayerInfo info;
 
@@ -33,17 +41,6 @@ public class Player : NetworkBehaviour
         info.rotationMotor = GetComponent<MouswiseRotationMotor>();
         info.playerMotor = GetComponent<PlayerMotor>();
     }
-    // Use this for initialization
-    void Start()
-    {
-
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-
-    }
     public void Heal(float ammount)
     {
         HP += ammount;
@@ -52,28 +49,76 @@ public class Player : NetworkBehaviour
             HP = MaxHP;
         }
     }
-    public void Damage(float damage)
+    [ClientRpc]
+    public void Rpc_TakeDamage(float damage)
     {
         HP -= damage;
         if (HP <= 0)
         {
-            HP = 0;
+            Die();
         }
     }
-    public void SetDefaults()
-    {
-        HP = MaxHP;
 
-        info.IsDead = false;
-        info.CurrentWeapon.CurrentAmmo = info.CurrentWeapon.MaxAmmo;
-        info.IsControllable = true;
+    private void Die()
+    {
+        for (int i = 0; i < disableOnDeath.Length; i++)
+        {
+            disableOnDeath[i].enabled = false;
+            Collider2D _col = GetComponent<Collider2D>();
+            if (_col != null)
+            {
+                _col.enabled = false;
+            }
+            SpriteRenderer spriteRenderer = info.PlayerModel.GetComponent<SpriteRenderer>();
+            if (spriteRenderer != null)
+            {
+                spriteRenderer.enabled = false;
+            }
+        }
+        IsDead = true;
+
+        StartCoroutine(Respawn());
     }
 
     [Command]
-    public void CmdPlayerShot(string _playerID,float damage)
+    public void Cmd_PlayerShot(string _playerID, float damage)
     {
         Player hitPlayer = GameMaster.GetPlayer(_playerID);
-        hitPlayer.Damage(damage);
+        hitPlayer.Rpc_TakeDamage(damage);
+        Debug.Log("Trafiony: " + _playerID + " ma teraz " + hitPlayer.HP + "HP");
+    }
+    public void Setup()
+    {
+        wasEnabled = new bool[disableOnDeath.Length];
+        for (int i = 0; i < wasEnabled.Length; i++)
+        {
+            wasEnabled[i] = disableOnDeath[i].enabled;
+        }
+
+        SetDefaults();
+    }
+    public void SetDefaults()
+    {
+        IsDead = false;
+        HP = MaxHP;
+
+        for (int i = 0; i < disableOnDeath.Length; i++)
+        {
+            disableOnDeath[i].enabled = wasEnabled[i];
+        }
+        Collider2D _col = GetComponent<Collider2D>();
+        if (_col != null)
+        {
+            _col.enabled = true;
+        }
+        SpriteRenderer spriteRenderer = info.PlayerModel.GetComponent<SpriteRenderer>();
+        if (spriteRenderer != null)
+        {
+            spriteRenderer.enabled = true;
+        }
+
+        info.CurrentWeapon.CurrentAmmo = info.CurrentWeapon.MaxAmmo;
+        info.IsControllable = true;
     }
     public void SetupDisconnectButton()
     {
@@ -82,31 +127,51 @@ public class Player : NetworkBehaviour
         Debug.Log("Ustawiam przycisk rozłączenia");
         button.onClick.AddListener(NetworkManager.singleton.StopHost);
     }
-    private IEnumerator RespawnTimer()
+    private IEnumerator RespawnTimer(float RespawnTime)
     {
+        Vector3 oldPos = transform.position;
         float counter = RespawnTime;
         do
         {
-            info.RespawnTimer.GetComponent<TMPro.TMP_Text>().text = Math.Round(counter, 2).ToString();
+            //info.RespawnTimer.GetComponent<TMPro.TMP_Text>().text = Math.Round(counter, 2).ToString();
             counter -= Time.deltaTime;
+            transform.position = oldPos;
             yield return null;
         } while (counter > 0);
     }
     public IEnumerator Respawn() //void poniewa¿ jest to metoda, która subskrybuje zdarzenie
     {
-        info.IsDead = true;
-        info.IsControllable = false;
-        info.PlayerModel.SetActive(false);
-        info.Arm.SetActive(false);
-        info.InGameMenu.SetActive(true);
-
-        yield return StartCoroutine(RespawnTimer());
+        yield return StartCoroutine(RespawnTimer(GameMaster.Instance.GameSettings.RespawnTime));
 
         Vector2 spawnPlace = SpawnPointManager.Instance.SpawnPoints[UnityEngine.Random.Range(0, SpawnPointManager.Instance.SpawnPoints.Count - 1)].transform.position;       //Losowanie spawn pointa
         transform.position = spawnPlace;
 
-        info.IsDead = false;
-        info.PlayerModel.SetActive(true);
-        info.Arm.SetActive(true);
+        SetDefaults();
     }
+
+    //Metody do przyjmowania i usuwania buffów i debuffów
+
+    public void Subscribe(Buff effect)
+    {
+        foreach (Buff item in activeEffects)
+        {
+            if (item.activeEffect == effect.activeEffect) return;
+        }
+
+        effect.instance = StartCoroutine(effect.Healing(this));
+        activeEffects.Add(effect);
+    }
+
+    public void Unsubscribe(Coroutine coro)
+    {
+        foreach (Buff item in activeEffects)
+        {
+            if (item.instance == coro)
+            {
+                StopCoroutine(item.instance);
+                activeEffects.Remove(item);
+            }
+        }
+    }
+
 }

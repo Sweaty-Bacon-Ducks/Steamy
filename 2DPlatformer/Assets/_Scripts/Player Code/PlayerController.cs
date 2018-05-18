@@ -10,6 +10,7 @@ namespace Platformer
     public class PlayerController : MonoBehaviour
     {
         private Player player;
+        private float currentTime;
 
         void Awake()
         {
@@ -17,31 +18,26 @@ namespace Platformer
 
             player.info.Body = GetComponent<Rigidbody2D>();
 
-            EventManager.StartListening("OnPlayerDeath", () => StartCoroutine(player.Respawn()));
+            //EventManager.StartListening("OnPlayerDeath", () => StartCoroutine(player.Respawn()));
         }
         void Start()
         {
             player.SetupDisconnectButton();
             player.info.InGameMenu.SetActive(false);
         }
-        private void OnEnable()
-        {
-            //Wszystkie statystyki gracza, maj¹ce byæ zresetowane po œmierci gracza musz¹ byæ ustawiane w OnEnable
-            player.SetDefaults();
-        }
 
         void OnDestroy()
         {
-            EventManager.StopListening("OnPlayerDeath",() =>StartCoroutine(player.Respawn()));
+            //EventManager.StopListening("OnPlayerDeath",() =>StartCoroutine(player.Respawn()));
         }
-        
+
         private void Update()
         {
-            if (!player.info.IsDead)
+            if (!player.IsDead)
             {
-                if (Input.GetKeyDown("o"))
+                if (Input.GetKeyDown("k"))
                 {
-                    EventManager.TriggerEvent("OnPlayerDeath");
+                    player.Rpc_TakeDamage(10000f);
                 }
                 if (Input.GetKeyDown(player.info.MenuKey))
                 {
@@ -52,26 +48,42 @@ namespace Platformer
                 if (player.info.IsControllable)
                 {
                     player.info.rotationMotor.RotateMousewise(player.info.PlayerCam, player.info.Arm);
-
-                    if (Input.GetButtonDown("Fire1") || Input.GetKey(player.info.ShootKey))
+                    if (!player.info.CurrentWeapon.IsReloading)
                     {
-                        player.info.CurrentWeapon.Start_Shoot?.Invoke();
-                        player.info.CurrentWeapon.Shoot();
-                    }
-                    if (!player.info.CurrentWeapon.IsReloading && Input.GetKey(player.info.ReloadKey))
-                    {
-                        player.info.CurrentWeapon.Reload();
-                    }
-                    if (Input.GetButtonUp("Fire1") || Input.GetKeyUp(player.info.ShootKey))
-                    {
-                        player.info.CurrentWeapon.Stop_Shoot?.Invoke();
+                        if (!player.info.CurrentWeapon.IsAutomatic)
+                        {
+                            if ((Input.GetButtonDown("Fire1") || Input.GetKeyDown(player.info.ShootKey)))
+                            {
+                                player.info.CurrentWeapon.Shoot();
+                            }
+                        }
+                        else
+                        {
+                            if (Input.GetButton("Fire1") || Input.GetKey(player.info.ShootKey))
+                            {
+                                player.info.CurrentWeapon.Start_Auto_Shoot();
+                            }
+                            if (Input.GetButtonUp("Fire1") || Input.GetKeyUp(player.info.ShootKey))
+                            {
+                                player.info.CurrentWeapon.Stop_Auto_Shoot();
+                            }
+                        }
+                        // dodane
+                        if (Input.GetKeyDown(player.info.GrenadeKey))
+                        {
+                            GetComponent<PhysicsWeapon>().ThrowGrenade();
+                        }
+                        if (Input.GetKey(player.info.ReloadKey))
+                        {
+                            player.info.CurrentWeapon.Reload();
+                        }
                     }
                 }
             }
         }
         void FixedUpdate()
         {
-            if (player.info.IsControllable && !player.info.IsDead)
+            if (player.info.IsControllable && !player.IsDead)
             {
                 player.info.playerMotor.Move(player.info);
 
@@ -90,6 +102,6 @@ namespace Platformer
                 }
             }
         }
-        
+
     }
 }

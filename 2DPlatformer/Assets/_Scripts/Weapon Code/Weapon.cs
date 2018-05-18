@@ -1,20 +1,21 @@
 ﻿using UnityEngine;
 using System.Collections;
-using System;
 using UnityEngine.Networking;
 
 public delegate void WeaponEvent();
-public abstract class Weapon : MonoBehaviour
+public abstract class Weapon : NetworkBehaviour
 {
-    public WeaponEvent Start_Shoot;
-    public WeaponEvent Stop_Shoot;
+    protected const string PLAYER_TAG = "Player";
 
-    public bool IsCollectable = true;
+    [HideInInspector]
+    public Player LocalPlayer;
+
+    //public bool IsCollectable = true;
     public bool IsAutomatic = false;
-    public bool IsMelee = false;
-    public bool IsRaycast = false;
-    public bool IsPhysics = false;
-    public bool IsParticle = false;
+    //public bool IsMelee = false;
+    //public bool IsRaycast = false;
+    //public bool IsPhysics = false;
+    //public bool IsParticle = false;
     public bool IsReloading = false;
     public bool IsShooting = false;
 
@@ -22,10 +23,16 @@ public abstract class Weapon : MonoBehaviour
     public int CurrentAmmo;
     public float ReloadTime;
     public float TriggerTime;
-    
+
+    public float Damage;
+    public float Range;
+
+    private void Awake()
+    {
+        LocalPlayer = GetComponent<Player>();
+    }
     private void Start()
     {
-        MaxAmmo = Int32.MaxValue;
         CurrentAmmo = MaxAmmo;
     }
 
@@ -40,14 +47,13 @@ public abstract class Weapon : MonoBehaviour
 
         IsReloading = false;
     }
-    private void OnTriggerEnter2D(Collider2D col)
+    public virtual void Start_Auto_Shoot()
     {
-        Debug.Log("Collided with " + col.name);
-        if (col.tag == "Player")
-        {
-            Collect(col.gameObject);
-            Destroy(gameObject);
-        }
+        throw new System.NotImplementedException("Base implementation of Start_Auto_Shoot() was used");
+    }
+    public virtual void Stop_Auto_Shoot()
+    {
+        throw new System.NotImplementedException("Base implementation of Stop_Auto_Shoot() was used");
     }
     public virtual void Shoot()
     {

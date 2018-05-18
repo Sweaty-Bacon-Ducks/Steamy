@@ -1,41 +1,39 @@
-﻿using System.Collections;
-using System.Collections.Generic;
+﻿using System;
 using UnityEngine;
+using UnityEngine.Networking;
 
 public class ParticleWeapon : Weapon
 {
-    public new ParticleSystem[] particleSystem;
+    private const float ROTATION_OFFSET = 90f;
+    [SerializeField]
+    private GameObject FlamePrefab;
+    [SerializeField]
+    private float FlameVelocity = 6f;
 
-    void Awake()
-    {
-        Start_Shoot += StartShootParticleEffect;
-        Stop_Shoot += StopShootParticleEffect;
+    private Vector2 spawnPosition;
+    private Vector3 spawnRotation;
 
-        StopShootParticleEffect();
-    }
     public override void Shoot()
     {
-        if (CurrentAmmo > 0)
+        if (CurrentAmmo <= 0)
         {
-            CurrentAmmo--;
-            IsShooting = true;
+            StartCoroutine(Reload());
         }
         else
         {
-            IsShooting = false;
-            StopShootParticleEffect();
-            StartCoroutine(Reload());
+            CurrentAmmo--;
+            spawnPosition = GetComponent<Player>().info.Arm.transform.position;
+            spawnRotation = GetComponent<Player>().info.Arm.transform.rotation.eulerAngles;
+            var targetRotation = Quaternion.Euler(spawnRotation.x, spawnRotation.y, spawnRotation.z + ROTATION_OFFSET);
+            Cmd_SpawnFireball(spawnPosition, targetRotation, FlameVelocity);
         }
     }
-
-    private void StopShootParticleEffect()
+    [Command]
+    void Cmd_SpawnFireball(Vector3 position, Quaternion rotation, float flameVelocity)
     {
-        particleSystem[0].Play();
-        particleSystem[1].Stop();
-    }
-    private void StartShootParticleEffect()
-    {
-        particleSystem[0].Stop();
-        particleSystem[1].Play();
+        var fireball = Instantiate(FlamePrefab, position, rotation);
+        fireball.GetComponent<FireballController>().Damage = Damage;
+        NetworkServer.Spawn(fireball);
+        fireball.GetComponent<Rigidbody2D>().velocity = (-1f) * fireball.transform.up * flameVelocity;
     }
 }

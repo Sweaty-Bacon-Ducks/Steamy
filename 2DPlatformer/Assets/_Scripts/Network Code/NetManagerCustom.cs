@@ -10,6 +10,8 @@ namespace Platformer
 {
     public class NetManagerCustom : NetworkManager
     {
+        private const float MAX_DELAY = 0.2f;
+
         [SerializeField] private TMP_InputField IPAddress;
         [SerializeField] private TMP_InputField HostPort;
         [SerializeField] private TMP_InputField ConnectPort;
@@ -42,6 +44,8 @@ namespace Platformer
             }
             DontDestroyOnLoad(gameObject);
             singleton = this;
+
+            maxDelay = MAX_DELAY;   //Prevents frequent disconnections
 
             SetupMenuScene();
         }
