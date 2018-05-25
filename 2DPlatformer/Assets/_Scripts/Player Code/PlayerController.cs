@@ -37,7 +37,7 @@ namespace Platformer
             {
                 if (Input.GetKeyDown("k"))
                 {
-                    player.Rpc_TakeDamage(10000f);
+                    player.Rpc_TakeDamage(null, 10000f);
                 }
                 if (Input.GetKeyDown(player.info.MenuKey))
                 {
@@ -71,7 +71,7 @@ namespace Platformer
                         // dodane
                         if (Input.GetKeyDown(player.info.GrenadeKey))
                         {
-                            GetComponent<PhysicsWeapon>().ThrowGrenade();
+                            GetComponent<Grenade>().Shoot();
                         }
                         if (Input.GetKey(player.info.ReloadKey))
                         {

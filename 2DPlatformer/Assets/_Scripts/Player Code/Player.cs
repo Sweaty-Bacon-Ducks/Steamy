@@ -12,6 +12,12 @@ public class Player : NetworkBehaviour
     [SyncVar]
     public bool IsDead;
 
+    [SyncVar]
+    public int killCount;
+
+    [SyncVar]
+    public int deathCount;
+
     //Lista aktywnych buffów
     List<Buff> activeEffects = new List<Buff>();
 
@@ -31,7 +37,7 @@ public class Player : NetworkBehaviour
         var weapons = GetComponents<Weapon>();
         foreach (var item in weapons)
         {
-            if (item.GetType() != typeof(PhysicsWeapon))
+            if (item.GetType() != typeof(PhysicsBasedWeapon))
             {
                 info.CurrentWeapon = item;
                 break;
@@ -49,18 +55,28 @@ public class Player : NetworkBehaviour
             HP = MaxHP;
         }
     }
+    /// <summary>
+    /// The first parameter is the damage dealer player. If it's nobody, then it should be null
+    /// </summary>
     [ClientRpc]
-    public void Rpc_TakeDamage(float damage)
+    public void Rpc_TakeDamage(string attackerID, float damage)
     {
         HP -= damage;
         if (HP <= 0)
         {
-            Die();
+            Die(attackerID);
         }
     }
 
-    private void Die()
+    private void Die(string attackerID)
     {
+        ++deathCount;
+        if (string.IsNullOrEmpty(attackerID) == false && attackerID != name)
+        {
+            Debug.Log("! " + attackerID + " " + name);
+            GameMaster.GetPlayer(attackerID).killCount++;
+        }
+
         for (int i = 0; i < disableOnDeath.Length; i++)
         {
             disableOnDeath[i].enabled = false;
@@ -84,7 +100,9 @@ public class Player : NetworkBehaviour
     public void Cmd_PlayerShot(string _playerID, float damage)
     {
         Player hitPlayer = GameMaster.GetPlayer(_playerID);
-        hitPlayer.Rpc_TakeDamage(damage);
+
+        string attackerID = name;
+        hitPlayer.Rpc_TakeDamage(attackerID, damage);
         Debug.Log("Trafiony: " + _playerID + " ma teraz " + hitPlayer.HP + "HP");
     }
     public void Setup()

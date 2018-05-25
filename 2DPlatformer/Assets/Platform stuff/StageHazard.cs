@@ -20,7 +20,7 @@ public class StageHazard : MonoBehaviour
 
         if (active && collider.gameObject.layer != 10)
         {
-            collider.transform.GetComponent<Player>().Rpc_TakeDamage(damageValue);
+            collider.transform.GetComponent<Player>().Rpc_TakeDamage(null, damageValue);
 
             switch (pushDiredtion)
             {
