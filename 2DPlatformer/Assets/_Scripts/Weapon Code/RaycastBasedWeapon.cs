@@ -1,13 +1,14 @@
-using UnityEngine;
-using UnityEngine.Networking;
+﻿using UnityEngine.Networking;
 using Platformer.Utility;
-public class RaycastWeapon : Weapon
-{
+using UnityEngine;
+
+public class RaycastBasedWeapon : Weapon {
+
     [SerializeField]
     private LayerMask layerMask;
 
-    private Vector3 start;
-    private Vector3 end;
+    protected Vector3 start;
+    protected Vector3 end;
 
     [Client]
     public override void Shoot()
@@ -18,12 +19,13 @@ public class RaycastWeapon : Weapon
         {
             StartCoroutine(Reload());
         }
+    }
 
-        start = gameObject.FindObject("StartOfUmbrella").transform.position;
-        end = LocalPlayer.info.PlayerCam.ScreenToWorldPoint(Input.mousePosition);
+    public virtual void CheckHit()
+    {
         Debug.DrawLine(start, end, Color.red);
         RaycastHit2D hit;
-        if (hit = Physics2D.Raycast(start, end-start, Range, layerMask))
+        if (hit = Physics2D.Raycast(start, end - start, Range, layerMask))
         {
             if (hit.transform.CompareTag(PLAYER_TAG))
             {

@@ -10,7 +10,7 @@ public class DeadZoneController : MonoBehaviour
         Player player;
         if (player = collision.GetComponent<Player>())
         {
-            player.Rpc_TakeDamage(PLAYER_INSTANT_KILL);
+            player.Rpc_TakeDamage(null, PLAYER_INSTANT_KILL);
         }
     }
 }

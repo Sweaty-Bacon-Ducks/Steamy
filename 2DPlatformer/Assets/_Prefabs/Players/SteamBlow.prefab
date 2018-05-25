@@ -86,6 +86,7 @@ GameObject:
   - component: {fileID: 20144234129440406}
   - component: {fileID: 124643686697623700}
   - component: {fileID: 81939462532221070}
+  - component: {fileID: 114602739678848232}
   m_Layer: 8
   m_Name: PlayerCam
   m_TagString: PlayerCam
@@ -231,8 +232,8 @@ GameObject:
   - component: {fileID: 114101309056203186}
   - component: {fileID: 114905693071623494}
   - component: {fileID: 114594953505809672}
-  - component: {fileID: 114524247354521290}
-  - component: {fileID: 114972149405694978}
+  - component: {fileID: 114566913678951092}
+  - component: {fileID: 114823373711053466}
   m_Layer: 8
   m_Name: SteamBlow
   m_TagString: Player
@@ -269,7 +270,7 @@ GameObject:
   - component: {fileID: 222949724342587062}
   - component: {fileID: 114551225261278196}
   m_Layer: 8
-  m_Name: Ammo
+  m_Name: KillDeathCounter
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -288,6 +289,23 @@ GameObject:
   - component: {fileID: 68958749590480188}
   m_Layer: 8
   m_Name: Model
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!1 &1980960193314466
+GameObject:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  serializedVersion: 5
+  m_Component:
+  - component: {fileID: 224719314033014722}
+  - component: {fileID: 222744601990706116}
+  - component: {fileID: 114344427954689630}
+  m_Layer: 8
+  m_Name: Ammo
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -353,7 +371,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1714075016065504}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 74.577354, y: -19.347832, z: 0}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 4728377649661206}
@@ -486,6 +504,7 @@ Animator:
   m_WarningMessage: 
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorControllerStateOnDisable: 0
 --- !u!114 &114101309056203186
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -508,6 +527,39 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 762d2568871db354497a9aa72c0a7af9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &114344427954689630
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1980960193314466}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 708705254, guid: f70555f144d8491a825f0804e09c671c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Material: {fileID: 0}
+  m_Color: {r: 0.19607843, g: 0.19607843, b: 0.19607843, a: 1}
+  m_RaycastTarget: 1
+  m_OnCullStateChanged:
+    m_PersistentCalls:
+      m_Calls: []
+    m_TypeName: UnityEngine.UI.MaskableGraphic+CullStateChangedEvent, UnityEngine.UI,
+      Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
+  m_FontData:
+    m_Font: {fileID: 10102, guid: 0000000000000000e000000000000000, type: 0}
+    m_FontSize: 44
+    m_FontStyle: 0
+    m_BestFit: 1
+    m_MinSize: 0
+    m_MaxSize: 116
+    m_Alignment: 3
+    m_AlignByGeometry: 0
+    m_RichText: 1
+    m_HorizontalOverflow: 0
+    m_VerticalOverflow: 0
+    m_LineSpacing: 1
+  m_Text: 0
 --- !u!114 &114349263138149086
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -672,30 +724,6 @@ MonoBehaviour:
   m_MovementThreshold: 0.001
   m_InterpolateRotation: 0.5
   m_InterpolateMovement: 1
---- !u!114 &114524247354521290
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1714075016065504}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 479d9346f31a7db418ac31784c495e37, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  LocalPlayer: {fileID: 0}
-  IsAutomatic: 0
-  IsReloading: 0
-  IsShooting: 0
-  MaxAmmo: 30
-  CurrentAmmo: 0
-  ReloadTime: 3
-  TriggerTime: 0.3
-  Damage: 10
-  Range: 0
-  FlamePrefab: {fileID: 1252614803407070, guid: c1c3c05405cf4a34bbb3522cfc667258,
-    type: 2}
-  FlameVelocity: 13
 --- !u!114 &114533886755932338
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -744,7 +772,9 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: 0
+  m_Text: '0/0
+
+'
 --- !u!114 &114564682280128718
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -772,6 +802,30 @@ MonoBehaviour:
   m_FillAmount: 1
   m_FillClockwise: 1
   m_FillOrigin: 0
+--- !u!114 &114566913678951092
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1714075016065504}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b8e33e156da5d4840a30d9e12bcc30ea, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  LocalPlayer: {fileID: 0}
+  IsAutomatic: 0
+  IsReloading: 0
+  IsShooting: 0
+  MaxAmmo: 30
+  CurrentAmmo: 0
+  ReloadTime: 3
+  TriggerTime: 0.3
+  Damage: 10
+  Range: 0
+  projectilePrefab: {fileID: 1252614803407070, guid: c1c3c05405cf4a34bbb3522cfc667258,
+    type: 2}
+  flameVelocity: 13
 --- !u!114 &114585222209323038
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -785,6 +839,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   HP: 0
   IsDead: 0
+  killCount: 0
+  deathCount: 0
   Name: Default
   MaxHP: 400
   disableOnDeath:
@@ -851,6 +907,20 @@ MonoBehaviour:
     i15: 140
   m_ServerOnly: 0
   m_LocalPlayerAuthority: 1
+--- !u!114 &114602739678848232
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1292888339867222}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 00bda0fd9cac51f408cd14834fc68a5d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  offset: {x: 0, y: 0, z: 0}
+  mouseRangeX: 35
+  mouseRangeY: 35
 --- !u!114 &114617082502772172
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -1173,6 +1243,30 @@ MonoBehaviour:
   m_FallbackScreenDPI: 96
   m_DefaultSpriteDPI: 96
   m_DynamicPixelsPerUnit: 1
+--- !u!114 &114823373711053466
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1714075016065504}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b9329ff032f8d014b857f25cc9cd9460, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  LocalPlayer: {fileID: 0}
+  IsAutomatic: 0
+  IsReloading: 0
+  IsShooting: 0
+  MaxAmmo: 3
+  CurrentAmmo: 0
+  ReloadTime: 0
+  TriggerTime: 0
+  Damage: 0
+  Range: 0
+  projectilePrefab: {fileID: 1966387210057494, guid: 93860d3aa056ad54ebb8ada1de2fedd9,
+    type: 2}
+  ThrowForce: 10
 --- !u!114 &114892171626303526
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -1185,8 +1279,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   image: {fileID: 114690039696669938}
-  ammoText: {fileID: 114551225261278196}
+  ammoText: {fileID: 114344427954689630}
   weaponSprite: {fileID: 0}
+  killDeathCount: {fileID: 114551225261278196}
 --- !u!114 &114905693071623494
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -1300,30 +1395,6 @@ MonoBehaviour:
         m_CallState: 2
     m_TypeName: UnityEngine.UI.Button+ButtonClickedEvent, UnityEngine.UI, Version=1.0.0.0,
       Culture=neutral, PublicKeyToken=null
---- !u!114 &114972149405694978
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1714075016065504}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 0f7304a13747ab54781dc8bb97d39364, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  LocalPlayer: {fileID: 0}
-  IsAutomatic: 0
-  IsReloading: 0
-  IsShooting: 0
-  MaxAmmo: 3
-  CurrentAmmo: 0
-  ReloadTime: 0
-  TriggerTime: 0
-  Damage: 0
-  Range: 0
-  ThrowForce: 10
-  GrenadePrefab: {fileID: 1966387210057494, guid: 93860d3aa056ad54ebb8ada1de2fedd9,
-    type: 2}
 --- !u!124 &124643686697623700
 Behaviour:
   m_ObjectHideFlags: 1
@@ -1344,6 +1415,7 @@ SpriteRenderer:
   m_MotionVectors: 1
   m_LightProbeUsage: 1
   m_ReflectionProbeUsage: 1
+  m_RenderingLayerMask: 4294967295
   m_Materials:
   - {fileID: 10754, guid: 0000000000000000f000000000000000, type: 0}
   m_StaticBatchInfo:
@@ -1405,6 +1477,12 @@ CanvasRenderer:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1623200875841436}
+--- !u!222 &222744601990706116
+CanvasRenderer:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1980960193314466}
 --- !u!222 &222917740808889064
 CanvasRenderer:
   m_ObjectHideFlags: 1
@@ -1511,14 +1589,14 @@ RectTransform:
   m_GameObject: {fileID: 1850990547267574}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalScale: {x: 0.99999994, y: 0.99999994, z: 0.99999994}
   m_Children: []
   m_Father: {fileID: 224274436387020968}
-  m_RootOrder: 1
+  m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.39370832, y: 0}
   m_AnchorMax: {x: 0.39370832, y: 0}
-  m_AnchoredPosition: {x: -292.77, y: 372}
+  m_AnchoredPosition: {x: 364, y: 410.9}
   m_SizeDelta: {x: 100.2, y: 45.8}
   m_Pivot: {x: 0, y: 1}
 --- !u!224 &224274436387020968
@@ -1532,6 +1610,7 @@ RectTransform:
   m_LocalScale: {x: 0, y: 0, z: 0}
   m_Children:
   - {fileID: 224455874401836954}
+  - {fileID: 224719314033014722}
   - {fileID: 224179849763020726}
   m_Father: {fileID: 4842494417636276}
   m_RootOrder: 2
@@ -1631,7 +1710,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: -0.2, y: -0.5}
+  m_AnchoredPosition: {x: -0.19999695, y: -0.5}
   m_SizeDelta: {x: 29.1, y: 24.6}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!224 &224675540059719970
@@ -1670,3 +1749,21 @@ RectTransform:
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 200, y: 50}
   m_Pivot: {x: 0.5, y: 0.5}
+--- !u!224 &224719314033014722
+RectTransform:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1980960193314466}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 224274436387020968}
+  m_RootOrder: 1
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_AnchorMin: {x: 0.39370832, y: 0}
+  m_AnchorMax: {x: 0.39370832, y: 0}
+  m_AnchoredPosition: {x: -292.77, y: 372}
+  m_SizeDelta: {x: 100.2, y: 45.8}
+  m_Pivot: {x: 0, y: 1}
