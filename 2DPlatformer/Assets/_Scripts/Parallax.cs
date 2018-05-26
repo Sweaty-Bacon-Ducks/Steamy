@@ -25,6 +25,7 @@ public class Parallax : MonoBehaviour
     {
         previousCamPosition = cam.position;
         scales = new float[backgrounds.Length];
+
         for (int i = 0; i < backgrounds.Length; i++)
         {
             scales[i] = backgrounds[i].transform.position.z;
@@ -36,13 +37,11 @@ public class Parallax : MonoBehaviour
     {
         for (int i = 0; i < backgrounds.Length; i++)
         {
-            float parallaxX = (previousCamPosition.x - cam.position.x) * scales[i];
-            float parallaxY = (previousCamPosition.y - cam.position.y) * scales[i];
-            float backX = backgrounds[i].transform.position.x + parallaxX / 7;
-            float backY = backgrounds[i].transform.position.y + parallaxY / 10;
-            Vector3 targetPosition = new Vector3(backX, backY, backgrounds[i].transform.position.z);
+            float parallax = (previousCamPosition.x - cam.position.x) * scales[i];
+            float backX = backgrounds[i].transform.position.x + parallax;
+            Vector3 targetPosition = new Vector3(backX, backgrounds[i].transform.position.y, backgrounds[i].transform.position.z);
             backgrounds[i].transform.position = Vector3.Lerp(backgrounds[i].transform.position, targetPosition, smoothing * Time.deltaTime);
-        }
             previousCamPosition = cam.position;
+        }
     }
 }
