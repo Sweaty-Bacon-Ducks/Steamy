@@ -38,8 +38,8 @@ public class Parallax : MonoBehaviour
         {
             float parallaxX = (previousCamPosition.x - cam.position.x) * scales[i];
             float parallaxY = (previousCamPosition.y - cam.position.y) * scales[i];
-            float backX = backgrounds[i].transform.position.x + parallaxX;
-            float backY = backgrounds[i].transform.position.y + parallaxY;
+            float backX = backgrounds[i].transform.position.x + parallaxX / 7;
+            float backY = backgrounds[i].transform.position.y + parallaxY / 10;
             Vector3 targetPosition = new Vector3(backX, backY, backgrounds[i].transform.position.z);
             backgrounds[i].transform.position = Vector3.Lerp(backgrounds[i].transform.position, targetPosition, smoothing * Time.deltaTime);
         }
