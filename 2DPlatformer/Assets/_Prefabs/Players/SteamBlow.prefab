@@ -233,7 +233,6 @@ GameObject:
   - component: {fileID: 114594953505809672}
   - component: {fileID: 114524247354521290}
   - component: {fileID: 114972149405694978}
-  - component: {fileID: 114706442447679826}
   m_Layer: 8
   m_Name: SteamBlow
   m_TagString: Player
@@ -1153,18 +1152,6 @@ MonoBehaviour:
   - {fileID: 0}
   m_baseMaterial: {fileID: 0}
   m_maskOffset: {x: 0, y: 0, z: 0, w: 0}
---- !u!114 &114706442447679826
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1714075016065504}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: f47b901f29f52534f865ef7f5caf8de0, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  backgrounds: []
 --- !u!114 &114717875630522412
 MonoBehaviour:
   m_ObjectHideFlags: 1

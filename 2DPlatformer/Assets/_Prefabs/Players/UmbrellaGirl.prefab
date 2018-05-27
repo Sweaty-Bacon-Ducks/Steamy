@@ -211,7 +211,6 @@ GameObject:
   - component: {fileID: 114455027176321326}
   - component: {fileID: 114730499378398800}
   - component: {fileID: 114061474459407944}
-  - component: {fileID: 114382606622947468}
   m_Layer: 8
   m_Name: UmbrellaGirl
   m_TagString: Player
@@ -806,18 +805,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   spritesToFlip: []
---- !u!114 &114382606622947468
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1471898132282516}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: f47b901f29f52534f865ef7f5caf8de0, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  backgrounds: []
 --- !u!114 &114427643568004796
 MonoBehaviour:
   m_ObjectHideFlags: 1
