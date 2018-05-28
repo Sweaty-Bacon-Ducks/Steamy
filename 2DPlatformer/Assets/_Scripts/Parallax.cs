@@ -11,6 +11,8 @@ public class Parallax : MonoBehaviour
     float smoothing = 10f;
     Transform cam;
     Vector3 previousCamPosition;
+    float reduceChangeOfPositionX = 7f;
+    float reduceChangeOfPositionY = 10f;
 
     private const string BACKROUND_TAG = "Background";
 
@@ -36,11 +38,11 @@ public class Parallax : MonoBehaviour
     {
         for (int i = 0; i < backgrounds.Length; i++)
         {
-            float parallaxX = (previousCamPosition.x - cam.position.x) * scales[i];
-            float parallaxY = (previousCamPosition.y - cam.position.y) * scales[i];
-            float backX = backgrounds[i].transform.position.x + parallaxX / 7;
-            float backY = backgrounds[i].transform.position.y + parallaxY / 10;
-            Vector3 targetPosition = new Vector3(backX, backY, backgrounds[i].transform.position.z);
+            float changeOfPositionX = (previousCamPosition.x - cam.position.x) * scales[i];
+            float changeOfPositiony = (previousCamPosition.y - cam.position.y) * scales[i];
+            float backgroundPositionX = backgrounds[i].transform.position.x + changeOfPositionX / reduceChangeOfPositionX;
+            float backgroundPositionY = backgrounds[i].transform.position.y + changeOfPositiony / reduceChangeOfPositionY;
+            Vector3 targetPosition = new Vector3(backgroundPositionX, backgroundPositionY, backgrounds[i].transform.position.z);
             backgrounds[i].transform.position = Vector3.Lerp(backgrounds[i].transform.position, targetPosition, smoothing * Time.deltaTime);
         }
             previousCamPosition = cam.position;
