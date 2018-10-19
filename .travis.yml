@@ -1,0 +1,32 @@
+language: objective-c
+osx_image: xcode8.1
+rvm:
+- 2.2
+
+env:
+- PROJECT_NAME="Steamy" UNITY_PROJECT_PATH="Project" UNITY_DOWNLOAD_CACHE="$(pwd)/unity_download_cache"
+
+cache:
+  directories:
+    - $UNITY_DOWNLOAD_CACHE
+
+before_install:
+- chmod a+x ./TravisCI/install.sh
+- chmod a+x ./TravisCI/build.sh
+
+install:
+- rvm get stable
+- ./TravisCI/install.sh
+
+script:
+- ./TravisCI/build.sh
+
+after_success:
+  - wget https://raw.githubusercontent.com/DiscordHooks/travis-ci-discord-webhook/master/send.sh
+  - chmod +x send.sh
+  - ./send.sh success $WEBHOOK_URL
+
+after_failure:
+  - wget https://raw.githubusercontent.com/DiscordHooks/travis-ci-discord-webhook/master/send.sh
+  - chmod +x send.sh
+  - ./send.sh failure $WEBHOOK_URL
