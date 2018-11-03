@@ -1,6 +1,3 @@
 [submodule "Unity-Weld"]
 	path = Unity-Weld
 	url = https://github.com/Real-Serious-Games/Unity-Weld.git
-[submodule "nunit"]
-	path = nunit
-	url = https://github.com/nunit/nunit.git

@@ -1,0 +1,11 @@
+<?xml version="1.0"?>
+<CharacterModel xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <Data>
+    <Name>Gracjan</Name>
+    <MaxHitPoints>100</MaxHitPoints>
+  </Data>
+  <MotionModes>
+    <MotionMode xsi:type="RunningMode" />
+    <MotionMode xsi:type="JumpMode" />
+  </MotionModes>
+</CharacterModel>
