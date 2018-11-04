@@ -5,6 +5,7 @@ using NUnit.Framework;
 
 using Steamy.Player;
 using Steamy.Player.MotionModes;
+using System;
 
 public class CharacterModelTests
 {
@@ -14,9 +15,13 @@ public class CharacterModelTests
 		var resultFilePath = ".\\Assets\\Editor\\EditorModeTests\\character.xml";
 
 		File.Delete(resultFilePath);
-		
+
 		var characterModel = new CharacterModel();
-		var characterData = new CharacterData(Name: "Gracjan", MaxHitPoints: 100);
+		var characterData = new CharacterData
+		{
+			MaxHitPoints = 100,
+			Name = "Gracjan"
+		};
 
 		characterModel.Data = characterData;
 		characterModel.MotionModes = new HashSet<MotionMode> { new RunningMode(), new JumpMode(), new JumpMode() };
@@ -25,11 +30,15 @@ public class CharacterModelTests
 	}
 
 	[Test(Author = "Jakub Kowalik")]
-	public void ReadCharacterModelToXml()
+	public void ReadCharacterModelFromXml()
 	{
 		var resultFilePath = ".\\Assets\\Editor\\EditorModeTests\\character.xml";
 
-		var characterModel = CharacterModel.ReadFromXml(resultFilePath);
-		Assert.True(characterModel.Data.Name == "Gracjan");
+		var extraTypes = new Type[] { typeof(MotionMode) };
+		var characterModel = CharacterModel.ReadFromXml(resultFilePath, extraTypes);
+		Assert.True(characterModel.Data.Name == "Gracjan" && 
+			characterModel.Data.MaxHitPoints == 100f &&
+			characterModel.MotionModes.Contains(new RunningMode()) &&
+			characterModel.MotionModes.Contains(new JumpMode()));
 	}
 }

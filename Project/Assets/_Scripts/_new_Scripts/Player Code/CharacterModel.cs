@@ -28,24 +28,20 @@ namespace Steamy.Player
 		public float HitPoints;
 
 		public CharacterData() { }
-
-		public CharacterData(string Name, float MaxHitPoints)
-		{
-			this.Name = Name;
-			this.MaxHitPoints = MaxHitPoints;
-			this.HitPoints = this.MaxHitPoints;
-		}
 	}
 
 	/// <summary>
 	/// An in-game character model. 
 	/// </summary>
+	[Serializable]
 	public class CharacterModel
 	{
+		#region Fields
 		/// <summary>
 		/// View model attached to the character model.
 		/// </summary>
 		[XmlIgnore]
+		[NonSerialized]
 		public CharacterViewModel ViewModel;
 
 		/// <summary>
@@ -56,7 +52,24 @@ namespace Steamy.Player
 
 		[XmlArray(ElementName = "MotionModes")]
 		public HashSet<MotionMode> MotionModes;
+		#endregion
 
+		#region Interface
+		/// <summary>
+		/// Calls all available movement modes.
+		/// </summary>
+		public void DoMotion()
+		{
+			MotionModes.Select((MotionMode mode) => mode.Do(ViewModel));
+		}
+		#endregion
+
+		#region Serialization
+		/// <summary>
+		/// TODO: I think that this method can be generalized to any type
+		/// </summary>
+		/// <param name="xmlPath"></param>
+		/// <param name="characterModel"></param>
 		public static void SaveToXml(string xmlPath, CharacterModel characterModel)
 		{
 			// Get all types for the serializer
@@ -72,9 +85,29 @@ namespace Steamy.Player
 				serializer.Serialize(stream: filestream, o: characterModel);
 			}
 		}
-		public static CharacterModel ReadFromXml(string xmlPath)
+		/// <summary>
+		/// TODO: I think that this method can be generalized to any type
+		/// </summary>
+		/// <param name="xmlPath"></param>
+		/// <param name="extraSuperClasses"></param>
+		/// <returns></returns>
+		public static CharacterModel ReadFromXml(string xmlPath, Type[] extraSuperClasses)
 		{
-			var serializer = new XmlSerializer(typeof(CharacterModel));
+			var exportedTypes = Assembly.GetExecutingAssembly()
+				.GetExportedTypes();
+
+			// Get all types subclassing the types in the parameter
+			var extraTypes = extraSuperClasses.Select((Type superClass) =>
+			{
+				return exportedTypes
+				.Where((Type type) => type.IsSubclassOf(superClass))
+				.ToArray();
+			})
+			.SelectMany(x => x)
+			.Distinct()
+			.ToArray();
+
+			var serializer = new XmlSerializer(typeof(CharacterModel), extraTypes: extraTypes);
 
 			// Handle the unknown nodes and attributes
 			serializer.UnknownNode += new XmlNodeEventHandler(serializer.UnknownNodeCallback);
@@ -89,13 +122,7 @@ namespace Steamy.Player
 				return deserializationResult;
 			}
 		}
-		/// <summary>
-		/// Calls all available movement modes.
-		/// </summary>
-		public void DoMotion()
-		{
-			MotionModes.Select((MotionMode mode) => mode.Do(ViewModel));
-		}
+		#endregion
 	}
 }
 

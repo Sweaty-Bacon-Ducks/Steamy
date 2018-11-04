@@ -13,7 +13,9 @@ namespace Steamy.Player.MotionModes
 		}
 		public override int GetHashCode()
 		{
-			return GetType().ToString().GetHashCode();
+			return GetType()
+				.ToString()
+				.GetHashCode();
 		}
 
 		public virtual CharacterModel Do(CharacterViewModel playerViewModel)
