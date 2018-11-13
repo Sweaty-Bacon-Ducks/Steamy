@@ -19,7 +19,7 @@ namespace Steamy.Player
 
         private void ApplyMotion()
         {
-            foreach (var mode in Parameters.MotionModesSet)
+            foreach (var mode in Parameters.MotionModes)
             {
                 mode.ApplyMotion(this);
             }

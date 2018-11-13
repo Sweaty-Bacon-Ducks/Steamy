@@ -6,5 +6,10 @@ namespace Steamy.Player.Input
     public abstract class ButtonInputController: ScriptableObject
     {
         public abstract bool CheckInput(UnityAction Response);
+
+        public static ButtonInputController Create()
+        {
+            return null
+        }
     }
 }
