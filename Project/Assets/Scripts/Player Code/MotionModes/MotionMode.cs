@@ -17,7 +17,6 @@ namespace Steamy.Player.MotionModes
         {
             ButtonController.CheckInput(() =>
             {
-                Debug.Log("Applying motion: " + ViewModel.Parameters.MotionModesSet.Count);
                 _ApplyMotion(ViewModel);
             });
         }
