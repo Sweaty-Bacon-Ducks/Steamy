@@ -12,6 +12,5 @@ namespace Steamy.Player
     {
         public string Name;
         public float MaxHitPoints;
-        public List<MotionMode> MotionModes;
     }
 }

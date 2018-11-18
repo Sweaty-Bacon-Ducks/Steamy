@@ -10,18 +10,24 @@ namespace Steamy.Player
 	public class CharacterViewModel : MonoBehaviour
 	{
 		public CharacterModel Model;
-        public CharacterParameters Parameters;
+
+		public HashSet<MotionMode> MotionModes;
 
         private void Awake()
         {
-            Model.ViewModel = this;
+			MotionModes = new HashSet<MotionMode>
+			{
+				new HorizontalRunMode(this),
+				new JumpMode(this)
+			};
+			Model.ViewModel = this;
         }
 
         private void ApplyMotion()
         {
-            foreach (var mode in Parameters.MotionModes)
+            foreach (var mode in MotionModes)
             {
-                mode.ApplyMotion(this);
+                mode.ApplyMotion();
             }
         }
 
