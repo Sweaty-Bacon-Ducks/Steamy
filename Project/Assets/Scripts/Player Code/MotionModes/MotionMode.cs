@@ -1,36 +1,53 @@
 ﻿using System;
+using System.IO;
 
 using UnityEngine;
 
-using Steamy.Player.Input;
-
 namespace Steamy.Player.MotionModes
 {
-    public class MotionMode : ScriptableObject
-    {
-        public string Name;
+	public interface IJSONSerializable<T>
+	{
+		void JSONSerialize(string destination);
+		T JSONDeserialize(string source);
+	}
+	public class MotionMode: IJSONSerializable<MotionMode>
+	{
+		public string Name;
 
-        [NonSerialized]
-        protected ButtonInputController ButtonController;
+		protected CharacterViewModel viewModel;
 
-        public virtual void ApplyMotion(CharacterViewModel ViewModel)
-        {
-            ButtonController.CheckInput(() =>
-            {
-                _ApplyMotion(ViewModel);
-            });
-        }
+		public MotionMode() {	}
+		public MotionMode(CharacterViewModel viewModel)
+		{
+			this.viewModel = viewModel;
+		}
 
-        protected virtual void _ApplyMotion(CharacterViewModel playerViewModel) {   }
+		public virtual void ApplyMotion() {	}
 
-        public override bool Equals(object obj)
-        {
-            var motionMode = obj as MotionMode;
-            return this.Name.Equals(motionMode.Name);
-        }
-        public override int GetHashCode()
-        {
-            return Name.GetHashCode();
-        }
-    }
+		public override bool Equals(object obj)
+		{
+			var motionMode = obj as MotionMode;
+			return this.Name.Equals(motionMode.Name);
+		}
+		public override int GetHashCode()
+		{
+			return Name.GetHashCode();
+		}
+
+		public void JSONSerialize(string destination)
+		{
+			var jsonRepresentation = JsonUtility.ToJson(this);
+			var path = Application.streamingAssetsPath + destination;
+
+			using (var writer = new StreamWriter(destination))
+			{
+				writer.WriteLine(jsonRepresentation);
+			}
+		}
+
+		public MotionMode JSONDeserialize(string source)
+		{
+			throw new NotImplementedException();
+		}
+	}
 }

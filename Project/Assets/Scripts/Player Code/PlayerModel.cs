@@ -11,9 +11,9 @@ using Steamy.Utility.Xml;
 namespace Steamy.Player
 {
 	/// <summary>
-	/// Class that holds information about the player.
+	/// Holds information about 
 	/// </summary>
-	public class PlayerData
+	public class PlayerModel
 	{
 		/// <summary>
 		/// Players network identifier.
@@ -23,14 +23,6 @@ namespace Steamy.Player
 		/// In-game player name.
 		/// </summary>
 		public string PlayerName;
-	}
-
-	/// <summary>
-	/// Holds information about 
-	/// </summary>
-	public class PlayerModel
-	{
-
 	}
 }
 
