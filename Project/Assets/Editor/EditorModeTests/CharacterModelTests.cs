@@ -29,4 +29,19 @@ public class CharacterModelTests
 
 		Assert.Pass();
 	}
+	[Test]
+	public void MotionModeDeserializationTest()
+	{
+		var path = Application.streamingAssetsPath + "\\defs\\movement\\HorizontalRunMode.json";
+		string result = null;
+		using (var writer = new StreamReader(path))
+		{
+			result = writer.ReadToEnd();
+		}
+		var motionMode = JsonUtility.FromJson<HorizontalRunMode>(result);
+		Assert.True(motionMode.Name == "Running" &&
+			motionMode.AxisName == "Horizontal" &&
+			motionMode.RunningForce == 2f &&
+			motionMode.SpeedThreshold == 10f);
+	}
 }

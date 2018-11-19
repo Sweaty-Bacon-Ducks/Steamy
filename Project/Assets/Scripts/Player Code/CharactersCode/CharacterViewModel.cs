@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Linq;
 using System.Collections.Generic;
 
 using UnityEngine;
@@ -9,29 +10,26 @@ namespace Steamy.Player
 {
 	public class CharacterViewModel : MonoBehaviour
 	{
+		[HideInInspector]
 		public CharacterModel Model;
 
-		public HashSet<MotionMode> MotionModes;
+		public List<TextAsset> MotionModeDefinitionPaths;
+		public List<MotionMode> MotionModes;
 
-        private void Awake()
-        {
-			MotionModes = new HashSet<MotionMode>
-			{
-				new HorizontalRunMode(this),
-				new JumpMode(this)
-			};
+		private void Awake()
+		{
 			Model.ViewModel = this;
-        }
+		}
 
-        private void ApplyMotion()
-        {
-            foreach (var mode in MotionModes)
-            {
-                mode.ApplyMotion();
-            }
-        }
+		private void ApplyMotion()
+		{
+			foreach (var mode in MotionModes)
+			{
+				mode.ApplyMotion();
+			}
+		}
 
-        private void FixedUpdate()
+		private void FixedUpdate()
 		{
 			ApplyMotion();
 		}
