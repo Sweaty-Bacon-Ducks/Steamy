@@ -20,7 +20,7 @@ namespace Steamy.Player.MotionModes
 			this.characterRigidbody = this.viewModel.GetComponent<Rigidbody>();
 		}
 
-		private float horizontalVelocity
+		private float HorizontalVelocity
 		{
 			get
 			{
@@ -30,7 +30,7 @@ namespace Steamy.Player.MotionModes
 
 		public override void ApplyMotion()
 		{
-			if (horizontalVelocity < SpeedThreshold)
+			if (HorizontalVelocity < SpeedThreshold)
 			{
 				float axisValue = Input.GetAxis(AxisName);
 				Vector3 forceVector = (RunningForce * axisValue) * Vector3.forward;

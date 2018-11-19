@@ -3,13 +3,11 @@ using System.IO;
 
 using UnityEngine;
 
+using Steamy.Serialization;
+
 namespace Steamy.Player.MotionModes
 {
-	public interface IJSONSerializable<T>
-	{
-		void JSONSerialize(string destination);
-		T JSONDeserialize(string source);
-	}
+	[Serializable]
 	public class MotionMode: IJSONSerializable<MotionMode>
 	{
 		public string Name;
@@ -45,9 +43,15 @@ namespace Steamy.Player.MotionModes
 			}
 		}
 
-		public MotionMode JSONDeserialize(string source)
+		public static T JSONDeserialize<T>(string source)
 		{
-			throw new NotImplementedException();
+			var path = Application.streamingAssetsPath + source;
+			string result = null;
+			using (var writer = new StreamReader(path))
+			{
+				result = writer.ReadToEnd();
+			}
+			return JsonUtility.FromJson<T>(result);
 		}
 	}
 }
