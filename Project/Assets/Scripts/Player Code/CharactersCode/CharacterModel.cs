@@ -11,6 +11,7 @@ namespace Steamy.Player
     public class CharacterModel
     {
         #region Fields
+        [HideInInspector]
         public CharacterViewModel ViewModel;
 
         public float HitPoints;
