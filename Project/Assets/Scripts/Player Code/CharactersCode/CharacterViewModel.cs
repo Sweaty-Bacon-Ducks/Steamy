@@ -10,10 +10,7 @@ namespace Steamy.Player
 {
 	public class CharacterViewModel : MonoBehaviour
 	{
-		[HideInInspector]
-		public CharacterModel Model;
-
-		public List<TextAsset> MotionModeDefinitionPaths;
+        public CharacterModel Model;
 		public List<MotionMode> MotionModes;
 
 		private void Awake()
@@ -25,7 +22,7 @@ namespace Steamy.Player
 		{
 			foreach (var mode in MotionModes)
 			{
-				mode.ApplyMotion();
+				mode.ApplyMotion(this);
 			}
 		}
 

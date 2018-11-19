@@ -8,7 +8,10 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 2fb653ab627fe41479a13147a323c014, type: 3}
-  m_Name: RunLeft
+  m_Script: {fileID: 11500000, guid: 91c9f6721713c4865b4dd4311e09df6b, type: 3}
+  m_Name: PhysicsHorizontalRun
   m_EditorClassIdentifier: 
-  Button: 97
+  Name: PhysicsRunMode
+  AxisName: Horizontal
+  RunningForce: 5
+  SpeedThreshold: 10

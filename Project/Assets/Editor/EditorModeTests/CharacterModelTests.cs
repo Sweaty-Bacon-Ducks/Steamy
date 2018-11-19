@@ -12,7 +12,7 @@ public class CharacterModelTests
 	[Test]
 	public void MotionModeSerializationTest()
 	{
-		var motionMode = new HorizontalRunMode
+		var motionMode = new PhysicsRunMode
 		{
 			Name = "Running",
 			AxisName = "Horizontal",
@@ -38,7 +38,7 @@ public class CharacterModelTests
 		{
 			result = writer.ReadToEnd();
 		}
-		var motionMode = JsonUtility.FromJson<HorizontalRunMode>(result);
+		var motionMode = JsonUtility.FromJson<PhysicsRunMode>(result);
 		Assert.True(motionMode.Name == "Running" &&
 			motionMode.AxisName == "Horizontal" &&
 			motionMode.RunningForce == 2f &&
