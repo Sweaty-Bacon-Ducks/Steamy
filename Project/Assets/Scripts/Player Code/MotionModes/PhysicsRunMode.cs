@@ -13,7 +13,7 @@ namespace Steamy.Player.MotionModes
 
         private float HorizontalVelocity(Rigidbody characterRigidbody)
 		{
-			return characterRigidbody.velocity.z;
+			return characterRigidbody.velocity.x;
 		}
 
 		public override void ApplyMotion(CharacterViewModel characterViewModel)
