@@ -220,6 +220,14 @@ Prefab:
       propertyPath: m_UpdateMode
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 400000, guid: 5416ce0a9bb0940bbb11ac5642f1274f, type: 3}
+      propertyPath: m_RootOrder
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 400004, guid: 5416ce0a9bb0940bbb11ac5642f1274f, type: 3}
+      propertyPath: m_RootOrder
+      value: 1
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 5416ce0a9bb0940bbb11ac5642f1274f, type: 3}
   m_IsPrefabAsset: 0
