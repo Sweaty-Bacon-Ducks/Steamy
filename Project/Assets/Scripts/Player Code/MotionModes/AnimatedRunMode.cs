@@ -7,44 +7,40 @@ namespace Steamy.Player.MotionModes
     public class AnimatedRunMode : MotionMode
     {
         public string AxisName;
+        public float AxisDeadzone;
+
         public float Acceleration;
-        public float SpeedThreshold;
+        public float Deceleration;
 
         public string AnimationSpeedVariable;
+
+        private const float MAX_AXIS_VALUE = 1f;
 
         private float HorizontalVelocity(Rigidbody characterRigidbody)
         {
             return Mathf.Abs(characterRigidbody.velocity.x);
         }
 
-        private float RELU(float value)
-        {
-            return value > 0 ? value : 0;
-        }
-
         protected float SpeedUp(float currentSpeed)
         {
-            float newSpeed = currentSpeed + Acceleration * Mathf.Log(Time.deltaTime + 1, (float)Math.E);
-            return newSpeed < 1 ? newSpeed : 0.99f;
+            float newSpeed = currentSpeed + 1f/(currentSpeed+100f) + Time.fixedDeltaTime * Acceleration;
+            return Mathf.Clamp01(newSpeed);
         }
 
         protected float SlowDown(float currentSpeed)
         {
-            return RELU(currentSpeed - Acceleration * Time.deltaTime) ;
+            float newSpeed = currentSpeed - Deceleration * Time.deltaTime;
+                                                               return Mathf.Clamp01(newSpeed);
         }
 
         public override void ApplyMotion(CharacterViewModel characterViewModel)
         {
             var characterRigidbody = characterViewModel.GetComponent<Rigidbody>();
-            if (HorizontalVelocity(characterRigidbody) - SpeedThreshold <= 0)
             {
-                Debug.Log("Velocity check");
                 var animator = characterViewModel.GetComponent<Animator>();
                 var currentSpeed = animator.GetFloat(AnimationSpeedVariable);
-                if (Input.GetAxis(AxisName) > 0)
+                if (Mathf.Abs(Input.GetAxis(AxisName) - MAX_AXIS_VALUE) < AxisDeadzone)
                 {
-                    Debug.Log("Applying motion");
-
                     animator.SetFloat(AnimationSpeedVariable, SpeedUp(currentSpeed));
                 }
                 else
