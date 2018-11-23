@@ -12,6 +12,8 @@ namespace Steamy.Player.MotionModes
         public float Acceleration;
         public float Deceleration;
 
+		public const float LOG_OFFSET = 1.05f;
+
         public string AnimationSpeedVariable;
 
         private const float MAX_AXIS_VALUE = 1f;
