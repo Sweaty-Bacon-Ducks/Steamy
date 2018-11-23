@@ -13,6 +13,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Name: Animated
   AxisName: Horizontal
+  AxisDeadzone: 0.3
   Acceleration: 2
-  SpeedThreshold: 10
+  Deceleration: 3
   AnimationSpeedVariable: speedPercent

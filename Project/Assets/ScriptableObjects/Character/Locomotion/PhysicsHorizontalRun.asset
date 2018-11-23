@@ -13,5 +13,5 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Name: PhysicsRunMode
   AxisName: Horizontal
-  RunningForce: 5
+  RunningForce: 100
   SpeedThreshold: 10
