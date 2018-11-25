@@ -16,4 +16,6 @@ MonoBehaviour:
   AxisDeadzone: 0.3
   Acceleration: 2
   Deceleration: 3
+  ForceMode: 2
+  SpeedThreshold: 10
   AnimationSpeedVariable: speedPercent
