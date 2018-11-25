@@ -26,7 +26,7 @@ namespace Steamy.Player
 			}
 		}
 
-		private void FixedUpdate()
+		private void Update()
 		{
 			ApplyMotion();
 		}
