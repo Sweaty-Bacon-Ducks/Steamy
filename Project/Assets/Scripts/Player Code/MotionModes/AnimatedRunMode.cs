@@ -122,8 +122,9 @@ namespace Steamy.Player.MotionModes
 			var playerSpeed = characterRigidbody.velocity.x;
 			if (SpeedInRange(playerSpeed))
 			{
-				characterRigidbody.AddForce(currentSpeed * Vector2.right, ForceMode);
-			}
+				//characterRigidbody.AddForce(currentSpeed * Vector2.right, ForceMode);
+                characterRigidbody.velocity = new Vector3(currentSpeed * 5, 0, 0);
+            }
 
 		}
 	}
