@@ -128,7 +128,7 @@ namespace Steamy.Player.MotionModes
 			var playerSpeed = characterRigidbody.velocity.x;
 			if (SpeedInRange(playerSpeed))
 			{
-               			UpdateHorizontalVelocity(SpeedMultiplier);
+               			UpdateHorizontalVelocity(currentSpeed * SpeedMultiplier);
             		}
 
 		}
