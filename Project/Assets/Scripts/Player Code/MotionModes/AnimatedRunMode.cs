@@ -69,6 +69,7 @@ namespace Steamy.Player.MotionModes
 		public float Deceleration;
 		public ForceMode ForceMode;
 		public float SpeedThreshold;
+		public float SpeedMultiplier = 5f;
 
 		public string AnimationSpeedVariable;
 
@@ -97,6 +98,11 @@ namespace Steamy.Player.MotionModes
 		{
 			return Mathf.Abs(playerSpeed) < SpeedThreshold;
 		}
+		
+		private void UpdateHorizontalVelocity(float horizontalVelocity)
+		{
+			characterRigidbody.velocity = new Vector3(horizontalVelocity, characterRigidbody.velocity.y, characterRigidbody.velocity.z);
+		}
 
 		public override void ApplyMotion(CharacterViewModel characterViewModel)
 		{
@@ -122,9 +128,8 @@ namespace Steamy.Player.MotionModes
 			var playerSpeed = characterRigidbody.velocity.x;
 			if (SpeedInRange(playerSpeed))
 			{
-				//characterRigidbody.AddForce(currentSpeed * Vector2.right, ForceMode);
-                characterRigidbody.velocity = new Vector3(currentSpeed * 5, 0, 0);
-            }
+               			UpdateHorizontalVelocity(SpeedMultiplier);
+            		}
 
 		}
 	}
