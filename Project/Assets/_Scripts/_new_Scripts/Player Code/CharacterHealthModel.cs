@@ -4,8 +4,8 @@ using UnityEngine;
 
 namespace Steamy.Player
 { 
-    [CreateAssetMenu(menuName = "Character/Health")]
-    public class CharacterHealthModel : ScriptableObject
+    [Serializable]
+    public class CharacterHealthModel
     {
         public delegate void Callback();
 
