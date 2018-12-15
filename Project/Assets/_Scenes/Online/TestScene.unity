@@ -113,6 +113,22 @@ NavMeshSettings:
     debug:
       m_Flags: 0
   m_NavMeshData: {fileID: 0}
+--- !u!1 &60075827 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 100054, guid: 2a78ad17f384bef4a967c66b25a4cd01,
+    type: 3}
+  m_PrefabInternal: {fileID: 2141406350}
+--- !u!114 &60075828
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 60075827}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 75bd7d18a1221514ea84d914a8eea875, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!4 &403969562
 Transform:
   m_ObjectHideFlags: 0
@@ -169,8 +185,8 @@ Transform:
   m_LocalPosition: {x: 2.97, y: 0.98, z: 0.25}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
-  m_Father: {fileID: 999895376}
-  m_RootOrder: 2
+  m_Father: {fileID: 0}
+  m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 1.86, y: -90, z: 0}
 --- !u!81 &822777603
 AudioListener:
@@ -245,11 +261,6 @@ CapsuleCollider:
   m_Height: 1
   m_Direction: 1
   m_Center: {x: 0, y: 0, z: 0}
---- !u!4 &999895376 stripped
-Transform:
-  m_CorrespondingSourceObject: {fileID: 400054, guid: 2a78ad17f384bef4a967c66b25a4cd01,
-    type: 3}
-  m_PrefabInternal: {fileID: 2141406350}
 --- !u!1 &1048195372
 GameObject:
   m_ObjectHideFlags: 0
@@ -375,6 +386,14 @@ Prefab:
       propertyPath: m_Controller
       value: 
       objectReference: {fileID: 9100000, guid: 1427ff69eaeb81d448ec8a6e556e199b, type: 2}
+    - target: {fileID: 400000, guid: 2a78ad17f384bef4a967c66b25a4cd01, type: 3}
+      propertyPath: m_RootOrder
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 400004, guid: 2a78ad17f384bef4a967c66b25a4cd01, type: 3}
+      propertyPath: m_RootOrder
+      value: 1
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 2a78ad17f384bef4a967c66b25a4cd01, type: 3}
   m_IsPrefabAsset: 0
