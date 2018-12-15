@@ -1,5 +1,5 @@
 fileFormatVersion: 2
-guid: 5416ce0a9bb0940bbb11ac5642f1274f
+guid: 2a78ad17f384bef4a967c66b25a4cd01
 ModelImporter:
   serializedVersion: 23
   fileIDToRecycleName:
@@ -49,6 +49,18 @@ ModelImporter:
     100086: UpperLeg_R
     100088: UpperThumb_L
     100090: UpperThumb_R
+    100092: Cube_001
+    100094: Cube_002
+    100096: Cube_003
+    100098: Cube_004
+    100100: Cube_005
+    100102: Cube_006
+    100104: Cube_007
+    100106: Cube_008
+    100108: Cube_009
+    100110: Cube_010
+    100112: Cube_011
+    100114: Cylinder
     400000: Armature
     400002: Chest
     400004: Cube
@@ -95,12 +107,67 @@ ModelImporter:
     400086: UpperLeg_R
     400088: UpperThumb_L
     400090: UpperThumb_R
+    400092: Cube_001
+    400094: Cube_002
+    400096: Cube_003
+    400098: Cube_004
+    400100: Cube_005
+    400102: Cube_006
+    400104: Cube_007
+    400106: Cube_008
+    400108: Cube_009
+    400110: Cube_010
+    400112: Cube_011
+    400114: Cylinder
     2100000: Skin
+    2100002: unnamed
+    2300000: Cube_001
+    2300002: Cube_002
+    2300004: Cube_003
+    2300006: Cube_004
+    2300008: Cube_005
+    2300010: Cube_006
+    2300012: Cube_007
+    2300014: Cube_008
+    2300016: Cube_009
+    2300018: Cube_010
+    2300020: Cube_011
+    2300022: Cylinder
+    3300000: Cube_001
+    3300002: Cube_002
+    3300004: Cube_003
+    3300006: Cube_004
+    3300008: Cube_005
+    3300010: Cube_006
+    3300012: Cube_007
+    3300014: Cube_008
+    3300016: Cube_009
+    3300018: Cube_010
+    3300020: Cube_011
+    3300022: Cylinder
     4300000: Cube
+    4300002: Cube_011
+    4300004: Cube_001
+    4300006: Cube_002
+    4300008: Cube_003
+    4300010: Cube_004
+    4300012: Cube_005
+    4300014: Cube_006
+    4300016: Cube_007
+    4300018: Cube_008
+    4300020: Cube_009
+    4300022: Cube_010
+    4300024: Cylinder
     7400000: Default Take
     7400002: Idle
     7400004: Run
     7400006: Walk
+    7400008: HeadUp
+    7400010: HeadMiddle
+    7400012: HeadDown
+    7400014: GunUp
+    7400016: GunMiddle
+    7400018: GunDown
     9500000: //RootNode
     13700000: Cube
     2186277476908879412: ImportLogs
@@ -119,41 +186,33 @@ ModelImporter:
     rigImportErrors: 
     rigImportWarnings: 
     animationImportErrors: 
-    animationImportWarnings: "\nClip 'Default Take' has import animation warnings
-      that might lower retargeting quality:\nNote: Activate translation DOF on avatar
-      to improve retargeting quality.\n\t'Chest' is inbetween humanoid transforms
-      and has rotation animation that will be discarded.\n\t'Shoulder_L' has translation
-      animation that will be discarded.\n\t'Shoulder_R' has translation animation
-      that will be discarded.\n\t'UpperLeg_L' has scale animation that will be discarded.\n\t'LowerLeg_L'
-      has scale animation that will be discarded.\n\t'Foot_L' has scale animation
-      that will be discarded.\n\t'LowerLeg_R' has scale animation that will be discarded.\n\t'Foot_R'
-      has scale animation that will be discarded.\n\nClip 'Idle' has import animation
-      warnings that might lower retargeting quality:\nNote: Activate translation DOF
-      on avatar to improve retargeting quality.\n\t'UpperFinger01_L' has translation
-      animation that will be discarded.\n\t'UpperFingers03_L' has translation animation
-      that will be discarded.\n\t'UpperFinger04_L' has translation animation that
-      will be discarded.\n\t'UpperFinger01_R' has translation animation that will
-      be discarded.\n\t'UpperFingers03_R' has translation animation that will be discarded.\n\t'UpperFinger04_R'
-      has translation animation that will be discarded.\n\nClip 'Run' has import animation
-      warnings that might lower retargeting quality:\nNote: Activate translation DOF
-      on avatar to improve retargeting quality.\n\t'Chest' is inbetween humanoid transforms
-      and has rotation animation that will be discarded.\n\t'Shoulder_L' has translation
-      animation that will be discarded.\n\t'Shoulder_R' has translation animation
-      that will be discarded.\n\t'UpperLeg_L' has scale animation that will be discarded.\n\t'LowerLeg_L'
-      has scale animation that will be discarded.\n\t'Foot_L' has scale animation
-      that will be discarded.\n\t'LowerLeg_R' has scale animation that will be discarded.\n\t'Foot_R'
-      has scale animation that will be discarded.\n\nClip 'Walk' has import animation
-      warnings that might lower retargeting quality:\nNote: Activate translation DOF
-      on avatar to improve retargeting quality.\n\t'Chest' is inbetween humanoid transforms
-      and has rotation animation that will be discarded.\n\t'Shoulder_L' has translation
-      animation that will be discarded.\n\t'Shoulder_R' has translation animation
-      that will be discarded.\n\t'UpperLeg_L' has scale animation that will be discarded.\n\t'LowerLeg_L'
+    animationImportWarnings: "\nClip 'Idle' has import animation warnings that might
+      lower retargeting quality:\nNote: Activate translation DOF on avatar to improve
+      retargeting quality.\n\t'UpperFinger01_L' has translation animation that will
+      be discarded.\n\t'UpperFingers03_L' has translation animation that will be discarded.\n\t'UpperFinger04_L'
+      has translation animation that will be discarded.\n\t'UpperFinger01_R' has translation
+      animation that will be discarded.\n\t'UpperFingers03_R' has translation animation
+      that will be discarded.\n\t'UpperFinger04_R' has translation animation that
+      will be discarded.\n\nClip 'Run' has import animation warnings that might lower
+      retargeting quality:\nNote: Activate translation DOF on avatar to improve retargeting
+      quality.\n\t'Chest' is inbetween humanoid transforms and has rotation animation
+      that will be discarded.\n\t'Shoulder_L' has translation animation that will
+      be discarded.\n\t'Shoulder_R' has translation animation that will be discarded.\n\t'UpperLeg_L'
+      has scale animation that will be discarded.\n\t'LowerLeg_L' has scale animation
+      that will be discarded.\n\t'Foot_L' has scale animation that will be discarded.\n\t'LowerLeg_R'
+      has scale animation that will be discarded.\n\t'Foot_R' has scale animation
+      that will be discarded.\n\nClip 'Walk' has import animation warnings that might
+      lower retargeting quality:\nNote: Activate translation DOF on avatar to improve
+      retargeting quality.\n\t'Chest' is inbetween humanoid transforms and has rotation
+      animation that will be discarded.\n\t'Shoulder_L' has translation animation
+      that will be discarded.\n\t'Shoulder_R' has translation animation that will
+      be discarded.\n\t'UpperLeg_L' has scale animation that will be discarded.\n\t'LowerLeg_L'
       has scale animation that will be discarded.\n\t'Foot_L' has scale animation
       that will be discarded.\n\t'LowerLeg_R' has scale animation that will be discarded.\n\t'Foot_R'
       has scale animation that will be discarded.\n"
     animationRetargetingWarnings: 
     animationDoRetargetingWarnings: 0
-    importAnimatedCustomProperties: 0
+    importAnimatedCustomProperties: 1
     importConstraints: 0
     animationCompression: 3
     animationRotationError: 0.5
@@ -259,6 +318,174 @@ ModelImporter:
       loop: 0
       hasAdditiveReferencePose: 0
       loopTime: 1
+      loopBlend: 0
+      loopBlendOrientation: 0
+      loopBlendPositionY: 0
+      loopBlendPositionXZ: 0
+      keepOriginalOrientation: 0
+      keepOriginalPositionY: 1
+      keepOriginalPositionXZ: 0
+      heightFromFeet: 0
+      mirror: 0
+      bodyMask: 01000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000
+      curves: []
+      events: []
+      transformMask: []
+      maskType: 3
+      maskSource: {instanceID: 0}
+      additiveReferencePoseFrame: 0
+    - serializedVersion: 16
+      name: HeadUp
+      takeName: HeadUp
+      firstFrame: -1
+      lastFrame: 0
+      wrapMode: 0
+      orientationOffsetY: 0
+      level: 0
+      cycleOffset: 0
+      loop: 0
+      hasAdditiveReferencePose: 0
+      loopTime: 0
+      loopBlend: 0
+      loopBlendOrientation: 0
+      loopBlendPositionY: 0
+      loopBlendPositionXZ: 0
+      keepOriginalOrientation: 0
+      keepOriginalPositionY: 1
+      keepOriginalPositionXZ: 0
+      heightFromFeet: 0
+      mirror: 0
+      bodyMask: 01000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000
+      curves: []
+      events: []
+      transformMask: []
+      maskType: 3
+      maskSource: {instanceID: 0}
+      additiveReferencePoseFrame: 0
+    - serializedVersion: 16
+      name: HeadMiddle
+      takeName: HeadMiddle
+      firstFrame: -1
+      lastFrame: 0
+      wrapMode: 0
+      orientationOffsetY: 0
+      level: 0
+      cycleOffset: 0
+      loop: 0
+      hasAdditiveReferencePose: 0
+      loopTime: 0
+      loopBlend: 0
+      loopBlendOrientation: 0
+      loopBlendPositionY: 0
+      loopBlendPositionXZ: 0
+      keepOriginalOrientation: 0
+      keepOriginalPositionY: 1
+      keepOriginalPositionXZ: 0
+      heightFromFeet: 0
+      mirror: 0
+      bodyMask: 01000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000
+      curves: []
+      events: []
+      transformMask: []
+      maskType: 3
+      maskSource: {instanceID: 0}
+      additiveReferencePoseFrame: 0
+    - serializedVersion: 16
+      name: HeadDown
+      takeName: HeadDown
+      firstFrame: -1
+      lastFrame: 0
+      wrapMode: 0
+      orientationOffsetY: 0
+      level: 0
+      cycleOffset: 0
+      loop: 0
+      hasAdditiveReferencePose: 0
+      loopTime: 0
+      loopBlend: 0
+      loopBlendOrientation: 0
+      loopBlendPositionY: 0
+      loopBlendPositionXZ: 0
+      keepOriginalOrientation: 0
+      keepOriginalPositionY: 1
+      keepOriginalPositionXZ: 0
+      heightFromFeet: 0
+      mirror: 0
+      bodyMask: 01000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000
+      curves: []
+      events: []
+      transformMask: []
+      maskType: 3
+      maskSource: {instanceID: 0}
+      additiveReferencePoseFrame: 0
+    - serializedVersion: 16
+      name: GunUp
+      takeName: GunUp
+      firstFrame: -1
+      lastFrame: 0
+      wrapMode: 0
+      orientationOffsetY: 0
+      level: 0
+      cycleOffset: 0
+      loop: 0
+      hasAdditiveReferencePose: 0
+      loopTime: 0
+      loopBlend: 0
+      loopBlendOrientation: 0
+      loopBlendPositionY: 0
+      loopBlendPositionXZ: 0
+      keepOriginalOrientation: 0
+      keepOriginalPositionY: 1
+      keepOriginalPositionXZ: 0
+      heightFromFeet: 0
+      mirror: 0
+      bodyMask: 01000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000
+      curves: []
+      events: []
+      transformMask: []
+      maskType: 3
+      maskSource: {instanceID: 0}
+      additiveReferencePoseFrame: 0
+    - serializedVersion: 16
+      name: GunMiddle
+      takeName: GunMiddle
+      firstFrame: -1
+      lastFrame: 0
+      wrapMode: 0
+      orientationOffsetY: 0
+      level: 0
+      cycleOffset: 0
+      loop: 0
+      hasAdditiveReferencePose: 0
+      loopTime: 0
+      loopBlend: 0
+      loopBlendOrientation: 0
+      loopBlendPositionY: 0
+      loopBlendPositionXZ: 0
+      keepOriginalOrientation: 0
+      keepOriginalPositionY: 1
+      keepOriginalPositionXZ: 0
+      heightFromFeet: 0
+      mirror: 0
+      bodyMask: 01000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000
+      curves: []
+      events: []
+      transformMask: []
+      maskType: 3
+      maskSource: {instanceID: 0}
+      additiveReferencePoseFrame: 0
+    - serializedVersion: 16
+      name: GunDown
+      takeName: GunDown
+      firstFrame: -1
+      lastFrame: 0
+      wrapMode: 0
+      orientationOffsetY: 0
+      level: 0
+      cycleOffset: 0
+      loop: 0
+      hasAdditiveReferencePose: 0
+      loopTime: 0
       loopBlend: 0
       loopBlendOrientation: 0
       loopBlendPositionY: 0
