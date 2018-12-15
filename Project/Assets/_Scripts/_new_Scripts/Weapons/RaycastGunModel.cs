@@ -20,9 +20,4 @@ public class RaycastGunModel : WeaponModel {
 
     public float RaycastLength;
     public float ShotDuration;
-
-    //public int BulletsInMagazine;
-    //public float ReloadTimer;
-    //public float FireTimer;
-    //public float TriggerTimer;
 }

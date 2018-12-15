@@ -4,24 +4,21 @@ using UnityEngine;
 
 public class RaycastGunViewModel : WeaponViewModel
 {
-    // Wpadlem na pomysl zmiennej HitForce. Kazde entity bedzie ja mialo i pozwoli to na penetracje
-    // sztucznie przypisac czas przeladowania jak bedziemy znali dlugosc animacji
+    public RaycastGunModel RaycastGunModel;
     public Transform ProjectileSpawn;
     public GameObject LineRendererPrefab;
 
     private Vector3 RayDirection;
 
     private int BulletsInMagazine;
-    private float FireTimer = 0f;
-    private float TriggerTimer = 0f;
-    
-    public RaycastGunModel RaycastGunModel;
+    private float FireTimer = 0f; // Must be >= FireRate if gun fires full auto
+    private float TriggerTimer = 0f; // Time between mouse click and first shot in sequence
+
     private LineRenderer activeRay;
 
-    public float PenDamage;
-    public float PenLeft;
+    private float PenDamage; // How much damage does bullet after penetrating
+    private float PenLeft; // How much penetration is left before stopping the bullet
 
-    [SerializeField]
     private bool reloading = false;
 
     private void Start()
@@ -33,8 +30,9 @@ public class RaycastGunViewModel : WeaponViewModel
     {
         if (Input.GetButton("Fire1"))
         {
-            AttackTry();
+            Attack();
         }
+
         if (Input.GetButtonUp("Fire1"))
         {
             TriggerTimer = 0f;
@@ -42,21 +40,24 @@ public class RaycastGunViewModel : WeaponViewModel
 
         if (Input.GetKeyDown(KeyCode.R))
         {
-            ReloadTry();
+            Reload();
         }
     }
 
-    public void AttackTry()
+    public override void Attack()
     {
         TriggerTimer += Time.deltaTime;
-        if (Time.time > FireTimer && BulletsInMagazine >= 1 && reloading == false  && TriggerTimer >= RaycastGunModel.TimeToFire)
+        if (Time.time > FireTimer && BulletsInMagazine >= 1 && reloading == false && TriggerTimer >= RaycastGunModel.TimeToFire)
         {
             FireTimer = Time.time + RaycastGunModel.FireRate;
 
-            Attack();
+            ExecuteAttack();
         }
     }
 
+    /// <summary>
+    /// For now Instantiates ray for specified time and destroys it after
+    /// </summary>
     private IEnumerator ShotEffect()
     {
         activeRay = Instantiate(LineRendererPrefab).GetComponent<LineRenderer>();
@@ -65,16 +66,18 @@ public class RaycastGunViewModel : WeaponViewModel
         Destroy(newRay.gameObject);
     }
 
-
-    public void ReloadTry()
+    /// <summary>
+    /// Function called on pressing the ReloadButton
+    /// </summary>
+    public void Reload()
     {
         if (BulletsInMagazine < RaycastGunModel.MagazineSize && reloading == false)
         {
-            StartCoroutine(Reload());
+            StartCoroutine(ExecuteReload());
         }
     }
 
-    private IEnumerator Reload()
+    private IEnumerator ExecuteReload()
     {
         reloading = true;
         yield return new WaitForSeconds(RaycastGunModel.ReloadTime);
@@ -82,7 +85,7 @@ public class RaycastGunViewModel : WeaponViewModel
         BulletsInMagazine = RaycastGunModel.MagazineSize;
     }
 
-    public override void Attack()
+    private void ExecuteAttack()
     {
         --BulletsInMagazine;
 
@@ -93,45 +96,50 @@ public class RaycastGunViewModel : WeaponViewModel
 
             StartCoroutine(ShotEffect());
 
-            Vector3 rayOrigin = ProjectileSpawn.position;
-
             //
             Vector3 TMPPos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
             TMPPos.z = 0;
             //
 
-            Vector3 direction = ProjectileSpawn.right; // Bullet Spread
-            direction.y += Random.Range(-RaycastGunModel.BulletSpread, RaycastGunModel.BulletSpread);
+            Vector3 direction = ProjectileSpawn.right;
+            direction.y += Random.Range(-RaycastGunModel.BulletSpread, RaycastGunModel.BulletSpread); // Creating bullet spread
 
+            Vector3 rayOrigin = ProjectileSpawn.position;
             activeRay.SetPosition(0, rayOrigin);
 
+            // Save every object on ray path
             RaycastHit[] hit;
             hit = Physics.RaycastAll(rayOrigin, direction, RaycastGunModel.RaycastLength);
             if (hit.Length > 0)
             {
-                for (int j = 0; j < hit.Length; ++j)
-                {
-                    activeRay.SetPosition(1, hit[j].point);
-                    Entity entity = hit[j].collider.GetComponent<Entity>();
-
-                    if (entity != null)
-                    {
-                        entity.ReceiveDamage(PenDamage);
-                        PenDamage -= entity.PenetrationDamageReduction;
-
-                        if (hit[j].rigidbody != null)
-                        {
-                            hit[j].rigidbody.AddForce(-hit[j].normal * RaycastGunModel.BulletForce);
-                        }
-
-                        if (PenDamage <= 0 || RaycastGunModel.BulletPenetration <= 0)
-                            break;
-                    }
-                }
+                ShootOneRay(hit);
             }
             else
             {
                 activeRay.SetPosition(1, rayOrigin + (direction * RaycastGunModel.RaycastLength));
+            }
+        }
+    }
+
+    private void ShootOneRay(RaycastHit[] hit)
+    {
+        for (int j = 0; j < hit.Length; ++j)
+        {
+            activeRay.SetPosition(1, hit[j].point);
+            Entity entity = hit[j].collider.GetComponent<Entity>();
+
+            if (entity != null)
+            {
+                entity.ReceiveDamage(PenDamage);
+                PenDamage -= entity.PenetrationDamageReduction;
+
+                if (hit[j].rigidbody != null)
+                {
+                    hit[j].rigidbody.AddForce(-hit[j].normal * RaycastGunModel.BulletForce);
+                }
+
+                if (PenDamage <= 0 || RaycastGunModel.BulletPenetration <= 0)
+                    break;
             }
         }
     }
