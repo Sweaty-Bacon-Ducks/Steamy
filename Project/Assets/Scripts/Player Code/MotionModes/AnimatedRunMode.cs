@@ -99,7 +99,7 @@ namespace Steamy.Player.MotionModes
 			return Mathf.Abs(playerSpeed) < SpeedThreshold;
 		}
 		
-		private void UpdateHorizontalVelocity(float horizontalVelocity)
+		private void UpdateHorizontalVelocity(Rigidbody characterRigidbody, float horizontalVelocity)
 		{
 			characterRigidbody.velocity = new Vector3(horizontalVelocity, characterRigidbody.velocity.y, characterRigidbody.velocity.z);
 		}
@@ -129,9 +129,8 @@ namespace Steamy.Player.MotionModes
 			currentSpeed *= SpeedMultiplier;
 			if (SpeedInRange(playerSpeed))
 			{
-               			UpdateHorizontalVelocity(currentSpeed);
-            		}
-
+                UpdateHorizontalVelocity(characterRigidbody, currentSpeed);
+            }
 		}
 	}
 }

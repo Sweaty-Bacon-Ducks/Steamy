@@ -162,6 +162,7 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 120
   m_CollisionDetection: 0
+--- !u!4 &558534994 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 400054, guid: 5416ce0a9bb0940bbb11ac5642f1274f,
     type: 3}
