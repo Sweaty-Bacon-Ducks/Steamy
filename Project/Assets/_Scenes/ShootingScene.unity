@@ -500,7 +500,7 @@ GameObject:
   - component: {fileID: 376112650}
   - component: {fileID: 376112649}
   m_Layer: 0
-  m_Name: Player
+  m_Name: Capsule
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1314,10 +1314,16 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9bcb5ae21a78a4f4ba450173abe93497, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  RaycastGunModel: {fileID: 11400000, guid: 1566d0b22290d35468b7044bc254c864, type: 2}
   ProjectileSpawn: {fileID: 1528123240}
   LineRendererPrefab: {fileID: 1190893165887780, guid: 595101864b7be67488a936f4aab45b9f,
     type: 2}
+  BulletsInMagazine: 0
+  FireTimer: 0
+  TriggerTimer: 0
+  RaycastGunModel: {fileID: 11400000, guid: 1566d0b22290d35468b7044bc254c864, type: 2}
+  PenDamage: 0
+  PenLeft: 0
+  reloading: 0
 --- !u!65 &1716607552
 BoxCollider:
   m_ObjectHideFlags: 0
