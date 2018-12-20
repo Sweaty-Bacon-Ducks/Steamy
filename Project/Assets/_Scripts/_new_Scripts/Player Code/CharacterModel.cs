@@ -1,29 +1,26 @@
 ﻿using System;
-using System.ComponentModel;
 using System.Collections.Generic;
-
+using System.ComponentModel;
 using Steamy.Player.MotionModes;
-
 using UnityEngine;
 
 namespace Steamy.Player
 {
-	[Serializable]
-	public class CharacterModel
-	{
+    public delegate void Callback();
+
+    [Serializable]
+    public class CharacterModel
+    {
         public string Name;
         public CharacterHealth Health;
+        public List<MotionMode> MotionModes;
 
         public CharacterModel() { }
-
-        public List<MotionMode> MotionModes;
-	}
+    }
 
     [Serializable]
     public class CharacterHealth : INotifyPropertyChanged
     {
-        public delegate void Callback();
-
         public event Callback HealCallback;
         public event Callback DamageCallback;
         public event PropertyChangedEventHandler PropertyChanged;

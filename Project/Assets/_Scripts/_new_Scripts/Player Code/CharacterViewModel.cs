@@ -1,36 +1,67 @@
-﻿using System;
-
+﻿using System.ComponentModel;
 using UnityEngine;
-
-using Steamy.Player.MotionModes;
 using UnityEngine.UI;
-using System.ComponentModel;
 
 namespace Steamy.Player
 {
-	public class CharacterViewModel : MonoBehaviour
-	{
-		public CharacterModel Model;
+    public class CharacterViewModel : MonoBehaviour
+    {
+        #region PublicInterface
 
+        public CharacterModel Model;
         public Text HealthView;
+        public event Callback DeathCallback;
 
-		private void Awake()
-		{
+        public void Damage(double amount)
+        {
+            if (amount < 0)
+                return;
+
+            if (IsCharacterDead)
+            {
+                DeathCallback?.Invoke();
+                return;
+            }
+            Model.Health.Value -= amount;
+        }
+        public void Heal(double amount)
+        {
+            if (amount < 0)
+                return;
+
+            if (Model.Health.Value + amount >= Model.Health.MaxValue)
+            {
+                Model.Health.Value = Model.Health.MaxValue;
+                return;
+            }
+            Model.Health.Value += amount;
+        }
+        #endregion
+
+        #region UnityMessages
+        private void Awake()
+        {
             Model.Health.PropertyChanged += OnHealthChanged;
             Model.Health.Value = Model.Health.MaxValue;
         }
-
+        private void OnDisable()
+        {
+            Model.Health.PropertyChanged -= OnHealthChanged;
+        }
         private void Update()
-		{
-
+        {
             MoveCharacter();
+        }
+        #endregion
 
-            if (Input.GetKeyDown(KeyCode.K))
+        #region PrivateInterface
+        private bool IsCharacterDead
+        {
+            get
             {
-                Model.Health.Value -= 1;
+                return Model.Health.Value <= 0;
             }
-		}
-
+        }
         private void MoveCharacter()
         {
             if (Model.MotionModes == null)
@@ -41,10 +72,13 @@ namespace Steamy.Player
                 mode.Do(this);
             }
         }
-
         private void OnHealthChanged(object sender, PropertyChangedEventArgs e)
         {
-            HealthView.text = Model.Health.Value.ToString();
+            if (HealthView)
+            {
+                HealthView.text = Model.Health.Value.ToString();
+            }
         }
+        #endregion
     }
 }
