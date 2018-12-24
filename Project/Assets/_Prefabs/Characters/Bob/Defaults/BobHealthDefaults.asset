@@ -8,10 +8,9 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 4b58561133705a843a16a931b954efbd, type: 3}
-  m_Name: Healing
+  m_Script: {fileID: 11500000, guid: f131127e3380c47bab4fa9b1a7d81dbe, type: 3}
+  m_Name: BobHealthDefaults
   m_EditorClassIdentifier: 
-  healingSpeed: 2.5
-  healingValue: 1
-  maxHealingValue: 100
-  activeEffect: 0
+  Icon: {fileID: 0}
+  Name: 
+  MaxValue: 0

@@ -41,6 +41,8 @@ namespace Steamy.Player
         #region UnityMessages
         private void Awake()
         {
+            Model.Health = Model.HealthDefaults.Create();
+
             Model.Health.PropertyChanged += OnHealthChanged;
             Model.Health.Value = Model.Health.MaxValue;
         }
