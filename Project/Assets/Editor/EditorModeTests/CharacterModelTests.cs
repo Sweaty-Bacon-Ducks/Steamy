@@ -1,44 +1,47 @@
-﻿using System.IO;
-using System.Collections.Generic;
+﻿using System;
+using System.IO;
+
+using UnityEngine;
 
 using NUnit.Framework;
 
-using Steamy.Player;
 using Steamy.Player.MotionModes;
-using System;
 
 public class CharacterModelTests
 {
-	[Test(Author = "Jakub Kowalik")]
-	public void SaveCharacterModelToXml()
+	[Test]
+	public void MotionModeSerializationTest()
 	{
-		var resultFilePath = ".\\Assets\\Editor\\EditorModeTests\\character.xml";
-
-		File.Delete(resultFilePath);
-
-		var characterModel = new CharacterModel();
-		var characterData = new CharacterData
+		var motionMode = new PhysicsRunMode
 		{
-			MaxHitPoints = 100,
-			Name = "Gracjan"
+			Name = "Running",
+			AxisName = "Horizontal",
+			RunningForce = 2f,
+			SpeedThreshold = 10f,
 		};
+		var jsonRepresentation = JsonUtility.ToJson(motionMode);
+		var path = Application.streamingAssetsPath + "\\defs\\movement\\HorizontalRunMode.json";
 
-		characterModel.Data = characterData;
-		characterModel.MotionModes = new HashSet<MotionMode> { new RunningMode(), new JumpMode(), new JumpMode() };
-		CharacterModel.SaveToXml(resultFilePath, characterModel);
+		using (var writer = new StreamWriter(path))
+		{
+			writer.WriteLine(jsonRepresentation);
+		}
+
 		Assert.Pass();
 	}
-
-	[Test(Author = "Jakub Kowalik")]
-	public void ReadCharacterModelFromXml()
+	[Test]
+	public void MotionModeDeserializationTest()
 	{
-		var resultFilePath = ".\\Assets\\Editor\\EditorModeTests\\character.xml";
-
-		var extraTypes = new Type[] { typeof(MotionMode) };
-		var characterModel = CharacterModel.ReadFromXml(resultFilePath, extraTypes);
-		Assert.True(characterModel.Data.Name == "Gracjan" && 
-			characterModel.Data.MaxHitPoints == 100f &&
-			characterModel.MotionModes.Contains(new RunningMode()) &&
-			characterModel.MotionModes.Contains(new JumpMode()));
+		var path = Application.streamingAssetsPath + "\\defs\\movement\\HorizontalRunMode.json";
+		string result = null;
+		using (var writer = new StreamReader(path))
+		{
+			result = writer.ReadToEnd();
+		}
+		var motionMode = JsonUtility.FromJson<PhysicsRunMode>(result);
+		Assert.True(motionMode.Name == "Running" &&
+			motionMode.AxisName == "Horizontal" &&
+			motionMode.RunningForce == 2f &&
+			motionMode.SpeedThreshold == 10f);
 	}
 }
