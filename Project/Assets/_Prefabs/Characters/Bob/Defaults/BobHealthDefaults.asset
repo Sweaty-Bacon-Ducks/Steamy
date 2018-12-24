@@ -11,6 +11,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f131127e3380c47bab4fa9b1a7d81dbe, type: 3}
   m_Name: BobHealthDefaults
   m_EditorClassIdentifier: 
-  Icon: {fileID: 0}
-  Name: 
-  MaxValue: 0
+  Icon: {fileID: 10907, guid: 0000000000000000f000000000000000, type: 0}
+  Name: Bob's health
+  MaxValue: 100

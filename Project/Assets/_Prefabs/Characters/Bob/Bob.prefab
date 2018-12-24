@@ -1400,7 +1400,7 @@ MonoBehaviour:
       Icon: {fileID: 0}
       Name: 
       MaxValue: 0
-    Name: 
+    Name: Bob
     MotionModes:
     - {fileID: 11400000, guid: 6f833e4a5b32e4765b4ece8a114f02af, type: 2}
   HealthView: {fileID: 0}
