@@ -71,7 +71,7 @@ namespace Steamy.Player
 
             foreach (var mode in Model.MotionModes)
             {
-                mode.Do(this);
+                mode.ApplyMotion(this);
             }
         }
         private void OnHealthChanged(object sender, PropertyChangedEventArgs e)

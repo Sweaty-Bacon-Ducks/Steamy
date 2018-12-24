@@ -1,4 +1,5 @@
 ﻿using System;
+using Steamy.Player;
 
 namespace Steamy.Player.MotionModes
 {
