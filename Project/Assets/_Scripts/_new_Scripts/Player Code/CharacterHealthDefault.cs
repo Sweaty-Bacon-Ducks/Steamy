@@ -2,16 +2,19 @@
 using System.ComponentModel;
 
 using UnityEngine;
+
+using Steamy;
+
 namespace Steamy.Player
 {
     [CreateAssetMenu(menuName = "Character/Defaults/Health")]
-    public class CharacterHealthDefault : ScriptableObject
+    public class CharacterHealthDefault : ScriptableObject, IDefault<CharacterHealth>
     {
         public Sprite Icon;
         public string Name;
         public double MaxValue;
 
-        public CharacterHealth Create()
+        public CharacterHealth CreateFromDefaults()
         {
             return new CharacterHealth
             {
