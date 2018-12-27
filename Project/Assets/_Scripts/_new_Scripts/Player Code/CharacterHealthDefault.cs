@@ -14,7 +14,7 @@ namespace Steamy.Player
         public string Name;
         public double MaxValue;
 
-        public CharacterHealth CreateFromDefaults()
+        public CharacterHealth LoadFromDefaults()
         {
             return new CharacterHealth
             {
