@@ -3,6 +3,6 @@ namespace Steamy
 {
     public interface IDefault<T>
     {
-        T CreateFromDefaults();
+        T LoadFromDefaults();
     }
 }
