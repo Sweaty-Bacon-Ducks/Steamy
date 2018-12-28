@@ -162,6 +162,11 @@ Prefab:
       propertyPath: m_Constraints
       value: 80
       objectReference: {fileID: 0}
+    - target: {fileID: 95356791655693610, guid: d018b3199c3084ffb9db5b790d3ce910,
+        type: 2}
+      propertyPath: m_ApplyRootMotion
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: d018b3199c3084ffb9db5b790d3ce910, type: 2}
   m_IsPrefabAsset: 0
