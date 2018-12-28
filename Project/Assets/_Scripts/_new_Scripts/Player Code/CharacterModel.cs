@@ -11,7 +11,7 @@ namespace Steamy.Player
     [Serializable]
     public class CharacterModel
     { 
-        public IDefault<CharacterHealth> HealthDefaults;
+        public CharacterHealthDefault HealthDefaults;
         [HideInInspector]
         public CharacterHealth Health;
 
@@ -22,4 +22,3 @@ namespace Steamy.Player
         public CharacterModel() { }
     }
 }
-

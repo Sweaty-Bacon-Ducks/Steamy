@@ -18,4 +18,5 @@ MonoBehaviour:
   Deceleration: 3
   ForceMode: 2
   SpeedThreshold: 10
+  SpeedMultiplier: 5
   AnimationSpeedVariable: speedPercent
