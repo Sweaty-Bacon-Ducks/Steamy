@@ -1,10 +1,7 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 
-[CreateAssetMenu (menuName ="Weapons/MeleeWeapon")]
-public class WeaponModel : ScriptableObject {
-
+public class WeaponModel
+{
     public string Name;
     public string Desc;
     public Sprite Sprite;
