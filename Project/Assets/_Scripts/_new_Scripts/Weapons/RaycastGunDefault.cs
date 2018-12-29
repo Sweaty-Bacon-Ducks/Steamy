@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 
 [CreateAssetMenu(menuName = "Weapons/RaycastGun")]
-public class RaycastGunSO : WeaponSO {
+public class RaycastGunDefault : WeaponDefault {
 
     public float BulletSpread;
     public int BulletCount;

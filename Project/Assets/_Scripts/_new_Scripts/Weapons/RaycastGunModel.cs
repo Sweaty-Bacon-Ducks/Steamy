@@ -38,12 +38,12 @@ public class RaycastGunModel : WeaponModel
     public RaycastGunViewModel ViewModel;
 
 
-    public RaycastGunModel(RaycastGunViewModel viewModel, RaycastGunSO SO)
+    public RaycastGunModel(RaycastGunViewModel viewModel, RaycastGunDefault SO)
     {
         LoadFromScriptableObject(viewModel, SO);
     }
 
-    public void LoadFromScriptableObject(RaycastGunViewModel viewModel, RaycastGunSO SO)
+    public void LoadFromScriptableObject(RaycastGunViewModel viewModel, RaycastGunDefault SO)
     {
         this.Name = SO.Name;
         this.Desc = SO.Desc;

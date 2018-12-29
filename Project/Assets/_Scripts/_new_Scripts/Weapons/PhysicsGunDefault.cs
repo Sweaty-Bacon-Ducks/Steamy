@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 
 [CreateAssetMenu (menuName = "Weapons/PhysicsGun")]
-public class PhysicsGunModel : WeaponSO {
+public class PhysicsGunDefault : WeaponDefault {
 
     public float BulletSpread;
     public int BulletCount;

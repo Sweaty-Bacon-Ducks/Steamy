@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class PhysicsGunViewModel : WeaponViewModel
 {
-    public PhysicsGunModel PhysicsGunModel;
+    public PhysicsGunDefault PhysicsGunModel;
 
     public override void Attack()
     {

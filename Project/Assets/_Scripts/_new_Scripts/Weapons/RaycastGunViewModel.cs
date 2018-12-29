@@ -6,7 +6,7 @@ public class RaycastGunViewModel : WeaponViewModel
 {
     private RaycastGunModel model;
 
-    public RaycastGunSO SO;
+    public RaycastGunDefault SO;
     public Transform ProjectileSpawn;
     public GameObject LineRendererPrefab;
 
