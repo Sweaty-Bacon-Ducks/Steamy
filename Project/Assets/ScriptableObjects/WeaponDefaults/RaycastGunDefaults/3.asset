@@ -9,19 +9,19 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: f910c0be663b61e43b65cf4159d2c0c9, type: 3}
-  m_Name: 1
+  m_Name: 3
   m_EditorClassIdentifier: 
-  Name: Test1
+  WeaponName: 
   Desc: Test1 fasrfsaf
-  Sprite: {fileID: 0}
+  WeaponSprite: {fileID: 0}
   Damage: 3
   BulletSpread: 0
   BulletCount: 1
-  MagazineSize: 3
-  FireRate: 0.5
+  MagazineSize: 2
+  FireRate: 1
   BulletPenetration: 0
-  BulletForce: 0
-  ReloadTime: 1
+  BulletForce: 250
+  ReloadTime: 2
   TimeToFire: 0
   RaycastLength: 20
   ShotDuration: 0.7
