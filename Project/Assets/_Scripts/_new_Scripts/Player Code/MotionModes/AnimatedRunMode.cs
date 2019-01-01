@@ -2,62 +2,6 @@
 
 namespace Steamy.Player.MotionModes
 {
-    public interface ISpeedScaler
-    {
-        float ScaleUp(float value);
-        float ScaleDown(float value);
-    }
-
-    public class LinearFixedDeltaTimeScaler : ISpeedScaler
-    {
-        private readonly float speedUpConstant;
-        private readonly float slowDownConstant;
-
-        public LinearFixedDeltaTimeScaler(float speedUpConstant, float slowDownConstant)
-        {
-            this.speedUpConstant = speedUpConstant;
-            this.slowDownConstant = slowDownConstant;
-        }
-
-        public float ScaleDown(float value)
-        {
-            return value - Time.fixedDeltaTime * slowDownConstant;
-        }
-
-        public float ScaleUp(float value)
-        {
-            return value + Time.fixedDeltaTime * speedUpConstant;
-        }
-    }
-
-    public abstract class SpeedScalerDecorator : ISpeedScaler
-    {
-        public ISpeedScaler SpeedScaler;
-
-        public SpeedScalerDecorator(ISpeedScaler SpeedScaler)
-        {
-            this.SpeedScaler = SpeedScaler;
-        }
-
-        public abstract float ScaleDown(float value);
-        public abstract float ScaleUp(float value);
-    }
-
-    public class Clamped01LinearScaler : SpeedScalerDecorator
-    {
-        public Clamped01LinearScaler(ISpeedScaler SpeedScaler) : base(SpeedScaler) { }
-
-        public override float ScaleDown(float value)
-        {
-            return Mathf.Clamp01(SpeedScaler.ScaleDown(value));
-        }
-
-        public override float ScaleUp(float value)
-        {
-            return Mathf.Clamp01(SpeedScaler.ScaleUp(value));
-        }
-    }
-
     [CreateAssetMenu(menuName = "MotionModes/AnimatedRunMode")]
     public class AnimatedRunMode : MotionMode
     {
@@ -66,23 +10,42 @@ namespace Steamy.Player.MotionModes
 
         public float Acceleration;
         public float Deceleration;
-        public ForceMode ForceMode;
+        public float SpeedMultiplier;
         public float SpeedThreshold;
-        public float SpeedMultiplier = 5f;
 
         public string AnimationSpeedVariable;
 
-        public ISpeedScaler SpeedScaler;
-
         private const float MAX_AXIS_VALUE = 1f;
 
-        private void OnEnable()
+        public override void ApplyMotion(CharacterViewModel characterViewModel)
         {
-            SpeedScaler = new Clamped01LinearScaler(
-                    new LinearFixedDeltaTimeScaler(Acceleration, Deceleration)
-                );
-        }
+            var characterRigidbody = characterViewModel.GetComponent<Rigidbody>();
+            var playerInput = Input.GetAxis(AxisName);
 
+            var animator = characterViewModel.GetComponent<Animator>();
+            var currentAnimationSpeed = animator.GetFloat(AnimationSpeedVariable);
+
+            float currentVelocity = characterRigidbody.velocity.x;
+            float newVelocity = 0;
+            float newAnimationSpeed = 0;
+            if (InputInRange(playerInput))
+            {
+                newAnimationSpeed = Mathf.Clamp01(currentAnimationSpeed + Time.deltaTime * Acceleration);
+                newVelocity = currentVelocity + playerInput * SpeedMultiplier * Time.deltaTime * Acceleration;
+            }
+            else
+            {
+                newAnimationSpeed = Mathf.Clamp01(currentAnimationSpeed - Time.deltaTime * Deceleration);
+				var interpolationFactor = Mathf.Clamp01(SpeedMultiplier * Time.deltaTime * Deceleration);
+				newVelocity = Mathf.Lerp(currentVelocity, 0f, interpolationFactor);
+            }
+
+			if (SpeedInRange(newVelocity))
+			{
+				UpdateHorizontalVelocity(characterRigidbody, newVelocity);
+			}
+			animator.SetFloat(AnimationSpeedVariable, newAnimationSpeed);
+        }
         private float HorizontalVelocity(Rigidbody characterRigidbody)
         {
             return Mathf.Abs(characterRigidbody.velocity.x);
@@ -90,7 +53,7 @@ namespace Steamy.Player.MotionModes
 
         private bool InputInRange(float playerInput)
         {
-            return Mathf.Abs(playerInput - MAX_AXIS_VALUE) < AxisDeadzone;
+            return Mathf.Abs(playerInput) > MAX_AXIS_VALUE - AxisDeadzone;
         }
 
         private bool SpeedInRange(float playerSpeed)
@@ -103,32 +66,9 @@ namespace Steamy.Player.MotionModes
             characterRigidbody.velocity = new Vector3(horizontalVelocity, characterRigidbody.velocity.y, characterRigidbody.velocity.z);
         }
 
-        public override void ApplyMotion(CharacterViewModel characterViewModel)
+        private bool AreEqual(float firstValue, float secondValue)
         {
-            var characterRigidbody = characterViewModel.GetComponent<Rigidbody>();
-
-            var animator = characterViewModel.GetComponent<Animator>();
-            var currentSpeed = animator.GetFloat(AnimationSpeedVariable);
-            var playerInput = Input.GetAxis(AxisName);
-            float newSpeed = 0;
-            if (InputInRange(playerInput))
-            {
-                newSpeed = SpeedScaler.ScaleUp(currentSpeed);
-                animator.SetFloat(AnimationSpeedVariable, newSpeed);
-            }
-            else
-            {
-                newSpeed = SpeedScaler.ScaleDown(currentSpeed);
-                animator.SetFloat(AnimationSpeedVariable, newSpeed);
-            }
-            currentSpeed = newSpeed;
-
-            var playerSpeed = characterRigidbody.velocity.x;
-            currentSpeed *= SpeedMultiplier;
-            if (SpeedInRange(playerSpeed))
-            {
-                UpdateHorizontalVelocity(characterRigidbody, currentSpeed);
-            }
+            return Mathf.Abs(firstValue - secondValue) < Mathf.Epsilon;
         }
     }
 }

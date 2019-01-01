@@ -10,7 +10,7 @@ AnimatorController:
   m_AnimatorParameters:
   - m_Name: speedPercent
     m_Type: 1
-    m_DefaultFloat: 0.8
+    m_DefaultFloat: 0
     m_DefaultInt: 0
     m_DefaultBool: 0
     m_Controller: {fileID: 0}
@@ -58,9 +58,9 @@ AnimatorController:
     m_SyncedLayerAffectsTiming: 0
     m_Controller: {fileID: 9100000}
   - serializedVersion: 5
-    m_Name: Body
-    m_StateMachine: {fileID: 1107825539832330454}
-    m_Mask: {fileID: 31900000, guid: 390538ea45699e348b0ae8c875b6591e, type: 2}
+    m_Name: Arms
+    m_StateMachine: {fileID: 1107828822873552378}
+    m_Mask: {fileID: 31900000, guid: cd568852ec0d9ea48b8ff980fadcc3f9, type: 2}
     m_Motions: []
     m_Behaviours: []
     m_BlendingMode: 0
@@ -70,9 +70,9 @@ AnimatorController:
     m_SyncedLayerAffectsTiming: 0
     m_Controller: {fileID: 9100000}
   - serializedVersion: 5
-    m_Name: Arms
-    m_StateMachine: {fileID: 1107828822873552378}
-    m_Mask: {fileID: 31900000, guid: cd568852ec0d9ea48b8ff980fadcc3f9, type: 2}
+    m_Name: Body
+    m_StateMachine: {fileID: 1107825539832330454}
+    m_Mask: {fileID: 31900000, guid: 390538ea45699e348b0ae8c875b6591e, type: 2}
     m_Motions: []
     m_Behaviours: []
     m_BlendingMode: 0

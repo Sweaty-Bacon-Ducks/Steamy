@@ -20,7 +20,7 @@ public class AnimationConfigurator : MonoBehaviour
     void Start()
     {
         animator = GetComponentInChildren<Animator>();
-        cam = GameObject.Find("Camera").GetComponent<Camera>();
+        cam = GameObject.Find("Main Camera").GetComponent<Camera>();
         y = 0.0f;
         rotationSpeed = 700.0f;
     }
