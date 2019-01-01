@@ -6,7 +6,9 @@ using UnityEngine;
 public class BodyRotationMode : MotionMode
 {
     public float RotationSpeed;
-    public string MainCameraName;
+	public float RotationOffset;
+
+	public string MainCameraName;
     public string FacingRightAnimatorParameter;
     public string HeadTiltAnimatiorParameter;
 
@@ -43,38 +45,41 @@ public class BodyRotationMode : MotionMode
             animator.SetBool(FacingRightAnimatorParameter, false);
         }
 
-        //if (isFacingRight) targetY = 0.0f;
-        //else targetY = 180.0f;
+		float y, targetY, remainingY;
+		y = targetY = remainingY = 0f;
+		if (!facingRight)
+		{
+			targetY = 180.0f;
+		}
+		if (y != targetY && remainingY == 0)
+		{
+			remainingY += 180.0f;
+		}
 
-        //if (y != targetY && remainingY == 0)
-        //{
-        //    remainingY += 180.0f;
-        //}
+		if (remainingY > 0)
+		{
+			if (remainingY <= Time.deltaTime * RotationSpeed)
+			{
+				if (y < 180.0f) y = 180.0f;
+				else y = 0.0f;
+				remainingY = 0.0f;
 
-        //if (remainingY > 0)
-        //{
-        //    if (remainingY <= deltaTime * rotationSpeed)
-        //    {
-        //        if (y < 180.0f) y = 180.0f;
-        //        else y = 0.0f;
-        //        remainingY = 0.0f;
+				if (y >= 360.0f)
+				{
+					y -= 360.0f;
+				}
+			}
+			else if (y != targetY)
+			{
+				y += Time.deltaTime * RotationSpeed;
+				remainingY -= Time.deltaTime * RotationSpeed;
 
-        //        if (y >= 360.0f)
-        //        {
-        //            y -= 360.0f;
-        //        }
-        //    }
-        //    else if (y != targetY)
-        //    {
-        //        y += deltaTime * rotationSpeed;
-        //        remainingY -= deltaTime * rotationSpeed;
-
-        //        if (y >= 360.0f)
-        //        {
-        //            y -= 360.0f;
-        //        }
-        //    }
-        //}
-        //characterTransform.localRotation = Quaternion.Euler(0, y, 0);
-    }
+				if (y >= 360.0f)
+				{
+					y -= 360.0f;
+				}
+			}
+		}
+		characterTransform.localRotation = Quaternion.Euler(0, y + RotationOffset, 0);
+	}
 }

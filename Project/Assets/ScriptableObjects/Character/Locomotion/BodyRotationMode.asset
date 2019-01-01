@@ -12,7 +12,8 @@ MonoBehaviour:
   m_Name: BodyRotationMode
   m_EditorClassIdentifier: 
   Name: 
-  RotationSpeed: 0
+  RotationSpeed: 700
+  RotationOffset: 90
   MainCameraName: Main Camera
   FacingRightAnimatorParameter: isFacingRight
   HeadTiltAnimatiorParameter: headTiltPercent
