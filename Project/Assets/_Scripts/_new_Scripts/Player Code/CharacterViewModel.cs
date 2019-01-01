@@ -1,10 +1,10 @@
 ﻿using System.ComponentModel;
-using UnityEngine;
+using UnityEngine.Networking;
 using UnityEngine.UI;
 
 namespace Steamy.Player
 {
-    public class CharacterViewModel : MonoBehaviour
+    public class CharacterViewModel : NetworkBehaviour
     {
         #region PublicInterface
 
@@ -41,6 +41,9 @@ namespace Steamy.Player
         #region UnityMessages
         private void Awake()
         {
+			if (!isLocalPlayer)
+				return;
+
             Model.Health = Model.HealthDefaults?.LoadFromDefaults();
 
             Model.Health.PropertyChanged += OnHealthChanged;
@@ -48,11 +51,17 @@ namespace Steamy.Player
         }
         private void OnDisable()
         {
-            Model.Health.PropertyChanged -= OnHealthChanged;
+			if (!isLocalPlayer)
+				return;
+
+			Model.Health.PropertyChanged -= OnHealthChanged;
         }
         private void Update()
         {
-            MoveCharacter();
+			if (!isLocalPlayer)
+				return;
+
+			MoveCharacter();
         }
         #endregion
 

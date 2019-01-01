@@ -519,6 +519,9 @@ GameObject:
   - component: {fileID: 54169206541619038}
   - component: {fileID: 114623183985751278}
   - component: {fileID: 136353249713723420}
+  - component: {fileID: 114605554773503470}
+  - component: {fileID: 114638747309743662}
+  - component: {fileID: 114619332357824750}
   m_Layer: 0
   m_Name: Bob
   m_TagString: Untagged
@@ -798,7 +801,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1591365896204362}
   m_LocalRotation: {x: 0, y: 0.7071068, z: 0, w: 0.7071068}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalPosition: {x: -6.93, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 4750417786934498}
@@ -1364,7 +1367,7 @@ Rigidbody:
   m_UseGravity: 1
   m_IsKinematic: 0
   m_Interpolate: 0
-  m_Constraints: 80
+  m_Constraints: 120
   m_CollisionDetection: 0
 --- !u!95 &95356791655693610
 Animator:
@@ -1384,6 +1387,57 @@ Animator:
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorControllerStateOnDisable: 0
+--- !u!114 &114605554773503470
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1591365896204362}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 1590678366, guid: dc443db3e92b4983b9738c1131f555cb, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Animator: {fileID: 95356791655693610}
+  m_ParameterSendBits: 3
+  param0: 
+  param1: 
+  param2: 
+  param3: 
+  param4: 
+  param5: 
+--- !u!114 &114619332357824750
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1591365896204362}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 372142912, guid: dc443db3e92b4983b9738c1131f555cb, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_SceneId:
+    m_Value: 0
+  m_AssetId:
+    i0: 208
+    i1: 24
+    i2: 179
+    i3: 25
+    i4: 156
+    i5: 48
+    i6: 132
+    i7: 255
+    i8: 185
+    i9: 219
+    i10: 91
+    i11: 121
+    i12: 13
+    i13: 60
+    i14: 233
+    i15: 16
+  m_ServerOnly: 0
+  m_LocalPlayerAuthority: 1
 --- !u!114 &114623183985751278
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -1401,10 +1455,32 @@ MonoBehaviour:
       Icon: {fileID: 0}
       Name: 
       MaxValue: 0
-    Name: Bob
+    Name: 
     MotionModes:
     - {fileID: 11400000, guid: 6f833e4a5b32e4765b4ece8a114f02af, type: 2}
+    - {fileID: 11400000, guid: 00ef0196c435b8b43b2658b989e01fda, type: 2}
   HealthView: {fileID: 0}
+--- !u!114 &114638747309743662
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1591365896204362}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: -1768714887, guid: dc443db3e92b4983b9738c1131f555cb, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_TransformSyncMode: 3
+  m_SendInterval: 0.1
+  m_SyncRotationAxis: 7
+  m_RotationSyncCompression: 0
+  m_SyncSpin: 0
+  m_MovementTheshold: 0.001
+  m_VelocityThreshold: 0.0001
+  m_SnapThreshold: 5
+  m_InterpolateRotation: 1
+  m_InterpolateMovement: 1
 --- !u!136 &136353249713723420
 CapsuleCollider:
   m_ObjectHideFlags: 1
@@ -1415,7 +1491,7 @@ CapsuleCollider:
   m_IsTrigger: 0
   m_Enabled: 1
   m_Radius: 0.31
-  m_Height: 1.88
+  m_Height: 1.91
   m_Direction: 1
   m_Center: {x: 0, y: 0.95, z: 0}
 --- !u!137 &137885771167506676
