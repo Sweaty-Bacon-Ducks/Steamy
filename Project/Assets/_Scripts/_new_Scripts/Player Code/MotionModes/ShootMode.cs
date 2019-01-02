@@ -7,9 +7,10 @@ using UnityEngine;
 [CreateAssetMenu(menuName = "MotionModes/ShootMode")]
 public class ShootMode : MotionMode
 {
+    public string AxisName;
     public override void ApplyMotion(CharacterViewModel characterViewModel)
     {
-        if (Input.GetButton("Fire1"))
+        if (Input.GetButton(AxisName))
         {
             characterViewModel.EquippedWeapon.Attack();
         }

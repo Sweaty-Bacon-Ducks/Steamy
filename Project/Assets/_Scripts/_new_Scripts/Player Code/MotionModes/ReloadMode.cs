@@ -7,9 +7,10 @@ using UnityEngine;
 [CreateAssetMenu(menuName = "MotionModes/ReloadMode")]
 public class ReloadMode : MotionMode
 {
+    public string AxisName;
     public override void ApplyMotion(CharacterViewModel characterViewModel)
     {
-        if (Input.GetButtonDown("Reload")) //R
+        if (Input.GetButtonDown(AxisName))
         {
             characterViewModel.EquippedWeapon.Reload();
         }

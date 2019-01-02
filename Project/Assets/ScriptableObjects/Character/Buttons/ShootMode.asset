@@ -12,4 +12,4 @@ MonoBehaviour:
   m_Name: ShootMode
   m_EditorClassIdentifier: 
   Name: 
-  ViewModel: {fileID: 0}
+  AxisName: Fire1
