@@ -18,24 +18,6 @@ public class RaycastGunViewModel : WeaponViewModel
         model = Default.LoadFromDefaults();
     }
 
-    private void Update() //TMP dopóki nie ustalimy gdzie input powinien być
-    {
-        if (Input.GetButton("Fire1"))
-        {
-            Attack();
-        }
-
-        if (Input.GetButtonUp("Fire1"))
-        {
-            ResetTriggerTime();
-        }
-
-        if (Input.GetKeyDown(KeyCode.R))
-        {
-            Reload();
-        }
-    }
-
     public override void Attack()
     {
         model.TriggerTimer.Value += Time.deltaTime;
@@ -47,7 +29,21 @@ public class RaycastGunViewModel : WeaponViewModel
         }
     }
 
+    public override void StopAttack()
+    {
+        model.TriggerTimer.Value = 0f;
+    }
 
+    /// <summary>
+    /// Function called on pressing the ReloadButton
+    /// </summary>
+    public override void Reload()
+    {
+        if (model.BulletsInMagazine.Value < model.MagazineSize.Value && model.Reloading.Value == false)
+        {
+            StartCoroutine(ExecuteReload());
+        }
+    }
 
     /// <summary>
     /// For now Instantiates ray for specified time and destroys it after
@@ -58,17 +54,6 @@ public class RaycastGunViewModel : WeaponViewModel
         LineRenderer newRay = activeRay;
         yield return new WaitForSeconds(model.ShotDuration.Value);
         Destroy(newRay.gameObject);
-    }
-
-    /// <summary>
-    /// Function called on pressing the ReloadButton
-    /// </summary>
-    public void Reload()
-    {
-        if (model.BulletsInMagazine.Value < model.MagazineSize.Value && model.Reloading.Value == false)
-        {
-            StartCoroutine(ExecuteReload());
-        }
     }
 
     private IEnumerator ExecuteReload()
@@ -135,10 +120,5 @@ public class RaycastGunViewModel : WeaponViewModel
                     break;
             }
         }
-    }
-
-    public void ResetTriggerTime()
-    {
-        model.TriggerTimer.Value = 0f;
     }
 }

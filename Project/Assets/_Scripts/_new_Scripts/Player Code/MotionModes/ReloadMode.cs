@@ -1,16 +1,17 @@
-﻿using System.Collections;
+﻿using Steamy.Player;
+using Steamy.Player.MotionModes;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+[CreateAssetMenu(menuName = "MotionModes/ReloadMode")]
 public class ReloadMode : MotionMode
 {
-
-
-	void Update ()
+    public override void ApplyMotion(CharacterViewModel characterViewModel)
     {
-        if (Input.GetKeyDown(KeyCode.R))
+        if (Input.GetButtonDown("Reload")) //R
         {
-            ViewModel.Reload();
+            characterViewModel.EquippedWeapon.Reload();
         }
     }
 }
