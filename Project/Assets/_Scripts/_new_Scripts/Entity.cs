@@ -2,6 +2,9 @@
 using System.Collections.Generic;
 using UnityEngine;
 
+/// <summary>
+/// TMP script for shooting
+/// </summary>
 public class Entity : MonoBehaviour {
 
     public float Health;
