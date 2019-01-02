@@ -12,6 +12,8 @@ namespace Steamy.Player
         public Text HealthView;
         public event Callback DeathCallback;
 
+        public WeaponViewModel EquippedWeapon;
+
         public void Damage(double amount)
         {
             if (amount < 0)
