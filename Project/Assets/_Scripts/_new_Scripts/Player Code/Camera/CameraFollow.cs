@@ -1,31 +1,60 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 
-public class CameraFollow : MonoBehaviour {
+namespace Steamy
+{
+	public interface ICameraFollower
+	{
+		void Follow(Transform target);
+	}
 
-    private Camera cam;
+	[RequireComponent(typeof(Camera))]
+	public class CameraFollow : MonoBehaviour, ICameraFollower
+	{
+		private Camera m_Camera;
 
-    public Transform Target;
+		public Transform Target;
 
-    public Vector3 Offset;
-    public float MovementSpeed = 8f;
-    public float MouseRange = 5f;
+		public Vector3 PositionOffset;
+		public Vector3 RotationOffset;
+		public float MovementSpeed = 8f;
+		public float MouseRange = 5f;
 
-    void Start()
-    {
-        cam = GetComponent<Camera>();
-        //transform.eulerAngles = new Vector3(70, 0, 0); for rotation if needed
-    }
+		private void Start()
+		{
+			m_Camera = GetComponent<Camera>();
 
-    void Update()
-    {
-        var mousePos = Input.mousePosition;
-        mousePos.z = MouseRange;
-        Vector3 CursorPosition = cam.ScreenToWorldPoint(mousePos);
+			//transform.rotation *= Quaternion.Euler(RotationOffset); // Add the rotation offset. YES, ADD!
+		}
 
-        Vector3 Center = new Vector3((Target.position.x + CursorPosition.x) / 2 + Offset.x, (Target.position.y + CursorPosition.y) / 2 + Offset.y, Target.position.z + Offset.z);
+		private void LateUpdate()
+		{
+			if (Target != null)
+				Follow(Target);
+		}
 
-        transform.position = Vector3.Lerp(transform.position, Center, Time.deltaTime * MovementSpeed);
-    }
+		public void Follow(Transform target)
+		{
+			var targetPosition = Target.position;
+			var cursorPosition = m_Camera.ScreenToWorldPoint(new Vector3
+			{
+				x = Input.mousePosition.x,
+				y = Input.mousePosition.y,
+				z = MouseRange
+			});
+
+			var targetCameraPosition = GetTargetCameraPosition(cursorPosition, targetPosition);
+			transform.position = Vector3.Lerp(transform.position, targetCameraPosition, Time.deltaTime * MovementSpeed);
+		}
+
+		private Vector3 GetTargetCameraPosition(Vector3 start, Vector3 end)
+		{
+			return new Vector3
+			{
+				x = (start.x + end.x) / 2 + PositionOffset.x,
+				y = (start.y + end.y) / 2 + PositionOffset.y,
+				z = end.z + PositionOffset.z
+			};
+		}
+	}
 }
+
