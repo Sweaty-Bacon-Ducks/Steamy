@@ -10,76 +10,102 @@ public class BodyRotationMode : MotionMode
 
 	public string MainCameraName;
     public string FacingRightAnimatorParameter;
-    public string HeadTiltAnimatiorParameter;
+    public string HeadTiltAnimatorParameter;
+    public string AimingAnimatorParameter;
+    public string RotatingAnimatorParameter;
+    public string GoingRightAnimatorParameter;
+    public string AxisName;
+
+    public float Rotation, TargetRotation, RemainingRotation;
+	
 
     public override void ApplyMotion(CharacterViewModel characterViewModel)
     {
+        float axisValue = Input.GetAxis(AxisName);
         var characterTransform = characterViewModel.transform;
         var animator = characterViewModel.GetComponent<Animator>();
         Camera mainCamera = GameObject.Find(MainCameraName).GetComponentInChildren<Camera>();
-
         bool facingRight = animator.GetBool(FacingRightAnimatorParameter);
+        var characterPosition = characterTransform.position;
+        var headTransform = new Vector3(characterPosition.x, characterPosition.y, characterPosition.z);
+        headTransform.y += 1.5f;
+        var headPosition = mainCamera.WorldToScreenPoint(headTransform);
+        var headDirection = headPosition - Input.mousePosition;
+        var headAngle = Quaternion.FromToRotation(Vector3.up, headDirection).eulerAngles.z;
 
-        var headTransform = animator.GetBoneTransform(HumanBodyBones.Head);
-        var headPosition = mainCamera.WorldToScreenPoint(headTransform.position);
-        var headDirection = mainCamera.WorldToScreenPoint(headPosition - Input.mousePosition);
-        var headAngle = Vector3.Angle(headDirection, (-1) * characterTransform.up);
+        if (axisValue >= 0) animator.SetBool(GoingRightAnimatorParameter, true);
+        else animator.SetBool(GoingRightAnimatorParameter, false);
 
-        if (Input.mousePosition.x - 20.0f >= headPosition.x)
+        if ((Input.mousePosition - headPosition).magnitude >= 50)
         {
-            animator.SetFloat(HeadTiltAnimatiorParameter, (headAngle - 20.0f) / 180.0f);
+            animator.SetBool(AimingAnimatorParameter, true);
+        }
+        else 
+        {
+            animator.SetBool(AimingAnimatorParameter, false);
         }
 
-        if (Input.mousePosition.x + 20.0f <= headPosition.x)
+        if (Input.mousePosition.x >= headPosition.x)
         {
-            animator.SetFloat(HeadTiltAnimatiorParameter, (200.0f - headAngle) / 180.0f);
+            animator.SetFloat(HeadTiltAnimatorParameter, (180 - headAngle) / 180.0f);
         }
 
-        if (Input.mousePosition.x - 50.0f >= headPosition.x && facingRight == false)
+        if (Input.mousePosition.x < headPosition.x)
+        {
+            animator.SetFloat(HeadTiltAnimatorParameter, (headAngle - 180) / 180.0f);
+        }
+
+        if (Input.mousePosition.x - 1.0f >= headPosition.x && facingRight == false)
         {
             animator.SetBool(FacingRightAnimatorParameter, true);
         }
 
-        if (Input.mousePosition.x + 50.0f <= headPosition.x && facingRight == true)
+        if (Input.mousePosition.x + 1.0f <= headPosition.x && facingRight == true)
         {
             animator.SetBool(FacingRightAnimatorParameter, false);
         }
 
-		float y, targetY, remainingY;
-		y = targetY = remainingY = 0f;
-		if (!facingRight)
-		{
-			targetY = 180.0f;
-		}
-		if (y != targetY && remainingY == 0)
-		{
-			remainingY += 180.0f;
-		}
 
-		if (remainingY > 0)
+        if (facingRight) TargetRotation = 0.0f;
+        else TargetRotation = 180.0f;
+
+        if(RemainingRotation == 0)
+        {
+            if (Rotation != TargetRotation)
+            {
+                RemainingRotation += 180.0f;
+                animator.SetBool(RotatingAnimatorParameter, true);
+            }
+            else 
+            {
+                animator.SetBool(RotatingAnimatorParameter, false);
+            }
+        }
+
+		if (RemainingRotation > 0)
 		{
-			if (remainingY <= Time.deltaTime * RotationSpeed)
+			if (RemainingRotation <= Time.deltaTime * RotationSpeed)
 			{
-				if (y < 180.0f) y = 180.0f;
-				else y = 0.0f;
-				remainingY = 0.0f;
+				if (Rotation < 180.0f) Rotation = 180.0f;
+				else Rotation = 0.0f;
+				RemainingRotation = 0.0f;
 
-				if (y >= 360.0f)
+				if (Rotation >= 360.0f)
 				{
-					y -= 360.0f;
+					Rotation -= 360.0f;
 				}
 			}
-			else if (y != targetY)
+			else if (Rotation != TargetRotation)
 			{
-				y += Time.deltaTime * RotationSpeed;
-				remainingY -= Time.deltaTime * RotationSpeed;
+				Rotation += Time.deltaTime * RotationSpeed;
+				RemainingRotation -= Time.deltaTime * RotationSpeed;
 
-				if (y >= 360.0f)
+				if (Rotation >= 360.0f)
 				{
-					y -= 360.0f;
+					Rotation -= 360.0f;
 				}
 			}
 		}
-		characterTransform.localRotation = Quaternion.Euler(0, y + RotationOffset, 0);
+		characterTransform.localRotation = Quaternion.Euler(0, Rotation + RotationOffset, 0);
 	}
 }

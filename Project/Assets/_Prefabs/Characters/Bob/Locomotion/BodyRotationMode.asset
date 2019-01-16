@@ -16,4 +16,7 @@ MonoBehaviour:
   RotationOffset: 90
   MainCameraName: CharacterCamera
   FacingRightAnimatorParameter: isFacingRight
-  HeadTiltAnimatiorParameter: headTiltPercent
+  HeadTiltAnimatorParameter: headTiltPercent
+  Rotation: 0
+  TargetRotation: 0
+  RemainingRotation: 0
