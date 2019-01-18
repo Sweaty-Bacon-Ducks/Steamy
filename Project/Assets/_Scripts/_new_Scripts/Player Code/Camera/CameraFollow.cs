@@ -43,7 +43,7 @@ namespace Steamy
 			});
 
 			var targetCameraPosition = GetTargetCameraPosition(cursorPosition, targetPosition);
-			transform.position = Vector3.Lerp(transform.position, targetCameraPosition, Time.deltaTime * MovementSpeed);
+			transform.localPosition = Vector3.Lerp(transform.position, targetCameraPosition, Time.deltaTime * MovementSpeed);
 		}
 
 		private Vector3 GetTargetCameraPosition(Vector3 start, Vector3 end)
