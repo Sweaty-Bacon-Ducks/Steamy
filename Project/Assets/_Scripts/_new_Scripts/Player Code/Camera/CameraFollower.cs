@@ -8,7 +8,7 @@ namespace Steamy
 	}
 
 	[RequireComponent(typeof(Camera))]
-	public class CameraFollow : MonoBehaviour, ICameraFollower
+	public class CameraFollower : MonoBehaviour, ICameraFollower
 	{
 		private Camera m_Camera;
 
