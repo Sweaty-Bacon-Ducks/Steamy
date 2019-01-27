@@ -48,8 +48,7 @@ namespace Steamy.Player
 		public override void OnStartLocalPlayer()
 		{
 			// Set the target transform on the camera
-			var characterCameraObject = GameObject.Find(CharacterCameraName).GetComponent<CameraFollower>();
-			var characterCamera = characterCameraObject.GetComponent<CameraFollower>();
+			var characterCamera = GameObject.FindGameObjectWithTag(CharacterCameraTag).GetComponent<CameraFollower>();
 			characterCamera.Target = transform;
 
 			Model.Health = Model.HealthDefaults?.LoadFromDefaults();

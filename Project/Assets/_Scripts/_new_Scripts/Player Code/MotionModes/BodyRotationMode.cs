@@ -16,7 +16,7 @@ public class BodyRotationMode : MotionMode
     {
         var characterTransform = characterViewModel.transform;
         var animator = characterViewModel.GetComponent<Animator>();
-        Camera mainCamera = GameObject.Find(MainCameraName).GetComponent<Camera>();
+        Camera mainCamera = GameObject.Find(MainCameraName).GetComponentInChildren<Camera>();
 
         bool facingRight = animator.GetBool(FacingRightAnimatorParameter);
 

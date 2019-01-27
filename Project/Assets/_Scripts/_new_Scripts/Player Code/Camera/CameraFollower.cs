@@ -2,37 +2,36 @@
 
 namespace Steamy
 {
-	public interface ICameraFollower
-	{
-		void Follow(Transform target);
-	}
-
 	[RequireComponent(typeof(Camera))]
-	public class CameraFollower : MonoBehaviour, ICameraFollower
+	public class CameraFollower : MonoBehaviour, ITransformFollower
 	{
 		private Camera m_Camera;
 
-		public Transform Target;
+		[SerializeField]
+		private Transform m_Target;
+
+		public Transform Target
+		{
+			get { return m_Target; }
+			set { m_Target = value; }
+		}
 
 		public Vector3 PositionOffset;
-		public Vector3 RotationOffset;
 		public float MovementSpeed = 8f;
 		public float MouseRange = 5f;
 
 		private void Start()
 		{
 			m_Camera = GetComponent<Camera>();
-
-			//transform.rotation *= Quaternion.Euler(RotationOffset); // Add the rotation offset. YES, ADD!
 		}
 
 		private void LateUpdate()
 		{
 			if (Target != null)
-				Follow(Target);
+				Follow();
 		}
 
-		public void Follow(Transform target)
+		public void Follow()
 		{
 			var targetPosition = Target.position;
 			var cursorPosition = m_Camera.ScreenToWorldPoint(new Vector3
