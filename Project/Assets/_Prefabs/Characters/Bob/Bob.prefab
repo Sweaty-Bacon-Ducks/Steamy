@@ -1450,7 +1450,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   CharacterCameraTag: PlayerCamera
-  CharacterCameraName: Main Camera
+  CharacterCameraName: CharacterCamera
   Model:
     HealthDefaults: {fileID: 11400000, guid: f018949e83f054c8bb903202248fd257, type: 2}
     Health:
