@@ -8,7 +8,16 @@ namespace Steamy
 		private Camera m_Camera;
 
 		[SerializeField]
+		private Transform m_DefaultScenePosition;
+
+		[SerializeField]
 		private Transform m_Target;
+
+		public Transform DefaultScenePosition
+		{
+			get { return m_DefaultScenePosition; }
+			set { m_DefaultScenePosition = value; }
+		}
 
 		public Transform Target
 		{
@@ -29,6 +38,8 @@ namespace Steamy
 		{
 			if (Target != null)
 				Follow();
+			else if (m_DefaultScenePosition)
+				Target = m_DefaultScenePosition;
 		}
 
 		public void Follow()

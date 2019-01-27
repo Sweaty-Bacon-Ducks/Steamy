@@ -2,16 +2,19 @@
 
 namespace Steamy
 {
-	public class TransformFollower : MonoBehaviour, ITransformFollower
+	public class GlobalTransformFollower : MonoBehaviour, ITransformFollower
 	{
 		public float FollowSpeed;
 		public bool FollowRotation;
 
+			
 		[SerializeField]
 		private Transform m_Transform;
 
 		public Vector3 PositionOffset;
 		public Vector3 RotationOffset;
+
+		
 
 		public Transform Target
 		{
@@ -55,7 +58,7 @@ namespace Steamy
 
 		private void LateUpdate()
 		{
-			if (Target != null)
+			if (Target)
 				Follow();
 		}
 	}
