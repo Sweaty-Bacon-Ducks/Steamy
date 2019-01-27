@@ -1,6 +1,6 @@
 ﻿using System.ComponentModel;
-
 using UnityEngine;
+using UnityEngine.Networking;
 using UnityEngine.UI;
 using UnityEngine.Networking;
 using Steamy.Weapons;
@@ -75,6 +75,8 @@ namespace Steamy.Player
 		#endregion
 
 		#region PrivateInterface
+		[SyncVar] private double m_CurrentHealth;
+
 		private bool IsCharacterDead
 		{
 			get
@@ -94,6 +96,7 @@ namespace Steamy.Player
 		}
 		private void OnHealthChanged(object sender, PropertyChangedEventArgs e)
 		{
+			m_CurrentHealth = Model.Health.Value;
 			if (HealthView)
 			{
 				HealthView.text = Model.Health.Value.ToString();
