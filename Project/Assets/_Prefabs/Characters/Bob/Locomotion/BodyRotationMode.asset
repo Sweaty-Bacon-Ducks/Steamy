@@ -14,6 +14,6 @@ MonoBehaviour:
   Name: 
   RotationSpeed: 700
   RotationOffset: 90
-  MainCameraName: Main Camera
+  MainCameraName: CharacterCamera
   FacingRightAnimatorParameter: isFacingRight
   HeadTiltAnimatiorParameter: headTiltPercent

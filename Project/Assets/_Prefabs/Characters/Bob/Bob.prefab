@@ -801,7 +801,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1591365896204362}
   m_LocalRotation: {x: 0, y: 0.7071068, z: 0, w: 0.7071068}
-  m_LocalPosition: {x: -6.93, y: 0, z: 0}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 4750417786934498}
@@ -1449,17 +1449,20 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 88328677a8a8340bfbf81ffceb612e77, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  CharacterCameraTag: PlayerCamera
+  CharacterCameraName: CharacterCamera
   Model:
     HealthDefaults: {fileID: 11400000, guid: f018949e83f054c8bb903202248fd257, type: 2}
     Health:
       Icon: {fileID: 0}
       Name: 
       MaxValue: 0
-    Name: 
+    Name: Bob
     MotionModes:
     - {fileID: 11400000, guid: 6f833e4a5b32e4765b4ece8a114f02af, type: 2}
     - {fileID: 11400000, guid: 00ef0196c435b8b43b2658b989e01fda, type: 2}
   HealthView: {fileID: 0}
+  EquippedWeapon: {fileID: 0}
 --- !u!114 &114638747309743662
 MonoBehaviour:
   m_ObjectHideFlags: 1
