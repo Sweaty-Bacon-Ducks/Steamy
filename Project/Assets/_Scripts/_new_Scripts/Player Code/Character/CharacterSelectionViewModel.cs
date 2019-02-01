@@ -1,33 +1,40 @@
 ﻿using System.Collections.Generic;
 using UnityEngine;
 
-public class CharacterSelectionViewModel : MonoBehaviour
+namespace Steamy.Player
 {
-	[SerializeField]
-	private List<GameObject> availableCharacters;
+    public class CharacterSelectionViewModel : MonoBehaviour
+    {
+        [SerializeField]
+        private CharacterSelectionPresenter presenter;
+        public CharacterSelectionPresenter Presenter
+        {
+            get => presenter;
+            set => presenter = value;
+        }
 
-	public string SceneCameraTag;
-	private GameObject sceneCamera;
-	public List<GameObject> AvailableCharacters
-	{
-		get { return availableCharacters; }
-		set { availableCharacters = value; }
-	}
+        [SerializeField]
+        private List<GameObject> availableCharacters;
+        public List<GameObject> AvailableCharacters
+        {
+            get => availableCharacters;
+            set => availableCharacters = value;
+        }
 
-	// Use this for initialization
-	private void Start()
-	{
-		GameObject.FindGameObjectWithTag(SceneCameraTag).SetActive(false);
-	}
+        public string SceneCameraTag;
+        private GameObject sceneCamera;
 
-	// Update is called once per frame
-	private void Update()
-	{
+        private void Start()
+        {
+            sceneCamera = GameObject.FindGameObjectWithTag(SceneCameraTag);
 
-	}
+            if(Presenter)
+                Presenter.Transform(AvailableCharacters);
+        }
 
-	private void OnDisable()
-	{
-		GameObject.FindGameObjectWithTag(SceneCameraTag).SetActive(true);
-	}
+        private void OnDisable()
+        {
+        }
+    }
 }
+
