@@ -1,8 +1,14 @@
 {
     "name": "ScriptsAssembly",
-    "references": [],
+    "references": [
+        "Unity.TextMeshPro"
+    ],
     "optionalUnityReferences": [],
     "includePlatforms": [],
     "excludePlatforms": [],
-    "allowUnsafeCode": true
+    "allowUnsafeCode": true,
+    "overrideReferences": true,
+    "precompiledReferences": [],
+    "autoReferenced": true,
+    "defineConstraints": []
 }
