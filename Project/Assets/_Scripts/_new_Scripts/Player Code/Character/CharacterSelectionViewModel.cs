@@ -1,18 +1,12 @@
 ﻿using System.Collections.Generic;
 using UnityEngine;
 
-namespace Steamy.Player
+using Steamy.Player;
+
+namespace Steamy.UI
 {
     public class CharacterSelectionViewModel : MonoBehaviour
     {
-        [SerializeField]
-        private CharacterSelectionPresenter presenter;
-        public CharacterSelectionPresenter Presenter
-        {
-            get => presenter;
-            set => presenter = value;
-        }
-
         [SerializeField]
         private List<GameObject> availableCharacters;
         public List<GameObject> AvailableCharacters
@@ -21,6 +15,9 @@ namespace Steamy.Player
             set => availableCharacters = value;
         }
 
+		public Transform ListingContent;
+		public GameObject ListingElementPrefab;
+
         public string SceneCameraTag;
         private GameObject sceneCamera;
 
@@ -28,12 +25,15 @@ namespace Steamy.Player
         {
             sceneCamera = GameObject.FindGameObjectWithTag(SceneCameraTag);
 
-            if(Presenter)
-                Presenter.Transform(AvailableCharacters);
-        }
+			foreach (var charater in AvailableCharacters)
+			{
+				var listingElement = Instantiate(ListingElementPrefab, ListingContent).
+					GetComponent<CharacterListingElement>();
 
-        private void OnDisable()
-        {
+				var characterViewModel = charater.GetComponent<CharacterViewModel>();
+				listingElement.PresentCharacterData(characterViewModel.Model);
+			}
+
         }
     }
 }
