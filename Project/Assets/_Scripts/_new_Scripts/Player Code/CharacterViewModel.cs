@@ -3,6 +3,7 @@
 using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.Networking;
+using Steamy.Weapons;
 
 namespace Steamy.Player
 {
