@@ -4,163 +4,88 @@ using UnityEngine;
 
 namespace Steamy.Weapons
 {
-    public class WeaponModel
+    public class WeaponModel : INotifyPropertyChanged
     {
-        public WeaponName WeaponName;
-        public Desc Desc;
-        public WeaponSprite WeaponSprite;
-        public Damage Damage;
-    }
+        private string _weaponName;
+        private string _desc;
+        private Sprite _weaponSprite;
+        private float _damage;
 
-    public class WeaponName : INotifyPropertyChanged
-    {
-        public event Callback WeaponNameChangedCallback;
         public event PropertyChangedEventHandler PropertyChanged;
 
-        public string Name;
-
-        private string m_value="";
-
-        public string Value
-        {
-            get
-            {
-                return m_value;
-            }
-            set
-            {
-                if (!AreEqual(m_value, value))
-                {
-                    m_value = value;
-                    OnPropertyChanged(Name);
-                }
-            }
-        }
-
-        private void OnPropertyChanged(string name)
+        protected void OnPropertyChanged(string name)
         {
             PropertyChanged?.Invoke(this,
                     new PropertyChangedEventArgs(name)
                    );
         }
 
-        private bool AreEqual(string firstValue, string secondValue)
-        {
-            return firstValue.Equals(secondValue);
-        }
-    }
+        #region Properties
 
-    public class Desc : INotifyPropertyChanged
-    {
-        public event Callback DescChangedCallback;
-        public event PropertyChangedEventHandler PropertyChanged;
-
-        public string Name;
-
-        private string m_value = "";
-
-        public string Value
+        public string WeaponName
         {
             get
             {
-                return m_value;
+                return _weaponName;
             }
             set
             {
-                if (!AreEqual(m_value, value))
+                if (String.Equals(_weaponName, value))
                 {
-                    m_value = value;
-                    OnPropertyChanged(Name);
+                    _weaponName = value;
+                    OnPropertyChanged(nameof(WeaponName));
                 }
             }
         }
 
-        private void OnPropertyChanged(string name)
-        {
-            PropertyChanged?.Invoke(this,
-                    new PropertyChangedEventArgs(name)
-                   );
-        }
-
-        private bool AreEqual(string firstValue, string secondValue)
-        {
-            return firstValue.Equals(secondValue);
-        }
-    }
-
-    public class WeaponSprite : INotifyPropertyChanged
-    {
-        public event Callback SpriteChangedCallback;
-        public event PropertyChangedEventHandler PropertyChanged;
-
-        public string Name;
-
-        private Sprite m_value = Resources.Load<Sprite>("Sprites/DefaultSprite");
-
-        public Sprite Value
+        public string Desc
         {
             get
             {
-                return m_value;
+                return _desc;
             }
             set
             {
-                if (!AreEqual(m_value, value))
+                if (String.Equals(_desc, value))
                 {
-                    m_value = value;
-                    OnPropertyChanged(Name);
+                    _desc = value;
+                    OnPropertyChanged(nameof(WeaponName));
                 }
             }
         }
 
-        private void OnPropertyChanged(string name)
-        {
-            PropertyChanged?.Invoke(this,
-                    new PropertyChangedEventArgs(name)
-                   );
-        }
-
-        private bool AreEqual(Sprite firstValue, Sprite secondValue)
-        {
-            return firstValue.Equals(secondValue);
-        }
-    }
-
-    public class Damage : INotifyPropertyChanged
-    {
-        public event Callback DamageChangedCallback;
-        public event PropertyChangedEventHandler PropertyChanged;
-
-        public string Name;
-
-        private float m_value;
-
-        public float Value
+        public Sprite WeaponSprite
         {
             get
             {
-                return m_value;
+                return _weaponSprite;
             }
             set
             {
-                if (!AreEqual(m_value, value))
+                if (Sprite.Equals(_weaponSprite, value))
                 {
-                    m_value = value;
-                    OnPropertyChanged(Name);
+                    _weaponSprite = value;
+                    OnPropertyChanged(nameof(WeaponSprite));
                 }
             }
         }
 
-        private void OnPropertyChanged(string name)
+        public float Damage
         {
-            PropertyChanged?.Invoke(this,
-                    new PropertyChangedEventArgs(name)
-                   );
+            get
+            {
+                return _damage;
+            }
+            set
+            {
+                if (Math.Abs(_damage - value) < Mathf.Epsilon)
+                {
+                    _damage = value;
+                    OnPropertyChanged(nameof(Damage));
+                }
+            }
         }
 
-        private bool AreEqual(float firstValue, float secondValue)
-        {
-            return Math.Abs(firstValue - secondValue) < Mathf.Epsilon;
-        }
+        #endregion
     }
 }

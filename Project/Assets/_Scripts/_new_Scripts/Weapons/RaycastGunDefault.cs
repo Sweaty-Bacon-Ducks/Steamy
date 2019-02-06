@@ -28,30 +28,27 @@ namespace Steamy.Weapons
         {
             return new RaycastGunModel
             {
-                WeaponName = new WeaponName() { Value = WeaponName },
-                Desc = new Desc() { Value = Desc },
-                WeaponSprite = new WeaponSprite() { Value = WeaponSprite },
-                Damage = new Damage() { Value = Damage },
+                WeaponName = WeaponName,
+                Desc = Desc,
+                WeaponSprite = WeaponSprite,
+                Damage = Damage,
 
-                BulletSpread = new BulletSpread() { Value = BulletSpread },
-                BulletCount = new BulletCount() { Value = BulletCount },
-                MagazineSize = new MagazineSize() { Value = MagazineSize },
-                FireRate = new FireRate() { Value = FireRate },
-                BulletPenetration = new BulletPenetration() { Value = BulletPenetration },
-                BulletForce = new BulletForce() { Value = BulletForce },
-                ReloadTime = new ReloadTime() { Value = ReloadTime },
-                ShotChargeTime = new ShotChargeTime() { Value = ShotChargeTime },
-                RaycastLength = new RaycastLength() { Value = RaycastLength },
-                ShotDuration = new ShotDuration() { Value = ShotDuration },
+                BulletSpread = BulletSpread,
+                BulletCount = BulletCount,
+                MagazineSize = MagazineSize,
+                FireRate = FireRate,
+                BulletPenetration = BulletPenetration,
+                BulletForce = BulletForce,
+                ReloadTime = ReloadTime,
+                ShotChargeTime = ShotChargeTime,
+                RaycastLength = RaycastLength,
+                ShotDuration = ShotDuration,
 
-                FireTimer = new FireTimer() { Value = 0 },
-                TriggerTimer = new TriggerTimer() { Value = 0 },
-                Reloading = new Reloading() { Value = false },
+                FireTimer = 0f,
+                ShotChargeTimer = 0f,
+                Reloading = false,
 
-                BulletsInMagazine = new BulletsInMagazine() { Value = MagazineSize },
-
-                PenetrationDamage = new PenetrationDamage(),
-                PenetrationLeft = new PenetrationLeft()
+                BulletsInMagazine = MagazineSize, 
             };
         }
     }
