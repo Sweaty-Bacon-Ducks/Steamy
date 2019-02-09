@@ -15,6 +15,19 @@ namespace Steamy.Weapons
         private Vector3 rayDirection;
         private LineRenderer activeRay;
 
+        private float BulletSpread
+        {
+            get
+            {
+                return Random.Range(-model.BulletSpread, model.BulletSpread);
+            }
+        }
+
+        private bool CanReload()
+        {
+            return model.BulletsInMagazine < model.MagazineSize && model.Reloading == false;
+        }
+
         private void Awake()
         {
             model = Default.LoadFromDefaults();
@@ -55,7 +68,7 @@ namespace Steamy.Weapons
         /// </summary>
         public override void Reload()
         {
-            if (model.BulletsInMagazine < model.MagazineSize && model.Reloading == false)
+            if (CanReload())
             {
                 StartCoroutine(ExecuteReload());
             }
@@ -92,7 +105,7 @@ namespace Steamy.Weapons
                 StartCoroutine(ShotEffect());
 
                 Vector3 direction = ProjectileSpawn.right;
-                direction.y += Random.Range(-model.BulletSpread, model.BulletSpread); // Creating bullet spread
+                direction.y += BulletSpread;
 
                 Vector3 rayOrigin = ProjectileSpawn.position;
                 activeRay.SetPosition(0, rayOrigin);
