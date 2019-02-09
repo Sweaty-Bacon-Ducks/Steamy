@@ -2,22 +2,27 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class MeleeViewModel : WeaponViewModel
+namespace Steamy.Weapons
 {
-    public WeaponModel WeaponModel;
-
-    public override void Attack()
+    public class MeleeViewModel : WeaponViewModel
     {
-        throw new System.NotImplementedException();
-    }
+        public WeaponModel WeaponModel;
 
-    public override void Reload()
-    {
-        throw new System.NotImplementedException();
-    }
+        public override void Attack()
+        {
+            throw new System.NotImplementedException();
+        }
 
-    public override void StopAttack()
-    {
-        throw new System.NotImplementedException();
+        public override void Reload()
+        {
+            throw new System.NotImplementedException();
+        }
+
+        public override void StopAttack()
+        {
+            throw new System.NotImplementedException();
+        }
     }
 }
+
+

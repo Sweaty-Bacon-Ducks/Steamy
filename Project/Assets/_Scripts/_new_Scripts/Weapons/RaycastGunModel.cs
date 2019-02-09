@@ -2,658 +2,302 @@
 using System.ComponentModel;
 using UnityEngine;
 
-public class RaycastGunModel : WeaponModel
+namespace Steamy.Weapons
 {
-    #region From ScriptableObject
-    public BulletSpread BulletSpread;
-    public BulletCount BulletCount;
-    public MagazineSize MagazineSize;
-    public FireRate FireRate;
-    public BulletPenetration BulletPenetration;
-    public BulletForce BulletForce;
-    public ReloadTime ReloadTime;
-    [Tooltip("Time between mouse click and the first shot.\n" +
-             "Consecutive shots are not affected.\n" +
-             "Resets after releasing left mouse button.")]
-    public TimeToFire TimeToFire;
-    #endregion
-
-    #region Raycast unique
-    public RaycastLength RaycastLength;
-    public ShotDuration ShotDuration;
-    #endregion
-
-    #region Frequently changing
-    public BulletsInMagazine BulletsInMagazine;
-    [Tooltip("Must be >= FireRate if gun fires full auto")]
-    public FireTimer FireTimer;
-    [Tooltip("Time between mouse click and first shot in sequence")]
-    public TriggerTimer TriggerTimer;
-    [Tooltip("How much damage does the bullet after penetrating\n" +
-         "the latest obstacle")]
-    public PenetrationDamage PenetrationDamage;
-    [Tooltip("How much penetration is left before the bullet stops")]
-    public PenetrationLeft PenetrationLeft;
-    public Reloading Reloading;
-    #endregion
-}
-
-
-
-public delegate void Callback();
-
-public class BulletSpread : INotifyPropertyChanged
-{
-    public event Callback BulletSpreadChangedCallback;
-    public event PropertyChangedEventHandler PropertyChanged;
-
-    public string Name;
-
-    private float m_value;
-
-    public float Value
+    public class RaycastGunModel : WeaponModel
     {
-        get
+        #region From ScriptableObject
+        private float _bulletSpread;
+        private int _bulletCount;
+        private int _magazineSize;
+        private float _fireRate;
+        private float _bulletPenetration;
+        private float _bulletForce;
+        private float _reloadTime;
+        [Tooltip("Time between mouse click and the first shot.\n" +
+                 "Consecutive shots are not affected.\n" +
+                 "Resets after releasing left mouse button.")]
+        private float _shotChargeTime;
+        #endregion
+
+        #region Raycast unique
+        private float _raycastLength;
+        private float _shotDuration;
+        #endregion
+
+        #region Frequently changing
+        private int _bulletsInMagazine;
+        [Tooltip("Must be >= FireRate if gun fires full auto")]
+        private float _fireTimer;
+        [Tooltip("Time between mouse click and first shot in sequence")]
+        private float _shotChargeTimer;
+        [Tooltip("How much damage does the bullet after penetrating\n" +
+             "the latest obstacle")]
+        private float _penetrationDamage;
+        [Tooltip("How much penetration is left before the bullet stops")]
+        private float _penetrationLeft;
+        private bool _reloading;
+        #endregion
+
+        #region Properties
+        public float BulletSpread
         {
-            return m_value;
-        }
-        set
-        {
-            if (!AreEqual(m_value, value))
+            get
             {
-                m_value = value;
-                OnPropertyChanged(Name);
+                return _bulletSpread;
+            }
+            set
+            {
+                if (Math.Abs(_bulletSpread - value) < Mathf.Epsilon)
+                {
+                    _bulletSpread = value;
+                    OnPropertyChanged(nameof(BulletSpread));
+                }
             }
         }
-    }
 
-    private void OnPropertyChanged(string name)
-    {
-        PropertyChanged?.Invoke(this,
-                new PropertyChangedEventArgs(name)
-               );
-    }
-
-    private bool AreEqual(float firstValue, float secondValue)
-    {
-        return Math.Abs(firstValue - secondValue) < Mathf.Epsilon;
-    }
-}
-
-public class BulletCount : INotifyPropertyChanged
-{
-    public event Callback BulletCountChangedCallback;
-    public event PropertyChangedEventHandler PropertyChanged;
-
-    public string Name;
-
-    private int m_value;
-
-    public int Value
-    {
-        get
+        public int BulletCount
         {
-            return m_value;
-        }
-        set
-        {
-            if (!AreEqual(m_value, value))
+            get
             {
-                m_value = value;
-                OnPropertyChanged(Name);
+                return _bulletCount;
+            }
+            set
+            {
+                if (Math.Abs(_bulletCount - value) != 0)
+                {
+                    _bulletCount = value;
+                    OnPropertyChanged(nameof(BulletCount));
+                }
             }
         }
-    }
 
-    private void OnPropertyChanged(string name)
-    {
-        PropertyChanged?.Invoke(this,
-                new PropertyChangedEventArgs(name)
-               );
-    }
-
-    private bool AreEqual(int firstValue, int secondValue)
-    {
-        return Math.Abs(firstValue - secondValue) == 0;
-    }
-}
-
-public class MagazineSize : INotifyPropertyChanged
-{
-    public event Callback MagazineSizeChangedCallback;
-    public event PropertyChangedEventHandler PropertyChanged;
-
-    public string Name;
-
-    private int m_value;
-
-    public int Value
-    {
-        get
+        public int MagazineSize
         {
-            return m_value;
-        }
-        set
-        {
-            if (!AreEqual(m_value, value))
+            get
             {
-                m_value = value;
-                OnPropertyChanged(Name);
+                return _magazineSize;
+            }
+            set
+            {
+                if (Math.Abs(_magazineSize - value) != 0)
+                {
+                    _magazineSize = value;
+                    OnPropertyChanged(nameof(MagazineSize));
+                }
             }
         }
-    }
 
-    private void OnPropertyChanged(string name)
-    {
-        PropertyChanged?.Invoke(this,
-                new PropertyChangedEventArgs(name)
-               );
-    }
-
-    private bool AreEqual(int firstValue, int secondValue)
-    {
-        return Math.Abs(firstValue - secondValue) == 0;
-    }
-}
-
-public class FireRate : INotifyPropertyChanged
-{
-    public event Callback FireRateChangedCallback;
-    public event PropertyChangedEventHandler PropertyChanged;
-
-    public string Name;
-
-    private float m_value;
-
-    public float Value
-    {
-        get
+        public float FireRate
         {
-            return m_value;
-        }
-        set
-        {
-            if (!AreEqual(m_value, value))
+            get
             {
-                m_value = value;
-                OnPropertyChanged(Name);
+                return _fireRate;
+            }
+            set
+            {
+                if (Math.Abs(_fireRate - value) < Mathf.Epsilon)
+                {
+                    _fireRate = value;
+                    OnPropertyChanged(nameof(FireRate));
+                }
             }
         }
-    }
 
-    private void OnPropertyChanged(string name)
-    {
-        PropertyChanged?.Invoke(this,
-                new PropertyChangedEventArgs(name)
-               );
-    }
-
-    private bool AreEqual(float firstValue, float secondValue)
-    {
-        return Math.Abs(firstValue - secondValue) < Mathf.Epsilon;
-    }
-}
-
-public class BulletPenetration : INotifyPropertyChanged
-{
-    public event Callback BulletPenetrationChangedCallback;
-    public event PropertyChangedEventHandler PropertyChanged;
-
-    public string Name;
-
-    private float m_value;
-
-    public float Value
-    {
-        get
+        public float BulletPenetration
         {
-            return m_value;
-        }
-        set
-        {
-            if (!AreEqual(m_value, value))
+            get
             {
-                m_value = value;
-                OnPropertyChanged(Name);
+                return _bulletPenetration;
+            }
+            set
+            {
+                if (Math.Abs(_bulletPenetration - value) < Mathf.Epsilon)
+                {
+                    _bulletPenetration = value;
+                    OnPropertyChanged(nameof(BulletPenetration));
+                }
             }
         }
-    }
 
-    private void OnPropertyChanged(string name)
-    {
-        PropertyChanged?.Invoke(this,
-                new PropertyChangedEventArgs(name)
-               );
-    }
-
-    private bool AreEqual(float firstValue, float secondValue)
-    {
-        return Math.Abs(firstValue - secondValue) < Mathf.Epsilon;
-    }
-}
-
-public class BulletForce : INotifyPropertyChanged
-{
-    public event Callback BulletForceChangedCallback;
-    public event PropertyChangedEventHandler PropertyChanged;
-
-    public string Name;
-
-    private float m_value;
-
-    public float Value
-    {
-        get
+        public float BulletForce
         {
-            return m_value;
-        }
-        set
-        {
-            if (!AreEqual(m_value, value))
+            get
             {
-                m_value = value;
-                OnPropertyChanged(Name);
+                return _bulletForce;
+            }
+            set
+            {
+                if (Math.Abs(_bulletForce - value) < Mathf.Epsilon)
+                {
+                    _bulletForce = value;
+                    OnPropertyChanged(nameof(BulletForce));
+                }
             }
         }
-    }
 
-    private void OnPropertyChanged(string name)
-    {
-        PropertyChanged?.Invoke(this,
-                new PropertyChangedEventArgs(name)
-               );
-    }
-
-    private bool AreEqual(float firstValue, float secondValue)
-    {
-        return Math.Abs(firstValue - secondValue) < Mathf.Epsilon;
-    }
-}
-
-public class ReloadTime : INotifyPropertyChanged
-{
-    public event Callback ReloadTimeChangedCallback;
-    public event PropertyChangedEventHandler PropertyChanged;
-
-    public string Name;
-
-    private float m_value;
-
-    public float Value
-    {
-        get
+        public float ReloadTime
         {
-            return m_value;
-        }
-        set
-        {
-            if (!AreEqual(m_value, value))
+            get
             {
-                m_value = value;
-                OnPropertyChanged(Name);
+                return _reloadTime;
+            }
+            set
+            {
+                if (Math.Abs(_reloadTime - value) < Mathf.Epsilon)
+                {
+                    _reloadTime = value;
+                    OnPropertyChanged(nameof(ReloadTime));
+                }
             }
         }
-    }
 
-    private void OnPropertyChanged(string name)
-    {
-        PropertyChanged?.Invoke(this,
-                new PropertyChangedEventArgs(name)
-               );
-    }
-
-    private bool AreEqual(float firstValue, float secondValue)
-    {
-        return Math.Abs(firstValue - secondValue) < Mathf.Epsilon;
-    }
-}
-
-public class TimeToFire : INotifyPropertyChanged
-{
-    public event Callback TimeToFireChangedCallback;
-    public event PropertyChangedEventHandler PropertyChanged;
-
-    public string Name;
-
-    private float m_value;
-
-    public float Value
-    {
-        get
+        public float ShotChargeTime
         {
-            return m_value;
-        }
-        set
-        {
-            if (!AreEqual(m_value, value))
+            get
             {
-                m_value = value;
-                OnPropertyChanged(Name);
+                return _shotChargeTime;
+            }
+            set
+            {
+                if (Math.Abs(_shotChargeTime - value) < Mathf.Epsilon)
+                {
+                    _shotChargeTime = value;
+                    OnPropertyChanged(nameof(ShotChargeTime));
+                }
             }
         }
-    }
 
-    private void OnPropertyChanged(string name)
-    {
-        PropertyChanged?.Invoke(this,
-                new PropertyChangedEventArgs(name)
-               );
-    }
-
-    private bool AreEqual(float firstValue, float secondValue)
-    {
-        return Math.Abs(firstValue - secondValue) < Mathf.Epsilon;
-    }
-}
-
-public class RaycastLength : INotifyPropertyChanged
-{
-    public event Callback RaycastLengthChangedCallback;
-    public event PropertyChangedEventHandler PropertyChanged;
-
-    public string Name;
-
-    private float m_value;
-
-    public float Value
-    {
-        get
+        public float RaycastLength
         {
-            return m_value;
-        }
-        set
-        {
-            if (!AreEqual(m_value, value))
+            get
             {
-                m_value = value;
-                OnPropertyChanged(Name);
+                return _raycastLength;
+            }
+            set
+            {
+                if (Math.Abs(_raycastLength - value) < Mathf.Epsilon)
+                {
+                    _raycastLength = value;
+                    OnPropertyChanged(nameof(RaycastLength));
+                }
             }
         }
-    }
 
-    private void OnPropertyChanged(string name)
-    {
-        PropertyChanged?.Invoke(this,
-                new PropertyChangedEventArgs(name)
-               );
-    }
-
-    private bool AreEqual(float firstValue, float secondValue)
-    {
-        return Math.Abs(firstValue - secondValue) < Mathf.Epsilon;
-    }
-}
-
-public class ShotDuration : INotifyPropertyChanged
-{
-    public event Callback ShotDurationChangedCallback;
-    public event PropertyChangedEventHandler PropertyChanged;
-
-    public string Name;
-
-    private float m_value;
-
-    public float Value
-    {
-        get
+        public float ShotDuration
         {
-            return m_value;
-        }
-        set
-        {
-            if (!AreEqual(m_value, value))
+            get
             {
-                m_value = value;
-                OnPropertyChanged(Name);
+                return _shotDuration;
+            }
+            set
+            {
+                if (Math.Abs(_shotDuration - value) < Mathf.Epsilon)
+                {
+                    _shotDuration = value;
+                    OnPropertyChanged(nameof(ShotDuration));
+                }
             }
         }
-    }
 
-    private void OnPropertyChanged(string name)
-    {
-        PropertyChanged?.Invoke(this,
-                new PropertyChangedEventArgs(name)
-               );
-    }
-
-    private bool AreEqual(float firstValue, float secondValue)
-    {
-        return Math.Abs(firstValue - secondValue) < Mathf.Epsilon;
-    }
-}
-
-public class BulletsInMagazine : INotifyPropertyChanged
-{
-    public event Callback BulletsInMagazineChangedCallback;
-    public event PropertyChangedEventHandler PropertyChanged;
-
-    public string Name;
-
-    private int m_value;
-
-    public int Value
-    {
-        get
+        public int BulletsInMagazine
         {
-            return m_value;
-        }
-        set
-        {
-            if (!AreEqual(m_value, value))
+            get
             {
-                m_value = value;
-                OnPropertyChanged(Name);
+                return _bulletsInMagazine;
+            }
+            set
+            {
+                if (Math.Abs(_bulletsInMagazine - value) != 0)
+                {
+                    _bulletsInMagazine = value;
+                    OnPropertyChanged(nameof(BulletsInMagazine));
+                }
             }
         }
-    }
 
-    private void OnPropertyChanged(string name)
-    {
-        PropertyChanged?.Invoke(this,
-                new PropertyChangedEventArgs(name)
-               );
-    }
-
-    private bool AreEqual(int firstValue, int secondValue)
-    {
-        return Math.Abs(firstValue - secondValue) < Mathf.Epsilon;
-    }
-}
-
-public class FireTimer : INotifyPropertyChanged
-{
-    public event Callback FireTimerChangedCallback;
-    public event PropertyChangedEventHandler PropertyChanged;
-
-    public string Name;
-
-    private float m_value;
-
-    public float Value
-    {
-        get
+        public float FireTimer
         {
-            return m_value;
-        }
-        set
-        {
-            if (!AreEqual(m_value, value))
+            get
             {
-                m_value = value;
-                OnPropertyChanged(Name);
+                return _fireTimer;
+            }
+            set
+            {
+                if (Math.Abs(_fireTimer - value) < Mathf.Epsilon)
+                {
+                    _fireTimer = value;
+                    OnPropertyChanged(nameof(FireTimer));
+                }
             }
         }
-    }
 
-    private void OnPropertyChanged(string name)
-    {
-        PropertyChanged?.Invoke(this,
-                new PropertyChangedEventArgs(name)
-               );
-    }
-
-    private bool AreEqual(float firstValue, float secondValue)
-    {
-        return Math.Abs(firstValue - secondValue) < Mathf.Epsilon;
-    }
-}
-
-public class TriggerTimer : INotifyPropertyChanged
-{
-    public event Callback TriggerTimerChangedCallback;
-    public event PropertyChangedEventHandler PropertyChanged;
-
-    public string Name;
-
-    private float m_value;
-
-    public float Value
-    {
-        get
+        public float ShotChargeTimer
         {
-            return m_value;
-        }
-        set
-        {
-            if (!AreEqual(m_value, value))
+            get
             {
-                m_value = value;
-                OnPropertyChanged(Name);
+                return _shotChargeTimer;
+            }
+            set
+            {
+                if (Math.Abs(_shotChargeTimer - value) < Mathf.Epsilon)
+                {
+                    _shotChargeTimer = value;
+                    OnPropertyChanged(nameof(ShotChargeTimer));
+                }
             }
         }
-    }
 
-    private void OnPropertyChanged(string name)
-    {
-        PropertyChanged?.Invoke(this,
-                new PropertyChangedEventArgs(name)
-               );
-    }
-
-    private bool AreEqual(float firstValue, float secondValue)
-    {
-        return Math.Abs(firstValue - secondValue) < Mathf.Epsilon;
-    }
-}
-
-/// <summary>
-/// How much damage does the bullet after penetrating the latest obstacle.
-/// Don't modify this, it gets reseted and modified in RaycastGunViewModel.ExecuteAttack only
-/// </summary>
-public class PenetrationDamage : INotifyPropertyChanged
-{
-    public event Callback PenetrationDamageChangedCallback;
-    public event PropertyChangedEventHandler PropertyChanged;
-
-    public string Name;
-
-    private float m_value;
-
-    public float Value
-    {
-        get
+        public float PenetrationDamage
         {
-            return m_value;
-        }
-        set
-        {
-            if (!AreEqual(m_value, value))
+            get
             {
-                m_value = value;
-                OnPropertyChanged(Name);
+                return _penetrationDamage;
+            }
+            set
+            {
+                if (Math.Abs(_penetrationDamage - value) < Mathf.Epsilon)
+                {
+                    _penetrationDamage = value;
+                    OnPropertyChanged(nameof(PenetrationDamage));
+                }
             }
         }
-    }
 
-    private void OnPropertyChanged(string name)
-    {
-        PropertyChanged?.Invoke(this,
-                new PropertyChangedEventArgs(name)
-               );
-    }
-
-    private bool AreEqual(float firstValue, float secondValue)
-    {
-        return Math.Abs(firstValue - secondValue) < Mathf.Epsilon;
-    }
-}
-
-/// <summary>
-/// How much penetration is left before the bullet stops.
-/// Don't modify this, it gets reseted and modified in RaycastGunViewModel.ExecuteAttack only.
-/// </summary>
-public class PenetrationLeft : INotifyPropertyChanged
-{
-    public event Callback PenetrationLeftChangedCallback;
-    public event PropertyChangedEventHandler PropertyChanged;
-
-    public string Name;
-
-    private float m_value;
-
-    public float Value
-    {
-        get
+        public float PenetrationLeft
         {
-            return m_value;
-        }
-        set
-        {
-            if (!AreEqual(m_value, value))
+            get
             {
-                m_value = value;
-                OnPropertyChanged(Name);
+                return _penetrationLeft;
+            }
+            set
+            {
+                if (Math.Abs(_penetrationLeft - value) < Mathf.Epsilon)
+                {
+                    _penetrationLeft = value;
+                    OnPropertyChanged(nameof(PenetrationLeft));
+                }
             }
         }
-    }
 
-    private void OnPropertyChanged(string name)
-    {
-        PropertyChanged?.Invoke(this,
-                new PropertyChangedEventArgs(name)
-               );
-    }
-
-    private bool AreEqual(float firstValue, float secondValue)
-    {
-        return Math.Abs(firstValue - secondValue) < Mathf.Epsilon;
-    }
-}
-
-public class Reloading : INotifyPropertyChanged
-{
-    public event Callback ReloadingChangedCallback;
-    public event PropertyChangedEventHandler PropertyChanged;
-
-    public string Name;
-
-    private bool m_value;
-
-    public bool Value
-    {
-        get
+        public bool Reloading
         {
-            return m_value;
-        }
-        set
-        {
-            if (!AreEqual(m_value, value))
+            get
             {
-                m_value = value;
-                OnPropertyChanged(Name);
+                return _reloading;
+            }
+            set
+            {
+                if (_reloading != value)
+                {
+                    _reloading = value;
+                    OnPropertyChanged(nameof(Reloading));
+                }
             }
         }
-    }
 
-    private void OnPropertyChanged(string name)
-    {
-        PropertyChanged?.Invoke(this,
-                new PropertyChangedEventArgs(name)
-               );
-    }
-
-    private bool AreEqual(bool firstValue, bool secondValue)
-    {
-        return firstValue == secondValue;
+        #endregion
     }
 }
+
+
