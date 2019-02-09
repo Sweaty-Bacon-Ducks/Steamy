@@ -1,18 +1,47 @@
-﻿using System.Collections;
-using System.Collections.Generic;
+﻿
 using UnityEngine;
+using UnityEngine.Networking;
 
-public class PlayerViewModel : MonoBehaviour
+namespace Steamy.Player
 {
-	// Use this for initialization
-	void Start()
-	{
 
-	}
-
-	// Update is called once per frame
-	void Update()
+	public class PlayerViewModel : NetworkBehaviour
 	{
+		public string NetworkManagerTag;
+
+		[SerializeField]
+		private PlayerModel model;
+
+		private bool isNetworkManagerAvailable
+		{
+			get
+			{
+				return !(GameObject.
+					Find(NetworkManagerTag).
+					GetComponent<NetworkManager>() == null);
+			}
+		}
+
+		private string netId
+		{
+			get
+			{
+				if (isNetworkManagerAvailable)
+				{
+					return GetComponent<NetworkIdentity>().
+										netId.
+										Value.
+										ToString();
+				}
+				return null;
+			}
+		}
+
+		private void Awake()
+		{
+			model.NetID = netId;
+		}
+
 
 	}
 }
