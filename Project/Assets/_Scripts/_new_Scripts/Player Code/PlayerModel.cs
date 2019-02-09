@@ -1,12 +1,4 @@
 ﻿using System;
-using System.IO;
-using System.Linq;
-using System.Xml;
-using System.Xml.Serialization;
-using System.Collections.Generic;
-
-using Steamy.Player.MotionModes;
-using Steamy.Utility.Xml;
 
 namespace Steamy.Player
 {
