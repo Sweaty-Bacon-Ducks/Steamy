@@ -2,9 +2,12 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public abstract class WeaponViewModel : MonoBehaviour
+namespace Steamy.Weapons
 {
-    public abstract void Attack();
-    public abstract void StopAttack();
-    public abstract void Reload();
+    public abstract class WeaponViewModel : MonoBehaviour
+    {
+        public abstract void Attack();
+        public abstract void StopAttack();
+        public abstract void Reload();
+    }
 }
