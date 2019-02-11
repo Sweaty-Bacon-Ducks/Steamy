@@ -3,10 +3,11 @@ using UnityEngine;
 using UnityEngine.Networking;
 using UnityEngine.UI;
 using Steamy.Weapons;
+using System;
 
 namespace Steamy.Player
 {
-	public class CharacterViewModel : NetworkBehaviour
+	public class CharacterViewModel : NetworkBehaviour, IDamagable
 	{
 		#region PublicInterface
 
@@ -19,17 +20,17 @@ namespace Steamy.Player
 		public WeaponViewModel EquippedWeapon;
 
 		public void Damage(double amount)
-		{
-			if (amount < 0)
+        {
+            if (amount < 0)
 				return;
 
 			if (IsCharacterDead)
 			{
-				DeathCallback?.Invoke();
+                DeathCallback?.Invoke();
 				return;
 			}
 			Model.Health.Value -= amount;
-		}
+        }
 		public void Heal(double amount)
 		{
 			if (amount < 0)
@@ -57,16 +58,31 @@ namespace Steamy.Player
 			Model.Health.Value = Model.Health.MaxValue;
 		}
 
-		private void OnDisable()
-		{
-			if (!isLocalPlayer)
-				return;
+        private void OnDisable()
+        {
+            if (!isLocalPlayer)
+                return;
 
-			Model.Health.PropertyChanged -= OnHealthChanged;
-		}
-		private void Update()
+            Model.Health.PropertyChanged -= OnHealthChanged;
+        }
+        private void Awake()
+        {
+            Model.Health = Model.HealthDefaults.LoadFromDefaults();
+        }
+        float timer = 0f;
+        private void Update()
 		{
-			if (!isLocalPlayer)
+            if (isLocalPlayer)
+            {
+                timer += Time.deltaTime;
+                if (timer > 1)
+                {
+                    timer = 0;
+                    Debug.Log(Model.Health.Value);
+                }
+            }
+
+            if (!isLocalPlayer)
 				return;
 
 			MoveCharacter();
