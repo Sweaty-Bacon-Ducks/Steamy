@@ -20,7 +20,9 @@ namespace Steamy.Player
             {
                 Icon = Icon,
                 Name = Name,
-                MaxValue = MaxValue
+                MaxValue = MaxValue,
+
+                Value = MaxValue
             };
         }
     }
