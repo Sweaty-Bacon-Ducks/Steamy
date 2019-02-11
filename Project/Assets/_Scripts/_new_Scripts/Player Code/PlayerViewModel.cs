@@ -16,9 +16,13 @@ namespace Steamy.Player
 		{
 			get
 			{
-				return !(GameObject.
-					Find(NetworkManagerTag).
-					GetComponent<NetworkManager>() == null);
+				GameObject networkManager;
+				bool foundNetworkManager = false;
+				if(networkManager = GameObject.FindGameObjectWithTag(NetworkManagerTag))
+				{
+					foundNetworkManager = networkManager.GetComponent<NetworkManager>() == null;
+				}
+				return foundNetworkManager;
 			}
 		}
 
@@ -33,15 +37,17 @@ namespace Steamy.Player
 										Value.
 										ToString();
 				}
-				return null;
+				return "";
 			}
 		}
-
-		private void Awake()
+		public override void OnStartClient()
 		{
-			model.NetID = netId;
-		}
+			if (isLocalPlayer)
+			{
 
+				model.NetID = netId;
+			}
+		}
 
 	}
 }
