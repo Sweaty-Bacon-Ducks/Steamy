@@ -783,6 +783,7 @@ GameObject:
   - component: {fileID: 4330268919730817357}
   - component: {fileID: 4367993432165512111}
   - component: {fileID: 3798341044421033716}
+  - component: {fileID: 3343207948686755366}
   - component: {fileID: 9008355030491817128}
   - component: {fileID: 322167763394898042}
   - component: {fileID: 7655161463773889793}
@@ -858,8 +859,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 88328677a8a8340bfbf81ffceb612e77, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  CharacterCameraTag: PlayerCamera
-  CharacterCameraName: CharacterCamera
   Model:
     HealthDefaults: {fileID: 11400000, guid: f018949e83f054c8bb903202248fd257, type: 2}
     Health:
@@ -873,8 +872,22 @@ MonoBehaviour:
     - {fileID: 11400000, guid: 072911812d99abe408d6f4828f3c6b4a, type: 2}
     - {fileID: 11400000, guid: fd75ca319f6b2d24b9d97d341e939ca1, type: 2}
     - {fileID: 11400000, guid: 292d6e5844be55e4b8a123a54e7bdeb1, type: 2}
-  HealthView: {fileID: 0}
   EquippedWeapon: {fileID: 1152639791394833982}
+  healthView: {fileID: 0}
+  CharacterCameraTag: PlayerCamera
+  CharacterCameraName: CharacterCamera
+--- !u!114 &3343207948686755366
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4868498123331901469}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7d669a55c22309ee28f6061234009763, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!136 &9008355030491817128
 CapsuleCollider:
   m_ObjectHideFlags: 0
