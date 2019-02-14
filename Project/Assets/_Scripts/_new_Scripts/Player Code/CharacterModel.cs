@@ -25,8 +25,6 @@ namespace Steamy.Player
     [Serializable]
     public class CharacterHealth : INotifyPropertyChanged
     {
-        public event Callback HealCallback;
-        public event Callback DamageCallback;
         public event PropertyChangedEventHandler PropertyChanged;
 
         public Sprite Icon;
