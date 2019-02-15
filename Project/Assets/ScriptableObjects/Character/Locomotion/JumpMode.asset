@@ -1,0 +1,22 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c78ed03ccebb343729f655682f1ce03e, type: 3}
+  m_Name: JumpMode
+  m_EditorClassIdentifier: 
+  Name: JumpMode
+  AxisName: Vertical
+  AxisDeadzone: 0.1
+  Acceleration: 100
+  Deceleration: 20
+  SpeedMultiplier: 3
+  SpeedThreshold: 8
+  AnimationSpeedVariable: speedPercent
+  canJump: 1

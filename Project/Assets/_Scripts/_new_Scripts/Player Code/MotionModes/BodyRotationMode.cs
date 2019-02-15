@@ -36,7 +36,7 @@ public class BodyRotationMode : MotionMode
         if (axisValue >= 0) animator.SetBool(GoingRightAnimatorParameter, true);
         else animator.SetBool(GoingRightAnimatorParameter, false);
 
-        if ((Input.mousePosition - headPosition).magnitude >= 50)
+        if ((Input.mousePosition - headPosition).magnitude >= 120)
         {
             animator.SetBool(AimingAnimatorParameter, true);
         }

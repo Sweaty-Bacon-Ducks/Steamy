@@ -17,6 +17,10 @@ MonoBehaviour:
   MainCameraName: CharacterCamera
   FacingRightAnimatorParameter: isFacingRight
   HeadTiltAnimatorParameter: headTiltPercent
-  Rotation: 0
-  TargetRotation: 0
+  AimingAnimatorParameter: isAiming
+  RotatingAnimatorParameter: isRotating
+  GoingRightAnimatorParameter: isGoingRight
+  AxisName: Horizontal
+  Rotation: 180
+  TargetRotation: 180
   RemainingRotation: 0

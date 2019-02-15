@@ -1461,6 +1461,7 @@ MonoBehaviour:
     MotionModes:
     - {fileID: 11400000, guid: 6f833e4a5b32e4765b4ece8a114f02af, type: 2}
     - {fileID: 11400000, guid: 00ef0196c435b8b43b2658b989e01fda, type: 2}
+    - {fileID: 11400000, guid: 3916019b55ae0094eb9583376d224eb1, type: 2}
   HealthView: {fileID: 0}
   EquippedWeapon: {fileID: 0}
 --- !u!114 &114638747309743662
