@@ -35,9 +35,16 @@ namespace Steamy.Player
         #endregion
 
         #region UnityMessages
+        private void OnDisable()
+        {
+            Model.Health.PropertyChanged -= OnHealthChanged;
+        }
 
         public override void OnStartLocalPlayer()
         {
+            if (!isLocalPlayer)
+                return;
+
             // Set the target transform on the camera
             var characterCamera = GameObject.FindGameObjectWithTag(CharacterCameraTag).GetComponent<CameraFollower>();
             characterCamera.Target = transform;
@@ -48,24 +55,11 @@ namespace Steamy.Player
             Model.Health.Value = Model.Health.MaxValue;
         }
 
-        private void OnDisable()
-        {
-            if (!isLocalPlayer)
-                return;
-
-            Model.Health.PropertyChanged -= OnHealthChanged;
-        }
-
-        private void Awake()
-        {
-            Model.Health = Model.HealthDefaults.LoadFromDefaults();
-        }
-
         private void Update()
         {
             if (!isLocalPlayer)
-                return;
-
+                return; 
+              
             MoveCharacter();
         }
         #endregion

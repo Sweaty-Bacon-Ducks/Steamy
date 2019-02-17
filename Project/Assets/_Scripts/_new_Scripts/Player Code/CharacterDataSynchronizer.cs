@@ -8,9 +8,6 @@ namespace Steamy.Networking
 	[RequireComponent(typeof(CharacterViewModel))]
 	public class CharacterDataSynchronizer : NetworkBehaviour, IDataSynchronizer
 	{
-		public string LocalPlayerLayer;
-		public string RemotePlayerLayer;
-
 		public void UpdateData()
 		{
 			syncedData = new CharacterNetworkData
@@ -18,10 +15,13 @@ namespace Steamy.Networking
 				Health = character.Model.Health.Value
 			};
 
-			CmdSynchronize(syncedData);
+            if (!isServer)
+            {
+                CmdSynchronize(syncedData);
+            }
 		}
 
-		[SyncVar]
+        [SyncVar]
 		private CharacterNetworkData syncedData;
 
 		private CharacterViewModel character;
@@ -38,8 +38,6 @@ namespace Steamy.Networking
 		{
 			syncedData = newData;
 		}
-
-
 
 		private void Awake()
 		{
