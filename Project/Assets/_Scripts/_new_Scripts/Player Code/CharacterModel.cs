@@ -12,7 +12,6 @@ namespace Steamy.Player
     public class CharacterModel
     { 
         public CharacterHealthDefault HealthDefaults;
-        [HideInInspector]
         public CharacterHealth Health;
 
         public string Name;
