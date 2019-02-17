@@ -39,8 +39,8 @@ namespace Steamy.Networking
 			syncedData = newData;
 		}
 
-		private void Awake()
-		{
+        public override void OnStartLocalPlayer()
+        {
 			character = GetComponent<CharacterViewModel>();
 			character.Model.Health.PropertyChanged += OnHealthChanged;
 

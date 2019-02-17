@@ -1,9 +1,10 @@
-﻿using System.ComponentModel;
+﻿using System;
+using System.ComponentModel;
+using Steamy.Editor;
+using Steamy.Weapons;
 using UnityEngine;
 using UnityEngine.Networking;
 using UnityEngine.UI;
-using Steamy.Weapons;
-using System;
 
 namespace Steamy.Player
 {
@@ -46,20 +47,24 @@ namespace Steamy.Player
                 return;
 
             // Set the target transform on the camera
-            var characterCamera = GameObject.FindGameObjectWithTag(CharacterCameraTag).GetComponent<CameraFollower>();
+            var characterCamera = GameObject.FindGameObjectWithTag(characterCameraTag).GetComponent<CameraFollower>();
             characterCamera.Target = transform;
 
             Model.Health = Model.HealthDefaults?.LoadFromDefaults();
-
+            OnHealthChanged(this, null);
             Model.Health.PropertyChanged += OnHealthChanged;
-            Model.Health.Value = Model.Health.MaxValue;
         }
 
         private void Update()
         {
             if (!isLocalPlayer)
-                return; 
-              
+                return;
+
+            if (Input.GetKeyDown(KeyCode.K))
+            {
+                Damage(5f);
+            }
+
             MoveCharacter();
         }
         #endregion
@@ -69,11 +74,8 @@ namespace Steamy.Player
         [SerializeField]
         private Text healthView;
 
-        [SerializeField]
-        public string CharacterCameraTag;
-
-        [SerializeField]
-        public string CharacterCameraName;
+        [SerializeField, Tag]
+        private string characterCameraTag;
 
         private bool IsCharacterDead
         {
