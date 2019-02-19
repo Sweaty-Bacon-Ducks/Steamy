@@ -133,7 +133,6 @@ namespace Steamy.Weapons
             {
                 activeRay.SetPosition(1, hit[j].point);
                 IDamagable entity = hit[j].collider.GetComponent<IDamagable>();
-
                 if (entity != null)
                 {
                     entity.Damage(model.PenetrationDamage);

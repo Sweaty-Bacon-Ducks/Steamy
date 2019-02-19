@@ -1,9 +1,11 @@
-﻿using System.ComponentModel;
+﻿using System;
+using System.ComponentModel;
+using Steamy.Editor;
+using Steamy.Weapons;
+using Steamy.Networking;
 using UnityEngine;
 using UnityEngine.Networking;
 using UnityEngine.UI;
-using Steamy.Weapons;
-using System;
 
 namespace Steamy.Player
 {
@@ -13,17 +15,20 @@ namespace Steamy.Player
 
         public CharacterModel Model;
         public WeaponViewModel EquippedWeapon;
-
         public event Callback DeathCallback;
+
+        [SerializeField]
+        private Text healthView;
+        [SerializeField, Tag]
+        private string characterCameraTag;
+        private CharacterDataSynchronizer characterDataSynchronizer;
 
         public void Damage(double amount)
         {
-            Model.Health.Value -= Math.Max(amount, 0);
-
             if (IsCharacterDead)
-            {
                 DeathCallback?.Invoke();
-            }
+            else
+                Model.Health.Value -= Math.Max(amount, 0);
         }
 
         public void Heal(double amount)
@@ -42,38 +47,41 @@ namespace Steamy.Player
 
         public override void OnStartLocalPlayer()
         {
-            if (!isLocalPlayer)
-                return;
-
             // Set the target transform on the camera
-            var characterCamera = GameObject.FindGameObjectWithTag(CharacterCameraTag).GetComponent<CameraFollower>();
+            var characterCamera = GameObject.FindGameObjectWithTag(characterCameraTag).GetComponent<CameraFollower>();
             characterCamera.Target = transform;
 
             Model.Health = Model.HealthDefaults?.LoadFromDefaults();
-
+            OnHealthChanged(this, null);
             Model.Health.PropertyChanged += OnHealthChanged;
-            Model.Health.Value = Model.Health.MaxValue;
+        }
+
+
+        private void Awake()
+        {
+            characterDataSynchronizer = GetComponent<CharacterDataSynchronizer>();
+            Model.Health = Model.HealthDefaults?.LoadFromDefaults();
+            characterDataSynchronizer.SyncedData = new CharacterNetworkData(Model);
+
+            OnHealthChanged(this, null);
+            Model.Health.PropertyChanged += OnHealthChanged;
         }
 
         private void Update()
         {
             if (!isLocalPlayer)
-                return; 
-              
+                return;
+
+            if (Input.GetKeyDown(KeyCode.K))
+            {
+                Damage(5f);
+            }
+
             MoveCharacter();
         }
         #endregion
 
         #region PrivateInterface
-
-        [SerializeField]
-        private Text healthView;
-
-        [SerializeField]
-        public string CharacterCameraTag;
-
-        [SerializeField]
-        public string CharacterCameraName;
 
         private bool IsCharacterDead
         {
@@ -96,6 +104,15 @@ namespace Steamy.Player
 
         private void OnHealthChanged(object sender, PropertyChangedEventArgs e)
         {
+            if (!isLocalPlayer)
+                return;
+
+            Debug.Log($"Sender: {sender.ToString()}, value: {Model.Health.Value}");
+
+            //Replace data and synchronize
+            characterDataSynchronizer.SyncedData = new CharacterNetworkData(Model);
+            characterDataSynchronizer.UpdateData();
+
             if (healthView)
             {
                 healthView.text = Model.Health.Value.ToString();

@@ -8,12 +8,21 @@ namespace Steamy.Networking
 	[RequireComponent(typeof(CharacterViewModel))]
 	public class CharacterDataSynchronizer : NetworkBehaviour, IDataSynchronizer
 	{
-		public void UpdateData()
+        [SyncVar]
+        private CharacterNetworkData syncedData;
+
+        public CharacterNetworkData SyncedData 
+        {
+            get => syncedData;
+            set => syncedData = value;
+        }
+
+        public void UpdateData()
 		{
-			syncedData = new CharacterNetworkData
-			{
-				Health = character.Model.Health.Value
-			};
+			//syncedData = new CharacterNetworkData
+			//{
+			//	Health = character.Model.Health.Value
+			//};
 
             if (!isServer)
             {
@@ -21,10 +30,7 @@ namespace Steamy.Networking
             }
 		}
 
-        [SyncVar]
-		private CharacterNetworkData syncedData;
 
-		private CharacterViewModel character;
 
 		[Command]
 		private void CmdSynchronize(CharacterNetworkData newData)
@@ -59,3 +65,12 @@ namespace Steamy.Networking
 
 	}
 }
+
+		{
+            Debug.Log($"New health value {newData.Health}");
+		}
+
+        private void Awake()
+        {
+            UpdateData();
+        }
