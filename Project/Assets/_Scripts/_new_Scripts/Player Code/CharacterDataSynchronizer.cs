@@ -42,12 +42,35 @@ namespace Steamy.Networking
 		[ClientRpc]
 		private void RpcSynchronize(CharacterNetworkData newData)
 		{
+			syncedData = newData;
+		}
+
+		private void Awake()
+		{
+			character = GetComponent<CharacterViewModel>();
+			character.Model.Health.PropertyChanged += OnHealthChanged;
+
+			syncedData = new CharacterNetworkData
+			{
+				Health = character.Model.Health.MaxValue
+			};
+
+			UpdateData();
+		}
+
+		private void OnHealthChanged(object sender, PropertyChangedEventArgs e)
+		{
+			UpdateData();
+		}
+
+	}
+}
+
+		{
             Debug.Log($"New health value {newData.Health}");
 		}
 
         private void Awake()
         {
             UpdateData();
-        }
-	}
-}
+        }
