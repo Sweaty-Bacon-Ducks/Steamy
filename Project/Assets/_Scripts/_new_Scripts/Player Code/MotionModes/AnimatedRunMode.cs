@@ -31,7 +31,8 @@ namespace Steamy.Player.MotionModes
             if (InputInRange(playerInput))
             {
                 newAnimationSpeed = Mathf.Clamp01(currentAnimationSpeed + Time.deltaTime * Acceleration);
-                newVelocity = currentVelocity + playerInput * SpeedMultiplier * Time.deltaTime * Acceleration;
+                newVelocity = currentVelocity + Mathf.Sign(playerInput) * SpeedMultiplier * Time.deltaTime * Acceleration;
+                
             }
             else
             {

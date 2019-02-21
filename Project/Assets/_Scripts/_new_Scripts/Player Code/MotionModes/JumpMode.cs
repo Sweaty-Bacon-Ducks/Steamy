@@ -16,6 +16,7 @@ namespace Steamy.Player.MotionModes
         public float SpeedThreshold;
 
         public string AnimationSpeedVariable;
+        public string GroundedAnimatorVariable;
 
         private const float MAX_AXIS_VALUE = 1f;
 
@@ -26,11 +27,12 @@ namespace Steamy.Player.MotionModes
 
             var animator = characterViewModel.GetComponent<Animator>();
             var currentAnimationSpeed = animator.GetFloat(AnimationSpeedVariable);
+            var isGrounded = animator.GetBool(GroundedAnimatorVariable);
 
             float currentVelocity = characterRigidbody.velocity.y;
             float newVelocity = 0;
             float newAnimationSpeed = 0;
-            if (InputInRange(playerInput) && characterRigidbody.velocity.y < 0.1f)
+            if (InputInRange(playerInput) && currentVelocity < 0.1f && isGrounded)
             {
                 //newAnimationSpeed = Mathf.Clamp01(currentAnimationSpeed + Time.deltaTime * Acceleration);
                 //newVelocity = currentVelocity + playerInput * SpeedMultiplier * Time.deltaTime * Acceleration;
@@ -75,6 +77,8 @@ namespace Steamy.Player.MotionModes
         {
             return Mathf.Abs(firstValue - secondValue) < Mathf.Epsilon;
         }
+
+        
 
         
     }
