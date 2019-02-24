@@ -13,10 +13,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Name: JumpMode
   AxisName: Vertical
-  AxisDeadzone: 0.1
+  AxisDeadzone: 0.9
   Acceleration: 100
   Deceleration: 20
   SpeedMultiplier: 3
   SpeedThreshold: 8
   AnimationSpeedVariable: speedPercent
-  canJump: 1
+  GroundedAnimatorVariable: isGrounded

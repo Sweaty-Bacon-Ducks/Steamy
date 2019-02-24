@@ -12,7 +12,6 @@ public class GroundCollisionDetector : MonoBehaviour
         Animator animator = GetComponent<Animator>();
 	}
 	
-	
 	void Update () 
     {
 		
@@ -26,7 +25,6 @@ public class GroundCollisionDetector : MonoBehaviour
         }
     }
  
- //consider when character is jumping .. it will exit collision.
     void OnCollisionExit(Collision collision)
     {
         if (collision.gameObject.name == "Ground1" || collision.gameObject.name == "Ground2")

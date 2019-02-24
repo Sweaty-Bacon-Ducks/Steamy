@@ -32,26 +32,18 @@ namespace Steamy.Player.MotionModes
             float currentVelocity = characterRigidbody.velocity.y;
             float newVelocity = 0;
             float newAnimationSpeed = 0;
+
             if (InputInRange(playerInput) && currentVelocity < 0.1f && isGrounded)
             {
-                //newAnimationSpeed = Mathf.Clamp01(currentAnimationSpeed + Time.deltaTime * Acceleration);
-                //newVelocity = currentVelocity + playerInput * SpeedMultiplier * Time.deltaTime * Acceleration;
                 newVelocity = currentVelocity + 5f;
             }
+
             else
-            {
-                //newAnimationSpeed = Mathf.Clamp01(currentAnimationSpeed - Time.deltaTime * Deceleration);
-				//var interpolationFactor = Mathf.Clamp01(SpeedMultiplier * Time.deltaTime * Deceleration);
-				//newVelocity = Mathf.Lerp(currentVelocity, 0f, interpolationFactor);
+            {  
                 newVelocity = currentVelocity;
             }
 
-			//if (SpeedInRange(newVelocity))
-			//{
-            //Debug.Log(canJump);
 		    UpdateVerticalVelocity(characterRigidbody, newVelocity);
-			//}
-			//animator.SetFloat(AnimationSpeedVariable, newAnimationSpeed);
         }
         private float VerticalVelocity(Rigidbody characterRigidbody)
         {

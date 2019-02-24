@@ -522,6 +522,7 @@ GameObject:
   - component: {fileID: 114605554773503470}
   - component: {fileID: 114638747309743662}
   - component: {fileID: 114619332357824750}
+  - component: {fileID: 114713057289299862}
   m_Layer: 0
   m_Name: Bob
   m_TagString: Untagged
@@ -1485,6 +1486,18 @@ MonoBehaviour:
   m_SnapThreshold: 5
   m_InterpolateRotation: 1
   m_InterpolateMovement: 1
+--- !u!114 &114713057289299862
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1591365896204362}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7041bc58ff66180488e5e55b41afb730, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  animator: {fileID: 95356791655693610}
 --- !u!136 &136353249713723420
 CapsuleCollider:
   m_ObjectHideFlags: 1
