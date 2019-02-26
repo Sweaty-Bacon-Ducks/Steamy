@@ -785,10 +785,10 @@ GameObject:
   - component: {fileID: 4330268919730817357}
   - component: {fileID: 322167763394898042}
   - component: {fileID: 3798341044421033716}
-  - component: {fileID: 3343207948686755366}
   - component: {fileID: 9008355030491817128}
   - component: {fileID: 2465165439334847779}
   - component: {fileID: 7633997943476486633}
+  - component: {fileID: 1953616218843566335}
   m_Layer: 0
   m_Name: WeaponizedBob
   m_TagString: Player
@@ -903,6 +903,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 88328677a8a8340bfbf81ffceb612e77, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  NetworkData: {fileID: 0}
   Model:
     HealthDefaults: {fileID: 11400000, guid: f018949e83f054c8bb903202248fd257, type: 2}
     Health:
@@ -919,19 +920,6 @@ MonoBehaviour:
   EquippedWeapon: {fileID: 1152639791394833982}
   healthView: {fileID: 4186470964137908418}
   characterCameraTag: PlayerCamera
-  characterCameraName: 
---- !u!114 &3343207948686755366
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4868498123331901469}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 7d669a55c22309ee28f6061234009763, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!136 &9008355030491817128
 CapsuleCollider:
   m_ObjectHideFlags: 0
@@ -993,6 +981,20 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   LocalPlayerLayer: 8
   RemotePlayerLayer: 9
+--- !u!114 &1953616218843566335
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4868498123331901469}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7d669a55c22309ee28f6061234009763, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  NetworkData:
+    Health: 0
 --- !u!1 &5341369152809470417
 GameObject:
   m_ObjectHideFlags: 0

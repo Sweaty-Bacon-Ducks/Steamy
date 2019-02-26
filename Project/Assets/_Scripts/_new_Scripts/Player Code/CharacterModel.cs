@@ -6,8 +6,6 @@ using UnityEngine;
 
 namespace Steamy.Player
 {
-    public delegate void Callback();
-
     [Serializable]
     public class CharacterModel
     { 

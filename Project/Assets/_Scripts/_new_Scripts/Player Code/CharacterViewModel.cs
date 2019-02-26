@@ -11,11 +11,13 @@ namespace Steamy.Player
 {
     public class CharacterViewModel : NetworkBehaviour, IDamagable
     {
-        #region PublicInterface
-
-        public CharacterModel Model;
-        public WeaponViewModel EquippedWeapon;
+		#region PublicInterface
+		public CharacterDataSynchronizer NetworkData;
+		public event Callback HealthChanged;
         public event Callback DeathCallback;
+
+		public CharacterModel Model;
+        public WeaponViewModel EquippedWeapon;
 
         [SerializeField]
         private Text healthView;
@@ -23,26 +25,31 @@ namespace Steamy.Player
         private string characterCameraTag;
         private CharacterDataSynchronizer characterDataSynchronizer;
 
-        public void Damage(double amount)
-        {
-            if (IsCharacterDead)
-                DeathCallback?.Invoke();
-            else
-                Model.Health.Value -= Math.Max(amount, 0);
-        }
+		public void Damage(double amount)
+		{
+			if (IsCharacterDead)
+				DeathCallback?.Invoke();
+			else
+			{
+				var newValue = Math.Max(amount, 0.0);
+				NetworkData.Health -= newValue;
+				HealthChanged?.Invoke();
+			}
+		}
 
         public void Heal(double amount)
         {
-            Model.Health.Value += Mathf.Clamp(value: (float)amount,
+            NetworkData.Health += Mathf.Clamp(value: (float)amount,
                                               min: 0,
                                               max: (float)Model.Health.MaxValue);
+			HealthChanged();
         }
         #endregion
 
         #region UnityMessages
         private void OnDisable()
         {
-            Model.Health.PropertyChanged -= OnHealthChanged;
+            HealthChanged -= OnHealthChanged;
         }
 
         public override void OnStartLocalPlayer()
@@ -51,23 +58,24 @@ namespace Steamy.Player
             var characterCamera = GameObject.FindGameObjectWithTag(characterCameraTag).GetComponent<CameraFollower>();
             characterCamera.Target = transform;
 
-            Model.Health = Model.HealthDefaults?.LoadFromDefaults();
-            OnHealthChanged(this, null);
-            Model.Health.PropertyChanged += OnHealthChanged;
-        }
+			Model.Health = Model.HealthDefaults?.LoadFromDefaults();
 
+			HealthChanged += OnHealthChanged;
+			HealthChanged();
+		}
 
-        private void Awake()
-        {
-            characterDataSynchronizer = GetComponent<CharacterDataSynchronizer>();
-            Model.Health = Model.HealthDefaults?.LoadFromDefaults();
-            characterDataSynchronizer.SyncedData = new CharacterNetworkData(Model);
+		private void Awake()
+		{
+			Model.Health = Model.HealthDefaults?.LoadFromDefaults();
 
-            OnHealthChanged(this, null);
-            Model.Health.PropertyChanged += OnHealthChanged;
-        }
+			NetworkData = GetComponent<CharacterDataSynchronizer>();
+			NetworkData.Health = Model.Health.MaxValue;
 
-        private void Update()
+			//HealthChanged += OnHealthChanged;
+			//HealthChanged();
+		}
+
+		private void Update()
         {
             if (!isLocalPlayer)
                 return;
@@ -87,7 +95,7 @@ namespace Steamy.Player
         {
             get
             {
-                return Model.Health.Value <= 0;
+                return NetworkData.Health <= 0;
             }
         }
 
@@ -102,22 +110,19 @@ namespace Steamy.Player
             }
         }
 
-        private void OnHealthChanged(object sender, PropertyChangedEventArgs e)
+        private void OnHealthChanged()
         {
             if (!isLocalPlayer)
                 return;
 
-            Debug.Log($"Sender: {sender.ToString()}, value: {Model.Health.Value}");
-
-            //Replace data and synchronize
-            characterDataSynchronizer.SyncedData = new CharacterNetworkData(Model);
-            characterDataSynchronizer.UpdateData();
+            Debug.Log($"Health value: {NetworkData.Health}");
 
             if (healthView)
             {
-                healthView.text = Model.Health.Value.ToString();
+                healthView.text = NetworkData.Health.ToString();
             }
         }
         #endregion
     }
 }
+
