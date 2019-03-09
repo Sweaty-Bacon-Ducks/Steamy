@@ -1,122 +1,128 @@
-﻿using System.ComponentModel;
+﻿using System;
+using System.ComponentModel;
+using Steamy.Editor;
+using Steamy.Weapons;
+using Steamy.Networking;
 using UnityEngine;
 using UnityEngine.Networking;
 using UnityEngine.UI;
-using Steamy.Weapons;
-using System;
 
 namespace Steamy.Player
 {
-	public class CharacterViewModel : NetworkBehaviour, IDamagable
-	{
+    public class CharacterViewModel : NetworkBehaviour, IDamagable
+    {
 		#region PublicInterface
+		public CharacterDataSynchronizer NetworkData;
+		public event Callback HealthChanged;
+        public event Callback DeathCallback;
 
-		public string CharacterCameraTag;
-		public string CharacterCameraName;
 		public CharacterModel Model;
-		public Text HealthView;
-		public event Callback DeathCallback;
+        public WeaponViewModel EquippedWeapon;
 
-		public WeaponViewModel EquippedWeapon;
+        [SerializeField]
+        private Text healthView;
+        [SerializeField, Tag]
+        private string characterCameraTag;
+        private CharacterDataSynchronizer characterDataSynchronizer;
 
 		public void Damage(double amount)
-        {
-            if (amount < 0)
-				return;
-
+		{
 			if (IsCharacterDead)
+				DeathCallback?.Invoke();
+			else
 			{
-                DeathCallback?.Invoke();
-				return;
+				var newValue = Math.Max(amount, 0.0);
+				NetworkData.Health -= newValue;
+				HealthChanged?.Invoke();
 			}
-			Model.Health.Value -= amount;
-        }
-		public void Heal(double amount)
-		{
-			if (amount < 0)
-				return;
-
-			if (Model.Health.Value + amount >= Model.Health.MaxValue)
-			{
-				Model.Health.Value = Model.Health.MaxValue;
-				return;
-			}
-			Model.Health.Value += amount;
 		}
-		#endregion
 
-		#region UnityMessages
-		public override void OnStartLocalPlayer()
-		{
-			// Set the target transform on the camera
-			var characterCamera = GameObject.FindGameObjectWithTag(CharacterCameraTag).GetComponent<CameraFollower>();
-			characterCamera.Target = transform;
+        public void Heal(double amount)
+        {
+            NetworkData.Health += Mathf.Clamp(value: (float)amount,
+                                              min: 0,
+                                              max: (float)Model.Health.MaxValue);
+			HealthChanged();
+        }
+        #endregion
+
+        #region UnityMessages
+        private void OnDisable()
+        {
+            HealthChanged -= OnHealthChanged;
+        }
+
+        public override void OnStartLocalPlayer()
+        {
+            // Set the target transform on the camera
+            var characterCamera = GameObject.FindGameObjectWithTag(characterCameraTag).GetComponent<CameraFollower>();
+            characterCamera.Target = transform;
 
 			Model.Health = Model.HealthDefaults?.LoadFromDefaults();
 
-			Model.Health.PropertyChanged += OnHealthChanged;
-			Model.Health.Value = Model.Health.MaxValue;
+			HealthChanged += OnHealthChanged;
+			HealthChanged();
 		}
 
-        private void OnDisable()
+		private void Awake()
+		{
+			Model.Health = Model.HealthDefaults?.LoadFromDefaults();
+
+			NetworkData = GetComponent<CharacterDataSynchronizer>();
+			NetworkData.Health = Model.Health.MaxValue;
+
+			//HealthChanged += OnHealthChanged;
+			//HealthChanged();
+		}
+
+		private void Update()
         {
             if (!isLocalPlayer)
                 return;
 
-            Model.Health.PropertyChanged -= OnHealthChanged;
-        }
-        private void Awake()
-        {
-            Model.Health = Model.HealthDefaults.LoadFromDefaults();
-        }
-        float timer = 0f;
-        private void Update()
-		{
-            if (isLocalPlayer)
+            if (Input.GetKeyDown(KeyCode.K))
             {
-                timer += Time.deltaTime;
-                if (timer > 1)
-                {
-                    timer = 0;
-                    Debug.Log(Model.Health.Value);
-                }
+                Damage(5f);
             }
 
+            MoveCharacter();
+        }
+        #endregion
+
+        #region PrivateInterface
+
+        private bool IsCharacterDead
+        {
+            get
+            {
+                return NetworkData.Health <= 0;
+            }
+        }
+
+        private void MoveCharacter()
+        {
+            if (Model.MotionModes == null)
+                return;
+
+            foreach (var mode in Model.MotionModes)
+            {
+                mode.ApplyMotion(this);
+            }
+        }
+
+        private void OnHealthChanged()
+        {
             if (!isLocalPlayer)
-				return;
+                return;
 
-			MoveCharacter();
-		}
-		#endregion
+            Debug.Log($"Health value: {NetworkData.Health}");
 
-		#region PrivateInterface
-		[SyncVar] private double m_CurrentHealth;
-
-		private bool IsCharacterDead
-		{
-			get
-			{
-				return Model.Health.Value <= 0;
-			}
-		}
-		private void MoveCharacter()
-		{
-			if (Model.MotionModes == null)
-				return;
-
-			foreach (var mode in Model.MotionModes)
-			{
-				mode.ApplyMotion(this);
-			}
-		}
-		private void OnHealthChanged(object sender, PropertyChangedEventArgs e)
-		{
-			m_CurrentHealth = Model.Health.Value;
-			if (HealthView)
-			{
-				HealthView.text = Model.Health.Value.ToString();
-			}
-		}
-		#endregion
-	}
+            if (healthView)
+            {
+                healthView.text = NetworkData.Health.ToString();
+            }
+        }
+        #endregion
+    }
 }
+

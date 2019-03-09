@@ -52,7 +52,7 @@ MonoBehaviour:
   m_RunInBackground: 1
   m_ScriptCRCCheck: 1
   m_MaxDelay: 0.01
-  m_LogLevel: 1
+  m_LogLevel: 4
   m_PlayerPrefab: {fileID: 4868498123331901469, guid: cf806a3fb4383754eb3322109cd749d5,
     type: 3}
   m_AutoCreatePlayer: 1
@@ -105,7 +105,7 @@ MonoBehaviour:
   m_Channels: 
   m_UseWebSockets: 0
   m_UseSimulator: 0
-  m_SimulatedLatency: 1
+  m_SimulatedLatency: 30
   m_PacketLossPercentage: 0
   m_MaxBufferedPackets: 16
   m_AllowFragmentation: 1
