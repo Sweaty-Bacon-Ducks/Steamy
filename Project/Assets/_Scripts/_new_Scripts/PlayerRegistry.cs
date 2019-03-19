@@ -1,10 +1,12 @@
 ﻿using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.Networking;
 
 namespace Steamy.Player
 {
-	public class PlayerRegistry : NetworkBehaviour, IObjectRegistry<PlayerViewModel>
+    /// <summary>
+    /// Holds information about all the players connected to the game.
+    /// </summary>
+	public class PlayerRegistry : MonoBehaviour, IObjectRegistry<PlayerViewModel>
 	{
 		private Dictionary<string, PlayerViewModel> playerRegistry;
 
@@ -33,5 +35,9 @@ namespace Steamy.Player
 			return player;
 		}
 
-	}
+        private void Awake()
+        {
+            playerRegistry = new Dictionary<string, PlayerViewModel>();
+        }
+    }
 }
