@@ -39,7 +39,6 @@ namespace Steamy.Weapons
             if (CanAttack())
             {
                 model.FireTimer = Time.time + model.FireRate;
-
                 ExecuteAttack();
             }
         }
@@ -104,7 +103,7 @@ namespace Steamy.Weapons
 
                 StartCoroutine(ShotEffect());
 
-                Vector3 direction = ProjectileSpawn.right;
+                Vector3 direction = ProjectileSpawn.forward;
                 direction.y += BulletSpread;
 
                 Vector3 rayOrigin = ProjectileSpawn.position;
@@ -133,12 +132,11 @@ namespace Steamy.Weapons
             for (int j = 0; j < hit.Length; ++j)
             {
                 activeRay.SetPosition(1, hit[j].point);
-                Entity entity = hit[j].collider.GetComponent<Entity>();
-
+                IDamagable entity = hit[j].collider.GetComponent<IDamagable>();
                 if (entity != null)
                 {
-                    entity.ReceiveDamage(model.PenetrationDamage);
-                    model.PenetrationDamage -= entity.PenetrationDamageReduction;
+                    entity.Damage(model.PenetrationDamage);
+                   // model.PenetrationDamage -= entity.PenetrationDamageReduction;
 
                     if (hit[j].rigidbody != null)
                     {

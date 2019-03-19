@@ -244,6 +244,24 @@ Transform:
   m_Father: {fileID: 11910837}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &623930825 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 1571882644348778, guid: cf03b6270bd584d449af5da91af94abc,
+    type: 3}
+  m_PrefabInstance: {fileID: 1186966836}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &623930826
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 623930825}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: bf1b5b99ab919104ea5738a5e9bb5ce2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &725571765
 GameObject:
   m_ObjectHideFlags: 0
@@ -424,6 +442,28 @@ PrefabInstance:
     - target: {fileID: 4242819502132470, guid: cf03b6270bd584d449af5da91af94abc, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 114880318552355846, guid: cf03b6270bd584d449af5da91af94abc,
+        type: 3}
+      propertyPath: m_SpawnPrefabs.Array.size
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 114880318552355846, guid: cf03b6270bd584d449af5da91af94abc,
+        type: 3}
+      propertyPath: m_PlayerPrefab
+      value: 
+      objectReference: {fileID: 1279186463406195850, guid: 60e54a398f6224d7d85d4d2f76db3373,
+        type: 3}
+    - target: {fileID: 114880318552355846, guid: cf03b6270bd584d449af5da91af94abc,
+        type: 3}
+      propertyPath: m_SpawnPrefabs.Array.data[0]
+      value: 
+      objectReference: {fileID: 8456800619740185693, guid: 14ab383f366604e458842086430510dc,
+        type: 3}
+    - target: {fileID: 114880318552355846, guid: cf03b6270bd584d449af5da91af94abc,
+        type: 3}
+      propertyPath: m_OnlineScene
+      value: PlayerRegistryTest
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: cf03b6270bd584d449af5da91af94abc, type: 3}

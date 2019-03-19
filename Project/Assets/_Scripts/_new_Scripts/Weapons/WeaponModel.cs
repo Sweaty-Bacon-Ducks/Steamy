@@ -78,7 +78,7 @@ namespace Steamy.Weapons
             }
             set
             {
-                if (Math.Abs(_damage - value) < Mathf.Epsilon)
+                if (Math.Abs(_damage - value) > Mathf.Epsilon)
                 {
                     _damage = value;
                     OnPropertyChanged(nameof(Damage));

@@ -6,13 +6,10 @@ using UnityEngine;
 
 namespace Steamy.Player
 {
-    public delegate void Callback();
-
     [Serializable]
     public class CharacterModel
     { 
         public CharacterHealthDefault HealthDefaults;
-        [HideInInspector]
         public CharacterHealth Health;
 
         public string Name;
@@ -25,8 +22,6 @@ namespace Steamy.Player
     [Serializable]
     public class CharacterHealth : INotifyPropertyChanged
     {
-        public event Callback HealCallback;
-        public event Callback DamageCallback;
         public event PropertyChangedEventHandler PropertyChanged;
 
         public Sprite Icon;
