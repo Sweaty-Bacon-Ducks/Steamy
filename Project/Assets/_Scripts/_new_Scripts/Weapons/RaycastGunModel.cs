@@ -48,7 +48,7 @@ namespace Steamy.Weapons
             }
             set
             {
-                if (Math.Abs(_bulletSpread - value) < Mathf.Epsilon)
+                if (Math.Abs(_bulletSpread - value) > Mathf.Epsilon)
                 {
                     _bulletSpread = value;
                     OnPropertyChanged(nameof(BulletSpread));
@@ -96,7 +96,7 @@ namespace Steamy.Weapons
             }
             set
             {
-                if (Math.Abs(_fireRate - value) < Mathf.Epsilon)
+                if (Math.Abs(_fireRate - value) > Mathf.Epsilon)
                 {
                     _fireRate = value;
                     OnPropertyChanged(nameof(FireRate));
@@ -112,7 +112,7 @@ namespace Steamy.Weapons
             }
             set
             {
-                if (Math.Abs(_bulletPenetration - value) < Mathf.Epsilon)
+                if (Math.Abs(_bulletPenetration - value) > Mathf.Epsilon)
                 {
                     _bulletPenetration = value;
                     OnPropertyChanged(nameof(BulletPenetration));
@@ -128,7 +128,7 @@ namespace Steamy.Weapons
             }
             set
             {
-                if (Math.Abs(_bulletForce - value) < Mathf.Epsilon)
+                if (Math.Abs(_bulletForce - value) > Mathf.Epsilon)
                 {
                     _bulletForce = value;
                     OnPropertyChanged(nameof(BulletForce));
@@ -144,7 +144,7 @@ namespace Steamy.Weapons
             }
             set
             {
-                if (Math.Abs(_reloadTime - value) < Mathf.Epsilon)
+                if (Math.Abs(_reloadTime - value) > Mathf.Epsilon)
                 {
                     _reloadTime = value;
                     OnPropertyChanged(nameof(ReloadTime));
@@ -160,7 +160,7 @@ namespace Steamy.Weapons
             }
             set
             {
-                if (Math.Abs(_shotChargeTime - value) < Mathf.Epsilon)
+                if (Math.Abs(_shotChargeTime - value) > Mathf.Epsilon)
                 {
                     _shotChargeTime = value;
                     OnPropertyChanged(nameof(ShotChargeTime));
@@ -176,11 +176,13 @@ namespace Steamy.Weapons
             }
             set
             {
-                if (Math.Abs(_raycastLength - value) < Mathf.Epsilon)
+                if (Math.Abs(_raycastLength - value) > Mathf.Epsilon)
                 {
                     _raycastLength = value;
                     OnPropertyChanged(nameof(RaycastLength));
                 }
+
+                _raycastLength = value;
             }
         }
 
@@ -192,7 +194,7 @@ namespace Steamy.Weapons
             }
             set
             {
-                if (Math.Abs(_shotDuration - value) < Mathf.Epsilon)
+                if (Math.Abs(_shotDuration - value) > Mathf.Epsilon)
                 {
                     _shotDuration = value;
                     OnPropertyChanged(nameof(ShotDuration));
@@ -224,7 +226,7 @@ namespace Steamy.Weapons
             }
             set
             {
-                if (Math.Abs(_fireTimer - value) < Mathf.Epsilon)
+                if (Math.Abs(_fireTimer - value) > Mathf.Epsilon)
                 {
                     _fireTimer = value;
                     OnPropertyChanged(nameof(FireTimer));
@@ -240,7 +242,7 @@ namespace Steamy.Weapons
             }
             set
             {
-                if (Math.Abs(_shotChargeTimer - value) < Mathf.Epsilon)
+                if (Math.Abs(_shotChargeTimer - value) > Mathf.Epsilon)
                 {
                     _shotChargeTimer = value;
                     OnPropertyChanged(nameof(ShotChargeTimer));
@@ -256,7 +258,7 @@ namespace Steamy.Weapons
             }
             set
             {
-                if (Math.Abs(_penetrationDamage - value) < Mathf.Epsilon)
+                if (Math.Abs(_penetrationDamage - value) > Mathf.Epsilon)
                 {
                     _penetrationDamage = value;
                     OnPropertyChanged(nameof(PenetrationDamage));
@@ -272,7 +274,7 @@ namespace Steamy.Weapons
             }
             set
             {
-                if (Math.Abs(_penetrationLeft - value) < Mathf.Epsilon)
+                if (Math.Abs(_penetrationLeft - value) > Mathf.Epsilon)
                 {
                     _penetrationLeft = value;
                     OnPropertyChanged(nameof(PenetrationLeft));

@@ -5,6 +5,7 @@ namespace Steamy.Player
 	/// <summary>
 	/// Holds information about 
 	/// </summary>
+	[Serializable]
 	public class PlayerModel
 	{
 		/// <summary>
