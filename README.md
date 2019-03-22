@@ -4,7 +4,7 @@
 ### Most important things about the project:
 
 - **MVVM** - We're creating our own MVVM implementation, where models are clear classes,
-and views and view-models are monobehaviours.
+view-models are monobehaviours and views are GameObjects.
 
 - **Teamwork** - This is our first big project with more than 4 members. We're learning not
 only how to work with git, but also about connecting programmers, graphic artists and designers work.
