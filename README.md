@@ -9,8 +9,7 @@ view-models are monobehaviours and views are GameObjects.
 - **Teamwork** - This is our first big project with more than 4 members. We're learning not
 only how to work with git, but also about connecting programmers, graphic artists and designers work.
 
-- **Input** - We've created our own way of managing input for bigger projects. 
-(This will probably be depracated when new Input System leaves beta).
+- **Dependency Injection** - Although we haven't used any DI frameworks, we utilized the inspector to easily change the behaviour of objects using ScriptableObjects. 
 
 - **Travis CI** - We're using continuous integration service in order to build and test project.
 
