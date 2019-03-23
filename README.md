@@ -9,8 +9,8 @@ view-models are monobehaviours and views are GameObjects.
 - **Teamwork** - This is our first big project with more than 4 members. We're learning not
 only how to work with git, but also about connecting programmers, graphic artists and designers work.
 
-- **Input system** - We created input abstraction, because Unity default implementation
-is lacking (This will probably be depracated when new Input System leaves beta).
+- **Input** - We've created our own way of managing input for bigger projects. 
+(This will probably be depracated when new Input System leaves beta).
 
 - **Travis CI** - We're using continuous integration service in order to build and test project.
 
