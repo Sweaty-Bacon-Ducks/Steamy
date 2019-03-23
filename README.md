@@ -1,7 +1,7 @@
 # Steamy - Steampunk hero platform shooter
 
 
-### Most important things about the project:
+### Most important things and problems we're tackling in the project:
 
 - **MVVM** - We're creating our own MVVM implementation, where models are clear classes,
 view-models are monobehaviours and views are GameObjects.
