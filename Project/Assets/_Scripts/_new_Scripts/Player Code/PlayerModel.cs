@@ -15,14 +15,24 @@ namespace Steamy.Player
 	/// </summary>
 	public class PlayerModel
 	{
-		/// <summary>
-		/// Players network identifier.
-		/// </summary>
-		public string NetID;
-		/// <summary>
-		/// In-game player name.
-		/// </summary>
-		public string PlayerName;
+        /// <summary>
+        /// Players network identifier.
+        /// </summary>
+        //public string NetID;
+
+
+        /// <summary>
+        /// In-game player name.
+        /// </summary>
+        public string PlayerName;
+
+        public int Kills;
+        public int Deaths;
+
+        public PlayerModel()
+        {
+
+        }
 	}
 }
 

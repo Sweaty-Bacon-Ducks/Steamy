@@ -39,5 +39,21 @@ namespace Steamy.Player
         {
             playerRegistry = new Dictionary<string, PlayerViewModel>();
         }
+
+        private void Update()
+        {
+            if (Input.GetKeyDown(KeyCode.T))
+            {
+                LogPlayers();
+            }
+        }
+
+        public void LogPlayers()
+        {
+            foreach (KeyValuePair<string, PlayerViewModel> player in playerRegistry)
+            {
+                Debug.Log(player.Key);
+            }
+        }
     }
 }
